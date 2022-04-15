@@ -6,10 +6,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link th:href = "@{/css/login.css}" rel="stylesheet">
     <title>Login</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    width: {
+                        '9/20': '45%',
+                        '11/20': '55%',
+                    },
+                    colors: {
+                        'yellow': '#F1CA2F',
+                        'purple' : '#8357EE'
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="max-h-screen">
+    <div class="flex">
+        <div class="w-2/5">
+            <img class="max-h-screen bg-cover" src="" th:src="@{/img/bg-login.png}" alt="bg-login" th:width="750"/>
+        </div>
 
-    <img class="container" src="" th:src="@{/img/lyriczillalogin.png}"/>
+        <div class="flex flex-col gap-4 justify-center items-center w-3/5 bg-white">
+            <div class="text-yellow text-4xl">My name is...</div>
+            <div>
+                <img class="max-h-screen" src="" th:src="@{/img/avatar-login.png}" alt="avatar-login"/>
+            </div>
+            <div class="text-purple text-xl">Enter Username:</div>
+            <form class="flex relative">
+            <!-- TODO : tambahkan th:action="@{...}" method="..." -->
+                <input
+                        type="text"
+                        th:name="username"
+                        class="bg-yellow rounded-full focus:outline-none text-md p-3.5"
+                />
+                <button type="submit" class="absolute right-0">
+                    <img
+                            class="scale-75"
+                            src=""
+                            th:src="@{/img/icon-submit-username.png}"
+                            alt="icon-submit-username"
+                            onS
+                    />
+                </button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

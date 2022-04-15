@@ -1,9 +1,5 @@
-body {
-    background-color: #9E7BEF;
-}
+@import url(//db.onlinewebfonts.com/c/6ab539c6fc2b21ff0b149b3d06d7f97c?family=Minecraft);
 
-.container{
-    left: 0;
-    top: 0;
-    height:100%;
+* {
+    font-family: Minecraftia;
 }
