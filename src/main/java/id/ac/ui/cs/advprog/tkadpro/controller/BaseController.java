@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BaseController {
 
     @RequestMapping(path="/", method = RequestMethod.GET)
-    public String loginPage(){return "";}
+    public String loginPage(){return "login/login";}
 
     @RequestMapping(path="/home", method=RequestMethod.GET)
-    public String homePage(){return "";}
+    public String homePage(){return "homepage/homepage";}
 
 
 }
