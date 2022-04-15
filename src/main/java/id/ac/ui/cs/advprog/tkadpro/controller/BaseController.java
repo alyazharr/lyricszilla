@@ -1,0 +1,21 @@
+package id.ac.ui.cs.advprog.tkadpro.controller;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+@RequestMapping("/lyriczilla")
+public class BaseController {
+
+    @RequestMapping(path="/", method = RequestMethod.GET)
+    public String loginPage(){return "";}
+
+    @RequestMapping(path="/home", method=RequestMethod.GET)
+    public String homePage(){return "";}
+
+
+}
