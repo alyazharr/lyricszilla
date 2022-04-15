@@ -1,0 +1,9 @@
+body {
+    background-color: #9E7BEF;
+}
+
+.container{
+    left: 0;
+    top: 0;
+    height:100%;
+}
