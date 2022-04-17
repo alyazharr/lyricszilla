@@ -20,9 +20,10 @@ build:
 test:
   stage: test
   script:
-    - export SPRING_PROFILES_ACTIVE=test
-    - gradle check --stacktrace
-    - cat build/reports/jacoco/test/html/index.html | grep -o '<tfoot>.*</tfoot>'
+      - gradle check
+      - gradle test
+      - gradle jacocoTestReport
+      - cat build/reports/jacoco/test/html/index.html
   coverage: '/Total.*?([0-9]{1,3})%/'
   artifacts:
     paths:
