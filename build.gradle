@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.0"
 }
 
 group = 'id.ac.ui.cs.advprog'
@@ -26,6 +28,14 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
 }
 
 tasks.named('test') {

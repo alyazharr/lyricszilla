@@ -22,7 +22,6 @@ test:
   script:
       - gradle check
       - gradle test
-      - gradle jacocoTestReport
       - cat build/reports/jacoco/test/html/index.html
   coverage: '/Total.*?([0-9]{1,3})%/'
   artifacts:
