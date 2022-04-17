@@ -1,9 +1,11 @@
 package id.ac.ui.cs.advprog.tkadpro.core.GameType;
 
+import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
+
 import java.util.List;
 
 public class WordsBlank extends GameType {
-    public WordsBlank(List<String> allSongs) {
+    public WordsBlank(SongDTO[] allSongs) {
         super(allSongs);
     }
 
