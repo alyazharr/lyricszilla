@@ -1,20 +1,23 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
 
+@Service
 public class SongRestServiceImpl implements SongRestService{
     private static final String BASE_URL = "http://musixapi.herokuapp.com/lagu/find";
-    private final RestTemplate restTemplate;
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    public SongRestServiceImpl(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
-    }
-
+    @Autowired
+    private SongRepository songRepository;
 
     @Override
     public SongDTO[] retrieveListSong() {
@@ -22,9 +25,23 @@ public class SongRestServiceImpl implements SongRestService{
 
         SongDTO[] songs = responseEntity.getBody();
 
-//        for(SongDTO song:songs){
-//            System.out.println(song.getPenyanyi() + ":" + song.getJudul());
+        assert songs != null;
+        songRepository.saveAll(Arrays.asList(songs));
+//        for (SongDTO song : songs) {
+//            System.out.println("Song id: " + song.getId());
 //        }
+        WordsBlank wordsBlank = new WordsBlank(songs);
+        List<String> res = wordsBlank.getHardQnA();
+        System.out.println("Question: ");
+        System.out.println(res.get(0));
+        System.out.println("=============================");
+        System.out.println("Answer: ");
+        for (int i= 1; i < res.size(); i++) {
+            System.out.print(i + " " + res.get(i) + " ");
+        }
+
         return songs;
     }
+
+
 }

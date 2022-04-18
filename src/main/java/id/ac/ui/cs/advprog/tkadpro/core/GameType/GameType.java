@@ -6,9 +6,11 @@ import java.util.*;
 
 public abstract class GameType {
     protected SongDTO[] allSongs;
+    protected Random random;
 
     protected GameType(SongDTO[] allSongs) {
         this.allSongs = allSongs;
+        random = new Random();
     }
 
     public abstract List<String> getEasyQnA();
