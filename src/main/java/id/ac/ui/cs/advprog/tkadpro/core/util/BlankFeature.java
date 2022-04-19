@@ -23,11 +23,11 @@ public class BlankFeature {
         List<String> QnA = new ArrayList<>(numLoop + 1);
 
         for (int i = 0; i < numLoop; i++) {
-            int blankLineLocation = getValidBlankLineLocation(traceLineLocation, realPresentLyric);
+            int blankLineLocation = getValidTargetBlankLineLocation(traceLineLocation, realPresentLyric, level, realPresentLyric.size(), i);
 
             String targetBlankLineLyric = realPresentLyric.get(blankLineLocation);
             List<String> parserBlankLineResult = Arrays.asList(targetBlankLineLyric.split(" "));
-            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, level, blankLineLocation, i);
+            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, i);
 
             //* join with realPresentLyric
             realPresentLyric.set(blankLineLocation, blankWordsAndAnswerResult.get(0));
@@ -39,29 +39,33 @@ public class BlankFeature {
         return QnA;
     }
 
-    private static List<String> generateBlankWordsAndAnswer(List<String> parserBlankLineResult, Level level, int blankLine, int i) {
+    private static List<String> generateBlankWordsAndAnswer(List<String> parserBlankLineResult, int i) {
         List<String> blankWordsAndAnswer = new ArrayList<>(2);
         int wordsBlankLocation = random.nextInt(parserBlankLineResult.size());
         String answer = parserBlankLineResult.get(wordsBlankLocation);
-        parserBlankLineResult.set(wordsBlankLocation, String.format("(%d)_ _ _", i+1));
+        parserBlankLineResult.set(wordsBlankLocation, String.format("(%d)_ _ _", i + 1));
 
         blankWordsAndAnswer.add(String.join(" ", parserBlankLineResult));
         blankWordsAndAnswer.add(answer);
         return blankWordsAndAnswer;
     }
 
-    private static int getValidBlankLineLocation(Map<Integer, Boolean> traceLineLocation, List<String> realPresentLyric) {
-        int blankLineLocation = random.nextInt(realPresentLyric.size());
+    private static int getValidTargetBlankLineLocation(
+            Map<Integer, Boolean> traceLineLocation,
+            List<String> realPresentLyric,
+            Level level,
+            int size,
+            int i) {
 
-        if (traceLineLocation.get(blankLineLocation) == null) {
-            traceLineLocation.put(blankLineLocation, true);
-        } else {
-            while (traceLineLocation.get(blankLineLocation) != null) {
-                blankLineLocation = random.nextInt(realPresentLyric.size());
-                if (traceLineLocation.get(blankLineLocation) == null) {
-                    traceLineLocation.put(blankLineLocation, true);
-                    break;
-                }
+        int intervalEnhancer = level.equals(Level.EASY) ? size : level.equals(Level.MEDIUM) ? 5 : 3;
+        int blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
+        traceLineLocation.put(blankLineLocation, true);
+
+        // handle get empty line before produce blank words in that line
+        if (realPresentLyric.get(blankLineLocation).length() == 0) {
+            blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
+            while (traceLineLocation.get(blankLineLocation) != null || realPresentLyric.get(blankLineLocation).length() == 0) {
+                blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
             }
         }
 
