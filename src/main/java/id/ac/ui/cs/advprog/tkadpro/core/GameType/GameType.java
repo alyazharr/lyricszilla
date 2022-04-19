@@ -1,12 +1,16 @@
 package id.ac.ui.cs.advprog.tkadpro.core.GameType;
 
+import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
+
 import java.util.*;
 
 public abstract class GameType {
-    protected List<String> allSongs;
+    protected SongDTO[] allSongs;
+    protected Random random;
 
-    public GameType(List<String> allSongs) {
+    protected GameType(SongDTO[] allSongs) {
         this.allSongs = allSongs;
+        random = new Random();
     }
 
     public abstract List<String> getEasyQnA();
