@@ -1,32 +1,35 @@
 package id.ac.ui.cs.advprog.tkadpro.core.GameType;
 
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
-import id.ac.ui.cs.advprog.tkadpro.core.util.BlankFeature;
+import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeature;
+import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeatureImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
 import java.util.*;
 
 public class WordsBlank extends GameType {
+    BlankFeature blankFeature;
 
     public WordsBlank(SongDTO[] allSongs) {
         super(allSongs);
+        blankFeature = new BlankFeatureImpl();
     }
 
     @Override
     public List<String> getEasyQnA() {
-        SongDTO song = allSongs[random.nextInt(allSongs.length)];
-        return BlankFeature.generateBlankLine(song, Level.EASY);
+        var song = allSongs[random.nextInt(allSongs.length)];
+        return blankFeature.generateBlankLine(song, Level.EASY);
     }
 
     @Override
     public List<String> getMediumQnA() {
-        SongDTO song = allSongs[random.nextInt(allSongs.length)];
-        return BlankFeature.generateBlankLine(song, Level.MEDIUM);
+        var song = allSongs[random.nextInt(allSongs.length)];
+        return blankFeature.generateBlankLine(song, Level.MEDIUM);
     }
 
     @Override
     public List<String> getHardQnA() {
-        SongDTO song = allSongs[random.nextInt(allSongs.length)];
-        return BlankFeature.generateBlankLine(song, Level.HARD);
+        var song = allSongs[random.nextInt(allSongs.length)];
+        return blankFeature.generateBlankLine(song, Level.HARD);
     }
 }
