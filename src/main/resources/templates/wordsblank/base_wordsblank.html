@@ -18,6 +18,7 @@
                         'yellow': '#F1CA2F',
                         'purple' : '#8357EE',
                         'red':'#DD1F1F',
+                        'green' : '#56EE48',
                     },
                 }
             }
@@ -40,60 +41,61 @@
                 </div>
             </div>
 
-            <!--box kiri-->
-            <div class="absolute rounded-bl-lg rounded-br-lg" style="background:white;width:570px;height:500px;top:185px;left:270px">
-                <!-- header box kiri-->
-                <div style="background:#F1CA2F;width:570px;height:50px">
+            <div class="flex justify-center gap-10">
+                <!--box kiri-->
+                <div class="absolute rounded-lg bg-white w-[570px] h-[500px] top-[185px] left-[270px] shadow-lg" >
+                    <!-- header box kiri-->
+                    <div class="bg-yellow rounded-t-lg h-12" >
 
-                    <!-- Level TYPE -->
-                    <div class="flex">
-                        <!-- TODO : write level here -->
-                        <div class="flex-none w-96 h-14 text-purple text-xl" style="padding-left:35px;padding-top:17px">
-                            Level <span class="text-red text-xl" th:text="${level}"></span>
+                        <!-- Level TYPE -->
+                        <div class="flex justify-between h-12 px-4">
+                            <!-- TODO : write level here -->
+                            <div class="mt-4 text-purple text-xl">
+                                Level <span class="text-red text-xl" th:text="${level}"></span>
+                            </div>
+
+                            <!-- Hint Button -->
+                            <!-- TODO : Implementing Hint Button here -->
+                            <button type="submit">
+                                <img class="scale-75" src="" th:src="@{/img/hint-btn.png}" alt="hint-btn"/>
+                            </button>
                         </div>
-                    <div class="grow h-14"></div>
-
-                    <!-- Hint Button -->
-                    <div class="flex-none w-14 h-14 ">
-                        <!-- TODO : Implementing Hint Button here -->
-                        <button type="submit" class="absolute right-0" style="display: inline;float: left">
-                            <img class="scale-75" src="" th:src="@{/img/hint-btn.png}" alt="hint-btn"/>
-                        </button>
                     </div>
+
+                    <!-- lyrics snippet-->
+                    <div style="padding-top:25px">
+
+                        <div class="text-xl flex-none w-120 h-14 strong"
+                             style="display:flex;justify-content:center;
+                             font-family:'Lucida Sans';font-size:25px;">Lyrics Snippet</div>
+
+                        <!-- TODO : Implementing lyrics here -->
+                        <div th:text="${txt}" class="flex-none w-120 h-14 px-30"
+                             style="font-family:'Lucida Sans';font-size:15px; text-align: center;
+                                    padding-left:30px;padding-right:30px"></div>
                     </div>
                 </div>
 
-                <!-- lyrics snippet-->
-                <div style="padding-top:25px">
-
-                    <div class="text-xl flex-none w-120 h-14 strong"
-                         style="display:flex;justify-content:center;
-                         font-family:'Lucida Sans';font-size:25px;">Lyrics Snippet</div>
-
-                    <!-- TODO : Implementing lyrics here -->
-                    <div th:text="${txt}" class="flex-none w-120 h-14 px-30"
-                         style="font-family:'Lucida Sans';font-size:15px; text-align: center;
-                                padding-left:30px;padding-right:30px"></div>
-                </div>
-            </div>
-
-            <!-- box kanan -->
-            <div class="absolute rounded-b-lg" style="background:white;width:355px;height:500px;top:185px;right:292px">
+                <!-- box kanan -->
+                <div class="absolute rounded-lg shadow-md bg-white w-[355px] h-[500px] top-[185px] right-[292px]">
                 <!-- header box kanan (points & HP) -->
-                <div style="background:#F1CA2F;width:355px;height:50px">
+                <div class="bg-yellow rounded-t-lg h-12">
 
                     <!-- TODO : implementing points here -->
-                    <div class="flex">
-                        <div class="flex-none w-35 h-14 text-purple text-xl" style="padding-left:15px;padding-top:17px">
-                            Points: <span class="text-red text-xl" th:text="${score}"></span>
+                    <div class="flex justify-between h-12 px-4 pt-4">
+                        <div class="text-purple text-lg">
+                            Points: <span class="text-red text-lg" th:text="${score}"></span>
                         </div>
-                    <div class="grow h-14"></div>
 
-                    <!-- TODO : implementing HP here -->
-                    <div class="flex-none w-70 h-14 text-purple text-xl right-0" style="padding-top:17px;padding-right:12px">
-                        <label for="HP" class="text-purple text-xl">HP:</label>
-                        <progress id="HP" value="57" max="100" style="padding-bottom:10px;width:135px;"> 57% </progress>
-                    </div>
+                        <!-- TODO : implementing HP here -->
+                        <div class="flex justify-between h-14 text-purple text-xl">
+                            <label for="HP" class="text-purple text-xl">HP:</label>
+<!--                            <progress id="HP" value="57" max="100" class="w-36 pl-2"> 57% </progress>-->
+                            <div class="bg-zinc-400 w-36 h-7 rounded-full ml-2 -mt-1.5" id="HP">
+                                <div class="bg-green w-3/4 rounded-l-full px-2 pt-2 text-sm" th:text="${'75%'}">25%</div>
+                                <!-- manipulasi class="w-1/4" based on game -->
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -127,6 +129,7 @@
                     </div>
                 </div>
         </div>
+            </div>
     </div>
 </div>
 </div>

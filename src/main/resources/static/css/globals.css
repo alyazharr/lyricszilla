@@ -3,3 +3,5 @@
 * {
     font-family: Minecraftia;
 }
+
+progress::-webkit-progress-value {background-color: #56EE48; width: 100%;}
