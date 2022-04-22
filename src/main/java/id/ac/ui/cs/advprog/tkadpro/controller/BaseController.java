@@ -82,4 +82,24 @@ public class BaseController {
 
         return "lyricspatch/base_lyricspatch";
     }
+
+    @RequestMapping(path="/test-start-cancel-modal", method=RequestMethod.GET)
+    public String ModalTest(){
+        return "start_cancel_modal";
+    }
+
+    @RequestMapping(path="/test-true-ans-modal", method=RequestMethod.GET)
+    public String ModalTestTrue(){
+        return "modal/true_ans_modal";
+    }
+
+    @RequestMapping(path="/test-false-ans-modal", method=RequestMethod.GET)
+    public String ModalTestFalse(){
+        return "modal/false_ans_modal";
+    }
+
+    @RequestMapping(path="/test-stop-confirm-modal", method=RequestMethod.GET)
+    public String ModalTestConfirm(){
+        return "modal/confirm_modal";
+    }
 }
