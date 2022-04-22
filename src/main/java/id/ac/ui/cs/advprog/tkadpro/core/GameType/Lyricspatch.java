@@ -18,18 +18,18 @@ public class Lyricspatch extends GameType {
     @Override
     public List<String> getEasyQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, Level.EASY);
+        return blankFeature.generateQnA(song, TypeGame.LYRICSPATCH, Level.EASY);
     }
 
     @Override
     public List<String> getMediumQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, Level.MEDIUM);
+        return blankFeature.generateQnA(song, TypeGame.LYRICSPATCH, Level.MEDIUM);
     }
 
     @Override
     public List<String> getHardQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, Level.HARD);
+        return blankFeature.generateQnA(song, TypeGame.LYRICSPATCH, Level.HARD);
     }
 }

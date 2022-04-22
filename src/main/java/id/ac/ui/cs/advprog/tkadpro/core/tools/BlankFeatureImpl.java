@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.core.tools;
 
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
@@ -14,7 +15,6 @@ public class BlankFeatureImpl implements BlankFeature {
     private Parser lineParser;
     private Joiner wordJoiner;
     private Parser wordParser;
-
 
     public BlankFeatureImpl(){
         lineJoiner = new Joiner(NEWLINE);
@@ -33,7 +33,7 @@ public class BlankFeatureImpl implements BlankFeature {
     }
 
     @Override
-    public List<String> generateBlankLine(SongDTO song, Level level) {
+    public List<String> generateQnA(SongDTO song, TypeGame typeGame, Level level) {
         Map<Integer, Boolean> traceLineLocation = new HashMap<>();
         List<String> realPresentLyric = getRealProcessLyric(song);
 
@@ -41,16 +41,11 @@ public class BlankFeatureImpl implements BlankFeature {
         List<String> QnA = new ArrayList<>(numLoop + 1);
 
         for (int i = 0; i < numLoop; i++) {
-            int targetBlankWordLineLocation = getValidTargetBlankLineLocation(traceLineLocation,
+            int targetBlankLineLocation = getValidTargetBlankLineLocation(traceLineLocation,
                     realPresentLyric, level, realPresentLyric.size(), i);
+            String targetBlankWord = realPresentLyric.get(targetBlankLineLocation);
 
-            String targetBlankWordLineLyric = realPresentLyric.get(targetBlankWordLineLocation);
-            List<String> parserBlankLineResult = wordParser.parseSentence(targetBlankWordLineLyric);
-            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, i);
-
-            //* join with realPresentLyric
-            realPresentLyric.set(targetBlankWordLineLocation, blankWordsAndAnswerResult.get(0));
-            QnA.add(blankWordsAndAnswerResult.get(1));
+            generateBlankLineSpecificGameType(typeGame, realPresentLyric, QnA, targetBlankWord, i, targetBlankLineLocation);
         }
 
         String question = lineJoiner.join(realPresentLyric);
@@ -63,7 +58,7 @@ public class BlankFeatureImpl implements BlankFeature {
         List<String> blankWordsAndAnswer = new ArrayList<>(2);
         int wordsBlankLocation = random.nextInt(parserBlankWordResult.size());
         String answer = parserBlankWordResult.get(wordsBlankLocation);
-        parserBlankWordResult.set(wordsBlankLocation, String.format("(%d)_ _ _", i + 1));
+        parserBlankWordResult.set(wordsBlankLocation, String.format("(%d) _ _ _", i + 1));
 
         blankWordsAndAnswer.add(wordJoiner.join(parserBlankWordResult));
         blankWordsAndAnswer.add(answer);
@@ -91,5 +86,27 @@ public class BlankFeatureImpl implements BlankFeature {
         }
 
         return blankLineLocation;
+    }
+
+    private void generateBlankLineSpecificGameType(
+            TypeGame typeGame,
+            List<String> lyrics,
+            List<String> QnA,
+            String targetBlankWord,
+            int  i,
+            int targetBlankLocation) {
+
+        if (typeGame.equals(TypeGame.WORDSBLANK)) {
+            List<String> parserBlankLineResult = wordParser.parseSentence(targetBlankWord);
+            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, i);
+
+            //* join with realPresentLyric
+            lyrics.set(targetBlankLocation, blankWordsAndAnswerResult.get(0));
+            QnA.add(blankWordsAndAnswerResult.get(1));
+
+        } else if (typeGame.equals(TypeGame.LYRICSPATCH)) {
+            lyrics.set(targetBlankLocation, String.format("(%d) _ _ _ _ _ _ _ _", i + 1));
+            QnA.add(targetBlankWord);
+        }
     }
 }

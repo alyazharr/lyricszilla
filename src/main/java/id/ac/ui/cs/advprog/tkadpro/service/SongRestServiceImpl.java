@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
@@ -30,8 +31,9 @@ public class SongRestServiceImpl implements SongRestService{
 //        for (SongDTO song : songs) {
 //            System.out.println("Song id: " + song.getId());
 //        }
-        WordsBlank wordsBlank = new WordsBlank(songs);
-        List<String> res = wordsBlank.getHardQnA();
+//        var wordsBlank = new WordsBlank(songs);
+        var lyricspatch = new Lyricspatch(songs);
+        List<String> res = lyricspatch.getHardQnA();
         System.out.println("Question: ");
         System.out.println(res.get(0));
         System.out.println("=============================");
