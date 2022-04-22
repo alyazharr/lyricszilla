@@ -4,13 +4,14 @@ import id.ac.ui.cs.advprog.tkadpro.core.GameLevel.PlayGame;
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PlayGameServiceImpl implements PlayGameService {
-    @Autowired
-    PlayGame playGame;
+    private PlayGame playGame = new PlayGame();
 
     @Autowired
     private GameTypeRepository gameTypeRepository;
