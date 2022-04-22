@@ -45,6 +45,7 @@ sonarqube-check:
   only:
     - master
     - staging
+    - feature/wordsblank
 
 .deployment: &deployment_definition
     stage: deploy
