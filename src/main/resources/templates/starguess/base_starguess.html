@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link th:href = "@{/css/globals.css}" rel="stylesheet">
-    <title>Wordsblank</title>
+    <title>Starguess</title>
     <script>
         tailwind.config = {
             theme: {
@@ -18,6 +18,7 @@
                         'yellow': '#F1CA2F',
                         'purple' : '#8357EE',
                         'red':'#DD1F1F',
+                        'green' : '#56EE48',
                     },
                 }
             }
@@ -40,90 +41,92 @@
                 </div>
             </div>
 
-            <!--box kiri-->
-            <div class="absolute rounded-bl-lg rounded-br-lg" style="background:white;width:570px;height:500px;top:185px;left:270px">
-                <!-- header box kiri-->
-                <div style="background:#F1CA2F;width:570px;height:50px">
+            <div class="flex justify-center gap-10">
+                <!--box kiri-->
+                <div class="absolute rounded-lg bg-white w-[570px] h-[500px] top-[185px] left-[270px] shadow-lg" >
+                    <!-- header box kiri-->
+                    <div class="bg-yellow rounded-t-lg h-12" >
 
-                    <!-- Level TYPE -->
-                    <div class="flex">
-                        <!-- TODO : write level here -->
-                        <div class="flex-none w-96 h-14 text-purple text-xl" style="padding-left:35px;padding-top:17px">
-                            Level <span class="text-red text-xl" th:text="${level}"></span>
-                        </div>
-                        <div class="grow h-14"></div>
+                        <!-- Level TYPE -->
+                        <div class="flex justify-between h-12 px-4">
+                            <!-- TODO : write level here -->
+                            <div class="mt-4 text-purple text-xl">
+                                Level <span class="text-red text-xl" th:text="${level}"></span>
+                            </div>
 
-                        <!-- Hint Button -->
-                        <div class="flex-none w-14 h-14 ">
+                            <!-- Hint Button -->
                             <!-- TODO : Implementing Hint Button here -->
-                            <button type="submit" class="absolute right-0" style="display: inline;float: left">
+                            <button type="submit">
                                 <img class="scale-75" src="" th:src="@{/img/hint-btn.png}" alt="hint-btn"/>
                             </button>
                         </div>
                     </div>
+
+                    <!-- lyrics snippet-->
+                    <div style="padding-top:25px">
+
+                        <div class="text-xl flex-none w-120 h-14 strong"
+                             style="display:flex;justify-content:center;
+                             font-family:'Lucida Sans';font-size:25px;">Lyrics Snippet</div>
+
+                        <!-- TODO : Implementing lyrics here -->
+                        <div th:text="${txt}" class="flex-none w-120 h-14 px-30"
+                             style="font-family:'Lucida Sans';font-size:15px; text-align: center;
+                                    padding-left:30px;padding-right:30px"></div>
+                    </div>
                 </div>
 
-                <!-- lyrics snippet-->
-                <div style="padding-top:25px">
+                <!-- box kanan -->
+                <div class="absolute rounded-lg shadow-md bg-white w-[355px] h-[500px] top-[185px] right-[292px]">
+                    <!-- header box kanan (points & HP) -->
+                    <div class="bg-yellow rounded-t-lg h-12">
 
-                    <div class="text-xl flex-none w-120 h-14 strong"
-                         style="display:flex;justify-content:center;
-                         font-family:'Lucida Sans';font-size:25px;">Lyrics Snippet</div>
+                        <!-- TODO : implementing points here -->
+                        <div class="flex justify-between h-12 px-4 pt-4">
+                            <div class="text-purple text-lg">
+                                Points: <span class="text-red text-lg" th:text="${score}"></span>
+                            </div>
 
-                    <!-- TODO : Implementing lyrics here -->
-                    <div th:text="${txt}" class="flex-none w-120 h-14 px-30"
-                         style="font-family:'Lucida Sans';font-size:15px; text-align: center;
-                                padding-left:30px;padding-right:30px"></div>
-                </div>
-            </div>
+                            <!-- TODO : implementing HP here -->
+                            <div class="flex justify-between h-14 text-purple text-xl">
+                                <label for="HP" class="text-purple text-xl">HP:</label>
+                                <!--                            <progress id="HP" value="57" max="100" class="w-36 pl-2"> 57% </progress>-->
+                                <div class="bg-zinc-400 w-36 h-7 rounded-full ml-2 -mt-1.5" id="HP">
+                                    <div class="bg-green w-1/5 rounded-l-full px-2 pt-2 text-sm" th:text="${'20%'}">20%</div>
+                                    <!-- manipulasi class="w-1/4" based on game -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- box kanan -->
-            <div class="absolute rounded-b-lg" style="background:white;width:355px;height:500px;top:185px;right:292px">
-                <!-- header box kanan (points & HP) -->
-                <div style="background:#F1CA2F;width:355px;height:50px">
+                    <!-- Field jawaban -->
+                    <!-- TODO : Not yet creating any form here-->
+                    <div th:each="num : ${#numbers.sequence(1,ans)}" style="padding-top:17px">
+                        <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
+                            Answer (<span th:text="${num}"></span><span>)</span>
+                        </div>
+                        <div style="display: flex;justify-content: center;">
+                            <input type="text" th:name="username" placeholder="Write down your answer.. "
+                                   class="bg-yellow rounded-full focus:outline-none focus:ring focus:border-purple text-md py-2 pt-3 px-4"
+                                   style="font-size:12px" size="25"/>
+                        </div>
+                    </div>
 
-                    <!-- TODO : implementing points here -->
+                    <!--button cancel and submit -->
+                    <!-- TODO : Implementing submit and cancel here -->
                     <div class="flex">
-                        <div class="flex-none w-35 h-14 text-purple text-xl" style="padding-left:15px;padding-top:17px">
-                            Points: <span class="text-red text-xl" th:text="${score}"></span>
+                        <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
+                            <button type="submit" class="absolute" style="display: inline;float: left">
+                                <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
+                            </button>
                         </div>
-                        <div class="grow h-14"></div>
-
-                        <!-- TODO : implementing HP here -->
-                        <div class="flex-none w-70 h-14 text-purple text-xl right-0" style="padding-top:17px;padding-right:12px">
-                            <label for="HP" class="text-purple text-xl">HP:</label>
-                            <progress id="HP" value="57" max="100" style="padding-bottom:10px;width:135px;"> 57% </progress>
+                        <div class="grow h-14">
                         </div>
-                    </div>
-                </div>
-
-                <!-- Field jawaban -->
-                <!-- TODO : Not yet creating any form here-->
-                <div th:each="num : ${#numbers.sequence(1,ans)}" style="padding-top:17px">
-                    <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
-                        Answer (<span th:text="${num}"></span><span>)</span>
-                    </div>
-                    <div style="display: flex;justify-content: center;">
-                        <input type="text" th:name="username" placeholder="Write down your answer.. "
-                               class="bg-yellow rounded-full focus:outline-none focus:ring focus:border-purple text-md py-2 pt-3 px-4"
-                               style="font-size:12px" size="25"/>
-                    </div>
-                </div>
-
-                <!--button cancel and submit -->
-                <!-- TODO : Implementing submit and cancel here -->
-                <div class="flex">
-                    <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
-                        <button type="submit" class="absolute" style="display: inline;float: left">
-                            <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
-                        </button>
-                    </div>
-                    <div class="grow h-14">
-                    </div>
-                    <div class="flex-none w-14 h-14" style="padding-top:18px">
-                        <button type="submit" class="absolute right-8" style="display: inline;float: left">
-                            <img class="scale-75" src="" th:src="@{/img/submit-btn.png}" alt="submit-btn"/>
-                        </button>
+                        <div class="flex-none w-14 h-14" style="padding-top:18px">
+                            <button type="submit" class="absolute right-8" style="display: inline;float: left">
+                                <img class="scale-75" src="" th:src="@{/img/submit-btn.png}" alt="submit-btn"/>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
