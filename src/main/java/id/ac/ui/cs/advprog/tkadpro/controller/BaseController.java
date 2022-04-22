@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/lyriczilla")
+@RequestMapping("")
 public class BaseController {
 
     @RequestMapping(path="/login", method = RequestMethod.GET)
@@ -15,7 +15,7 @@ public class BaseController {
     @RequestMapping(path="", method=RequestMethod.GET)
     public String homePage(){return "homepage/homepage";}
 
-    @RequestMapping(path="/wordsblank", method=RequestMethod.GET)
+    @RequestMapping(path="/wordsblank/next", method=RequestMethod.GET)
     public String Wordsblank(Model model){
         int num = 3;
         int score = 53;
