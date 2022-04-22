@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
 
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.Modifier.HardModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class HardLevelState extends GameLevel{
 
     protected HardLevelState(PlayGame playGame) {
         super(playGame);
+        modifier = new HardModifier(10, 50, 20);
     }
 
     @Override
@@ -42,11 +44,11 @@ public class HardLevelState extends GameLevel{
         }
 
         if(feedback){
-            playGame.setPoints(playGame.getPoints()+30);
+            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
         }
         else {
-            playGame.setPoints(playGame.getPoints()-5);
-            playGame.setHp(playGame.getHp()-15);
+            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
+            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
         }
 
         return feedback;

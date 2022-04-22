@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
 
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.Modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class EasyLevelState extends GameLevel {
 
     public EasyLevelState(PlayGame playGame){
         super(playGame);
+        modifier = new EasyModifier(3, 10, 10);
     }
 
     @Override
@@ -32,11 +34,11 @@ public class EasyLevelState extends GameLevel {
 
         if(answer.equals(playerAnswer.get(0))){
             feedback = true;
-            playGame.setPoints(playGame.getPoints()+10);
+            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
         }
         else {
-            playGame.setPoints(playGame.getPoints()-3);
-            playGame.setHp(playGame.getHp()-10);
+            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
+            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
         }
 
         return feedback;
