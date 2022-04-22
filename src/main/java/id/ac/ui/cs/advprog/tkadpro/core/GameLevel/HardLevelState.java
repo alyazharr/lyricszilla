@@ -51,4 +51,9 @@ public class HardLevelState extends GameLevel{
 
         return feedback;
     }
+
+    @Override
+    public String toString() {
+        return "HARD";
+    }
 }

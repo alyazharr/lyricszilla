@@ -48,4 +48,9 @@ public class EasyLevelState extends GameLevel {
             playGame.setCurrentState(playGame.mediumLevelState);
         }
     }
+
+    @Override
+    public String toString() {
+        return "EASY";
+    }
 }
