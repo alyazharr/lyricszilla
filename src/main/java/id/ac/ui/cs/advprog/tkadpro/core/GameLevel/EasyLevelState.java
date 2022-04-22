@@ -45,9 +45,19 @@ public class EasyLevelState extends GameLevel {
     }
 
     @Override
+    public int getNumberOfAnswer() {
+        return 1;
+    }
+
+    @Override
     public void changeState() {
         if(playGame.getQuestionCounter()==3){
             playGame.setCurrentState(playGame.mediumLevelState);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "EASY";
     }
 }
