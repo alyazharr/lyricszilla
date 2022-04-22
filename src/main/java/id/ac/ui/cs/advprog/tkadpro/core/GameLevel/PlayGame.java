@@ -39,4 +39,8 @@ public class PlayGame {
         mediumLevelState.setGameType(gameType);
         hardLevelState.setGameType(gameType);
     }
+
+    public int getNumberOfAnswer(){
+        return currentState.getNumberOfAnswer();
+    }
 }
