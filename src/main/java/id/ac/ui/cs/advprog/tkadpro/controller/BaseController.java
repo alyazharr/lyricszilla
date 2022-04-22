@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.tkadpro.controller;
 
+import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("")
 public class BaseController {
+    @Autowired
+    private PlayGameService playGameService;
 
     @RequestMapping(path="/login", method = RequestMethod.GET)
     public String loginPage(){return "login/login";}
@@ -17,17 +21,18 @@ public class BaseController {
 
     @RequestMapping(path="/wordsblank/next", method=RequestMethod.GET)
     public String Wordsblank(Model model){
+        var questionInfo = playGameService.generateQuestion();
         int num = 3;
         int score = 53;
         int numOfAns = 1;
         String level = "EASY";
         String text = "Implementing lyrics here";
 
-        model.addAttribute("numOfQuest", num);
-        model.addAttribute("score", score);
-        model.addAttribute("ans", numOfAns);
-        model.addAttribute("level", level);
-        model.addAttribute("txt", text);
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion());
 
         return "wordsblank/base_wordsblank";
     }
