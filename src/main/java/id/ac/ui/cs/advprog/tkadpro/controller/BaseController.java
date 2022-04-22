@@ -68,19 +68,16 @@ public class BaseController {
         return "starguess/base_starguess";
     }
 
-    @RequestMapping(path="/lyricspatch", method=RequestMethod.GET)
+    @RequestMapping(path="/lyricspatch/start", method=RequestMethod.GET)
     public String Lyricspatch(Model model){
-        int num = 13;
-        int score = 78;
-        int numOfAns = 5;
-        String level = "HARD";
-        String text = "Implementing lyrics here";
+        var questionInfo = playGameService.startGame(TypeGame.LYRICSPATCH);
 
-        model.addAttribute("numOfQuest", num);
-        model.addAttribute("score", score);
-        model.addAttribute("ans", numOfAns);
-        model.addAttribute("level", level);
-        model.addAttribute("txt", text);
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("hp", questionInfo.getHP());
 
         return "lyricspatch/base_lyricspatch";
     }
