@@ -8,7 +8,7 @@ import java.util.List;
 public interface GameTypeRepository {
     List<GameType> findAll();
 
-    GameType findByType(String type);
+    GameType findByType(TypeGame typeGame);
 
     void add(TypeGame typeGame, GameType gameType);
 }

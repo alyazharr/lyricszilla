@@ -7,5 +7,6 @@ import java.util.List;
 public interface PlayGameService {
     public String startGame(TypeGame typeGame);
     public String generateQuestion();
-    public String checkAnswer(List<String> answer);
+    public boolean checkAnswer(List<String> answer);
+    public List<String> finishGame();
 }
