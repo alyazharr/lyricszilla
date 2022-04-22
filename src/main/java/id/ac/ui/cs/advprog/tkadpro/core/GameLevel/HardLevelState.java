@@ -53,6 +53,11 @@ public class HardLevelState extends GameLevel{
     }
 
     @Override
+    public int getNumberOfAnswer() {
+        return 5;
+    }
+
+    @Override
     public String toString() {
         return "HARD";
     }

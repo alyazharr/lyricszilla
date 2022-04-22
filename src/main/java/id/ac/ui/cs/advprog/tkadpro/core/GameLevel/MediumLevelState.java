@@ -55,6 +55,11 @@ public class MediumLevelState extends GameLevel{
     }
 
     @Override
+    public int getNumberOfAnswer() {
+        return 3;
+    }
+
+    @Override
     public String toString() {
         return "MEDIUM";
     }
