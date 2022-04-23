@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.core.tools;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 

@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.gamelevel;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.GameType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

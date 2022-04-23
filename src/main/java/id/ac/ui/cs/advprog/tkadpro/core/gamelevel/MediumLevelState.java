@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.gamelevel;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.HardModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.MediumModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,29 +9,30 @@ import java.util.List;
 
 @Getter
 @Setter
-public class HardLevelState extends GameLevel{
+public class MediumLevelState extends GameLevel{
     private GameType gameType;
     private String question;
     private List<String> answers;
 
-    protected HardLevelState(PlayGame playGame) {
+    public MediumLevelState(PlayGame playGame){
         super(playGame);
-        modifier = new HardModifier(10, 50, 20);
+        modifier = new MediumModifier(5, 30, 15);
     }
 
     @Override
     public String play() {
-        var hardQnA = gameType.getHardQnA();
-        question = hardQnA.get(0);
-        answers = hardQnA.subList(1,-1);
+        var mediumQnA = gameType.getMediumQnA();
+        question = mediumQnA.get(0);
+        answers = mediumQnA.subList(1,-1);
 
         return question;
     }
 
     @Override
     public void changeState() {
-        if(playGame.getQuestionCounter()==20)
-            playGame.setFinished(true);
+        if(playGame.getQuestionCounter()==10){
+            playGame.setCurrentState(playGame.hardLevelState);
+        }
     }
 
     @Override
@@ -56,11 +57,11 @@ public class HardLevelState extends GameLevel{
 
     @Override
     public int getNumberOfAnswer() {
-        return 5;
+        return 3;
     }
 
     @Override
     public String toString() {
-        return "HARD";
+        return "MEDIUM";
     }
 }

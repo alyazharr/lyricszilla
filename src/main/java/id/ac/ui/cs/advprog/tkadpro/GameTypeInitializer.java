@@ -1,8 +1,8 @@
 package id.ac.ui.cs.advprog.tkadpro;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.Lyricspatch;
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.Lyricspatch;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;

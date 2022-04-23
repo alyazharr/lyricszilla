@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.gamelevel;
 
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.Modifier;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.Modifier;
 import lombok.Data;
 
 import java.util.List;

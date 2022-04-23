@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.gamelevel;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.EasyModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 

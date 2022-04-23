@@ -1,7 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.Lyricspatch;
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.core.gametype.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import org.springframework.beans.factory.annotation.Autowired;
