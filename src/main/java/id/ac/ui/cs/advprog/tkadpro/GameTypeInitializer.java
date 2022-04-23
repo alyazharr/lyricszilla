@@ -25,8 +25,8 @@ public class GameTypeInitializer {
     @PostConstruct
     public void init(){
         //------------------------------ Get Songs From API  (DO NOT TOUCH!) ----------------------------------
-        String BASE_URL = "http://musixapi.herokuapp.com/lagu/find";
-        RestTemplate restTemplate = new RestTemplate();
+        var BASE_URL = "http://musixapi.herokuapp.com/lagu/find";
+        var restTemplate = new RestTemplate();
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.getForEntity(BASE_URL,SongDTO[].class);
 
         SongDTO[] songs = responseEntity.getBody();
