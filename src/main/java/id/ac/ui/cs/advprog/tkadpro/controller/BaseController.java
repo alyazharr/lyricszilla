@@ -104,7 +104,7 @@ public class BaseController {
         return "lyricspatch/base_lyricspatch";
     }
 
-    @RequestMapping(path="/test-start-cancel-modal", method=RequestMethod.GET)
+    @RequestMapping(path="/wordsblank/rules", method=RequestMethod.GET)
     public String ModalTest(){
         return "modal/start_cancel_modal";
     }
