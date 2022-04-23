@@ -4,10 +4,11 @@ import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class BlankFeatureImpl implements BlankFeature {
-    private static final Random random = new Random();
+    private static final SecureRandom random = new SecureRandom();
     private static final int MAXSIZE = 15;
     private static final String NEWLINE = "\r\n";
     private static final String SPACE = " ";
