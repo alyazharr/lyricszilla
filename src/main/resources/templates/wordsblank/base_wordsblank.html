@@ -23,12 +23,26 @@
                 }
             }
         }
+
+        // const ansForm = document.getElementById('ans-form');
+        // const ansModal = document.getElementById('ans-modal');
+        //
+        // function handleForm(e) {
+        //     ansModal.classList.remove('hidden');
+        //     e.preventDefault();
+        // }
+        //
+        // $(document).ready(function () {
+        //     $("button").click(function () {
+        //         $("#home").load("true_ans_modal #ans-modal");
+        //     });
+        // });
     </script>
 </head>
 
 <body class="max-h-screen cursor-default" style="background-color:#9E7BEF;">
 <div class="flex">
-    <div class="bg-center bg-cover" style="position: relative">
+    <div class="bg-center bg-cover" style="position: relative" id="home">
         <img class="max-h-screen bg-cover" src="" th:src="@{/img/bg-games2.png}" alt="bg-games" width="1650"/>
 
         <div class="static">
@@ -63,23 +77,23 @@
                     </div>
 
                     <!-- lyrics snippet-->
-                    <div style="padding-top:25px">
+                    <div style="padding-top:17px">
 
-                        <div class="text-xl flex-none w-120 h-14 strong"
-                             style="display:flex;justify-content:center;
-                             font-family:'Lucida Sans';font-size:25px;">Lyrics Snippet</div>
+                        <div class="text-xl flex-none w-120 h-10 strong"
+                             style="display:flex;justify-content:center; padding-top:6px;
+                             font-family:'Lucida Sans';font-size:20px;"><b>Lyrics Snippet</b></div>
 
                         <!-- TODO : Implementing lyrics here -->
-                        <div th:text="${txt}" class="flex-none w-120 h-14 px-30"
-                             style="font-family:'Lucida Sans';font-size:15px; text-align: center;
-                                    padding-left:30px;padding-right:30px"></div>
+                        <div th:each="lines: ${txt}" class="flex-none w-120 h-6 px-30" style="text-align: center">
+                            <span th:text="${lines}" style="font-family:'Lucida Sans';font-size:15px;"></span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- box kanan -->
                 <div class="absolute rounded-lg shadow-md bg-white w-[355px] h-[500px] top-[185px] right-[292px]">
-                <!-- header box kanan (points & HP) -->
-                <div class="bg-yellow rounded-t-lg h-12">
+                    <!-- header box kanan (points & HP) -->
+                    <div class="bg-yellow rounded-t-lg h-12">
 
                     <!-- TODO : implementing points here -->
                     <div class="flex justify-between h-12 px-4 pt-4">
@@ -87,51 +101,99 @@
                             Points: <span class="text-red text-lg" th:text="${score}"></span>
                         </div>
 
-                        <!-- TODO : implementing HP here -->
-                        <div class="flex justify-between h-14 text-purple text-xl">
-                            <label for="HP" class="text-purple text-xl">HP:</label>
-<!--                            <progress id="HP" value="57" max="100" class="w-36 pl-2"> 57% </progress>-->
+                    <!-- TODO : implementing HP here -->
+                    <div class="flex justify-between h-14 text-purple text-xl">
+                        <label for="HP" class="text-purple text-xl">HP:</label>
                             <div class="bg-zinc-400 w-36 h-7 rounded-full ml-2 -mt-1.5" id="HP">
-                                <div class="bg-green w-3/4 rounded-l-full px-2 pt-2 text-sm" th:text="${'75%'}">25%</div>
-                                <!-- manipulasi class="w-1/4" based on game -->
+                                <div class="bg-green w- rounded-full px-2 pt-2 text-sm" th:classappend="${hp+'/100'}">
+                                    <span th:text="${hp+'%'}" class="flex justify-center"></span>
+                                </div>
                             </div>
+                    </div>
                         </div>
                     </div>
-                </div>
 
                 <!-- Field jawaban -->
                 <!-- TODO : Not yet creating any form here-->
-                <div th:each="num : ${#numbers.sequence(1,ans)}" style="padding-top:17px">
-                    <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
-                        Answer (<span th:text="${num}"></span><span>)</span>
+                <div style="padding-top: 17px">
+                    <form id="ans-form" onsubmit="handleForm(e)">
+                        <div th:each="num : ${#numbers.sequence(1,ans)}" style="padding-top:10px">
+                            <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
+                                Answer (<span th:text="${num}"></span><span>)</span>
+                            </div>
+                            <div style="display: flex;justify-content: center;">
+                                <input type="text" th:name="username" placeholder="Write down your answer.. "
+                                       class="bg-yellow rounded-full focus:outline-none focus:ring focus:border-purple text-md py-2 pt-3 px-4"
+                                       style="font-size:12px" size="25"/>
+                            </div>
                         </div>
-                    <div style="display: flex;justify-content: center;">
-                        <input type="text" th:name="username" placeholder="Write down your answer.. "
-                               class="bg-yellow rounded-full focus:outline-none focus:ring focus:border-purple text-md py-2 pt-3 px-4"
-                               style="font-size:12px" size="25"/>
-                    </div>
-                </div>
 
-                <!--button cancel and submit -->
-                <!-- TODO : Implementing submit and cancel here -->
-                <div class="flex">
-                    <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
-                        <button type="submit" class="absolute" style="display: inline;float: left">
-                            <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
-                        </button>
-                    </div>
-                    <div class="grow h-14">
-                    </div>
-                    <div class="flex-none w-14 h-14" style="padding-top:18px">
-                        <button type="submit" class="absolute right-8" style="display: inline;float: left">
-                            <img class="scale-75" src="" th:src="@{/img/submit-btn.png}" alt="submit-btn"/>
-                        </button>
+                        <!--button cancel and submit -->
+                        <!-- TODO : Implementing submit and cancel here -->
+                        <div class="flex">
+                            <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
+                                <!--calling modal confirmation here -->
+                                <button class="absolute" style="display: inline;float: left" id="stop">
+                                    <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
+                                </button>
+                            </div>
+                            <div class="grow h-14">
+                            </div>
+                            <div class="flex-none w-14 h-14" style="padding-top:18px">
+                                <button type="submit" class="absolute right-8" id="submit-btn"
+                                        style="display: inline;float: left">
+                                  <img class="scale-75" src="" th:src="@{/img/submit-btn.png}" alt="submit-btn"/>
+                                </button>
+                            </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-        </div>
-            </div>
+             </div>
+          </div>
     </div>
 </div>
+
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="ans-modal">
+
+    <div class="flex items-end justify-center min-h-screen pt-10 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <div class="relative inline-block align-bottom rounded-lg text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+            <div class="justify-center flex pt-6" style="background: #FFD66B;display: flex;justify-content: center">
+                <img class="h-9 w-9 justify-center flex" src="" th:src="@{/img/check-icon.png}" alt="check-icon" width="500"/>
+            </div>
+
+            <div class= "px-4 pt-5 pb-4 sm:p-6 sm:pb-4" style="background: #FFD66B;display: flex;justify-content: center">
+
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-purple " id="modal-title" style="text-align: center">Correct Answer</h3>
+                        <div class="mt-2" style="display: flex;justify-content: center">
+                            <p class="text-sm text-black" >Congrats! You have solved this question</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center" style="background: #FFD66B;" id="continue-btn">
+                <a th:href="@{/wordsblank/next}">
+                    <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        <img class="scale-75" src="" th:src="@{/img/continue-btn.png}" alt="continue-btn"/>
+                    </button>
+                </a>
+            </div>
+            <div class="flex justify-center pb-6" style="background: #FFD66B;">
+                <!--back to homepage-->
+                <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    <img class="scale-75" src="" th:src="@{/img/quit-btn.png}" alt="quit-btn"/>
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

@@ -28,10 +28,29 @@ public class BaseController {
         model.addAttribute("score", questionInfo.getScore());
         model.addAttribute("ans", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHP());
 
         return "wordsblank/base_wordsblank";
+    }
+
+    @RequestMapping(path="/wordsblank/next", method=RequestMethod.GET)
+    public String WordsblankNext(Model model){
+        var questionInfo = playGameService.generateQuestion();
+
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("hp", questionInfo.getHP());
+
+        return "redirect:/wordsblank/next";
+    }
+
+    @RequestMapping(path="/wordsblank/true", method=RequestMethod.GET)
+    public String ModalTrue(Model model){
+        return "";
     }
 
     @RequestMapping(path="/titleque", method=RequestMethod.GET)
@@ -87,7 +106,7 @@ public class BaseController {
 
     @RequestMapping(path="/test-start-cancel-modal", method=RequestMethod.GET)
     public String ModalTest(){
-        return "start_cancel_modal";
+        return "modal/start_cancel_modal";
     }
 
     @RequestMapping(path="/test-true-ans-modal", method=RequestMethod.GET)

@@ -24,7 +24,7 @@
     </script>
 </head>
 <body>
-<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="ans-modal">
 
     <div class="flex items-end justify-center min-h-screen pt-10 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -48,19 +48,21 @@
                 </div>
             </div>
 
-            <div class="flex justify-center" style="background: #FFD66B;">
-                <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
-                    <img class="scale-75" src="" th:src="@{/img/continue-btn.png}" alt="continue-btn"/>
-                </button>
+            <div class="flex justify-center" style="background: #FFD66B;" id="continue-btn">
+                <a th:href="@{/wordsblank/next}">
+                    <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        <img class="scale-75" src="" th:src="@{/img/continue-btn.png}" alt="continue-btn"/>
+                    </button>
+                </a>
             </div>
             <div class="flex justify-center pb-6" style="background: #FFD66B;">
+                <!--back to homepage-->
                 <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                     <img class="scale-75" src="" th:src="@{/img/quit-btn.png}" alt="quit-btn"/>
                 </button>
             </div>
-
-            </div>
         </div>
+    </div>
 
 </div>
 </body>
