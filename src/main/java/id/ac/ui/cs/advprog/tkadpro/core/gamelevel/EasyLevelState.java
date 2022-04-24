@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.gamelevel;
+package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
 
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.Modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +21,9 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public String play() {
-        var easyQnA = gameType.getEasyQnA();
-        question = easyQnA.get(0);
-        answer = easyQnA.get(1);
+        var EasyQnA = gameType.getEasyQnA();
+        question = EasyQnA.get(0);
+        answer = EasyQnA.get(1);
 
         return question;
     }
@@ -40,7 +40,6 @@ public class EasyLevelState extends GameLevel {
             playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
             playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
         }
-
         return feedback;
     }
 
@@ -51,7 +50,7 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public void changeState() {
-        if(playGame.getQuestionCounter()==3){
+        if(playGame.getQuestionCounter() == 4){
             playGame.setCurrentState(playGame.getMediumLevelState());
         }
     }

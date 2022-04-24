@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.tkadpro.core.gametype;
+package id.ac.ui.cs.advprog.tkadpro.core.GameType;
 
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 

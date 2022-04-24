@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.core.tools;
 
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
@@ -34,7 +34,7 @@ public class BlankFeatureImpl implements BlankFeature {
     }
 
     @Override
-    public List<String> generateQnA(SongDTO song, TypeGame typeGame, Level level) {
+    public List<String> generateBlankLine(SongDTO song, TypeGame typeGame, Level level) {
         Map<Integer, Boolean> traceLineLocation = new HashMap<>();
         List<String> realPresentLyric = getRealProcessLyric(song);
 

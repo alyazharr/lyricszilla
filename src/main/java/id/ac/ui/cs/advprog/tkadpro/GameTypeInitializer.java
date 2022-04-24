@@ -1,8 +1,8 @@
 package id.ac.ui.cs.advprog.tkadpro;
 
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.Lyricspatch;
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.Lyricspatch;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
@@ -25,8 +25,8 @@ public class GameTypeInitializer {
     @PostConstruct
     public void init(){
         //------------------------------ Get Songs From API  (DO NOT TOUCH!) ----------------------------------
-        var BASE_URL = "http://musixapi.herokuapp.com/lagu/find";
-        var restTemplate = new RestTemplate();
+        String BASE_URL = "http://musixapi.herokuapp.com/lagu/find";
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.getForEntity(BASE_URL,SongDTO[].class);
 
         SongDTO[] songs = responseEntity.getBody();

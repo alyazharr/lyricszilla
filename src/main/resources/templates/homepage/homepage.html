@@ -1,12 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href = "@{/css/globals.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Encode Sans' rel='stylesheet'>
     <title>Home</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    width: {
+                        '9/20': '45%',
+                        '11/20': '55%',
+                    },
+                    colors: {
+                        'yellow': '#F1CA2F',
+                        'purple' : '#8357EE'
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        img.center{
+            display: block;
+            margin: 0 auto;
+        }
+
+        .gametitle{
+            color: #8357EE;
+            font-size:40px;
+        }
+
+        .card{
+            padding-top:55px;
+            padding-bottom:0px;
+            padding-left:0px;
+            padding-right:0px;
+            border-radius:40px;
+            width:auto;
+        }
+
+        desc{
+            font-family:'Encode Sans';
+            font-size:25px;
+        }
+
+        .card-footer{
+            background-color:#EF3A3A;
+            font-family:'Encode Sans';
+            color:white;
+            border:0px;
+            border-radius:40px!important;
+        }
+
+        .card-body{
+            padding:0px!important;
+        }
+
+    </style>
 </head>
-<body>
-    Ini homepage
+<body class="max-h-screen cursor-default" th:style="'background: url(/img/homepage-bg.png) no-repeat center center fixed;'">
+<img th:src="@{/img/welcome-lyriczilla.png}" class="center" style="padding-top:40px;">
+<img th:src="@{/img/lyriczilla-subheader.png}" class="center" style="padding-top:-30px;">
+<div class="container">
+    <div class="card-deck">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="gametitle">Starguess</div>
+                    <img th:src="@{/img/starguess-icon.png}" class="center">
+                    <desc>Guess who the singer of the song is</desc>
+                    <a th:href="@{/rules/1}">
+                    <div class="card-footer position-relative">
+                            View Game
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="gametitle">Titleque</div>
+                    <img th:src="@{/img/titleque-icon.png}" class="center">
+                    <desc>Guess what the title of the song is</desc>
+                    <a th:href="@{/rules/2}">
+                    <div class="card-footer position-relative">
+                        View Game
+                    </div>
+                    </a>
+                </div>
+            </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="gametitle">Wordsblank</div>
+                <img th:src="@{/img/wordsblank-icon.png}" class="center">
+                <desc>Guess the missing words of a lyric</desc>
+                <a th:href="@{/rules/3}">
+                    <div class="card-footer position-relative">
+                        View Game
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="gametitle">Lyricspatch</div>
+                <img th:src="@{/img/lyricspatch-icon.png}" class="center">
+                <desc>Guess the missing lines of a lyric</desc>
+                <a th:href="@{/rules/4}">
+                <div class="card-footer position-relative">
+                    View Game
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

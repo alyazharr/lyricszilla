@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.tkadpro.core.gametype;
+package id.ac.ui.cs.advprog.tkadpro.core.GameType;
 
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeature;
@@ -18,18 +18,18 @@ public class WordsBlank extends GameType {
     @Override
     public List<String> getEasyQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateQnA(song, TypeGame.WORDSBLANK, Level.EASY);
+        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.EASY);
     }
 
     @Override
     public List<String> getMediumQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateQnA(song, TypeGame.WORDSBLANK, Level.MEDIUM);
+        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.MEDIUM);
     }
 
     @Override
     public List<String> getHardQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateQnA(song, TypeGame.WORDSBLANK, Level.HARD);
+        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.HARD);
     }
 }

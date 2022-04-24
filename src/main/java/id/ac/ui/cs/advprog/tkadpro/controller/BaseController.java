@@ -1,12 +1,20 @@
 package id.ac.ui.cs.advprog.tkadpro.controller;
 
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.model.UserAnswer;
 import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 @RequestMapping("")
@@ -26,12 +34,45 @@ public class BaseController {
 
         model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
         model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
 
         return "wordsblank/base_wordsblank";
+    }
+
+    @RequestMapping(path="/wordsblank/next", method=RequestMethod.GET)
+    public String WordsblankNext(Model model){
+        var questionInfo = playGameService.generateQuestion();
+
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
+        model.addAttribute("hp", questionInfo.getHp());
+
+        return "wordsblank/base_wordsblank";
+    }
+
+    @GetMapping(value="/rules/{rules_id}")
+    public String RulesView(Model model, @PathVariable int rules_id){
+        model.addAttribute("rulesId", rules_id);
+        return "modal/rules_modal";
+    }
+
+    @PostMapping(value="/wordsblank/check")
+    public String WordsblankCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
+        var feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+
+        model.addAttribute("feedback", feedback);
+        if(feedback.equals("CORRECT"))
+            model.addAttribute("message", "Congrats, you have solved this question");
+        else
+            model.addAttribute("message","Sorry, your answer is still wrong");
+
+        return "modal/feedback_modal";
     }
 
     @RequestMapping(path="/titleque", method=RequestMethod.GET)
@@ -74,30 +115,52 @@ public class BaseController {
 
         model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
         model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
 
         return "lyricspatch/base_lyricspatch";
     }
 
-    @RequestMapping(path="/test-start-cancel-modal", method=RequestMethod.GET)
+    @RequestMapping(path="/lyricspatch/next", method=RequestMethod.GET)
+    public String Lyricspatchs(Model model){
+        var questionInfo = playGameService.generateQuestion();
+
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
+        model.addAttribute("hp", questionInfo.getHp());
+
+        return "lyricspatch/base_lyricspatch";
+    }
+
+    @PostMapping(value="/lyricspatch/check")
+    public String lyricspatchCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
+        String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+
+        model.addAttribute("feedback", feedback);
+        if(feedback.equals("CORRECT"))
+            model.addAttribute("message", "Congrats, you have solved this question");
+        else
+            model.addAttribute("message","Sorry, your answer is still wrong");
+
+        return "modal/feedback_modal";
+    }
+
+    @RequestMapping(path="/rules", method=RequestMethod.GET)
     public String ModalTest(){
-        return "start_cancel_modal";
+        return "modal/rules_modal";
     }
 
     @RequestMapping(path="/test-true-ans-modal", method=RequestMethod.GET)
     public String ModalTestTrue(){
-        return "modal/true_ans_modal";
+        return "modal/feedback_modal";
     }
 
-    @RequestMapping(path="/test-false-ans-modal", method=RequestMethod.GET)
-    public String ModalTestFalse(){
-        return "modal/false_ans_modal";
-    }
-
-    @RequestMapping(path="/test-stop-confirm-modal", method=RequestMethod.GET)
+    @RequestMapping(path="/confirm-modal", method=RequestMethod.GET)
     public String ModalTestConfirm(){
         return "modal/confirm_modal";
     }

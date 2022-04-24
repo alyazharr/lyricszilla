@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
-import id.ac.ui.cs.advprog.tkadpro.core.gamelevel.PlayGame;
-import id.ac.ui.cs.advprog.tkadpro.core.gametype.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.GameLevel.PlayGame;
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class PlayGameServiceImpl implements PlayGameService {
-    private final PlayGame playGame = new PlayGame();
+    private PlayGame playGame = new PlayGame();
 
     @Autowired
     private GameTypeRepository gameTypeRepository;
@@ -38,8 +38,11 @@ public class PlayGameServiceImpl implements PlayGameService {
     }
 
     @Override
-    public boolean checkAnswer(List<String> answer) {
-        return playGame.checkAnswer(answer);
+    public String checkAnswer(List<String> answer) {
+        boolean isTrue = playGame.checkAnswer(answer);
+        if(isTrue)
+            return "CORRECT";
+        return "WRONG";
     }
 
     @Override
