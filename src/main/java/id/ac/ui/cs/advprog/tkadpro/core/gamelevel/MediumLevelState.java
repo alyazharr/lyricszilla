@@ -12,15 +12,13 @@ import java.util.List;
 public class MediumLevelState extends GameLevel{
     private GameType gameType;
     private String question;
-    private List<String> answers;
 
     public MediumLevelState(PlayGame playGame){
         super(playGame);
         modifier = new MediumModifier(5, 30, 15);
     }
 
-    @Override
-    public String play() {
+    @Override    public String play() {
         var mediumQnA = gameType.getMediumQnA();
         question = mediumQnA.get(0);
         answers = mediumQnA.subList(1,-1);
@@ -31,28 +29,8 @@ public class MediumLevelState extends GameLevel{
     @Override
     public void changeState() {
         if(playGame.getQuestionCounter()==10){
-            playGame.setCurrentState(playGame.hardLevelState);
+            playGame.setCurrentState(playGame.getHardLevelState());
         }
-    }
-
-    @Override
-    public boolean checkAnswer(List<String> playerAnswer) {
-        boolean feedback = true;
-
-        for(int i = 0;i<answers.size() && feedback;i++){
-            if(!answers.get(i).equals(playerAnswer.get(i)))
-                feedback = false;
-        }
-
-        if(feedback){
-            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
-        }
-        else {
-            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
-            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
-        }
-
-        return feedback;
     }
 
     @Override

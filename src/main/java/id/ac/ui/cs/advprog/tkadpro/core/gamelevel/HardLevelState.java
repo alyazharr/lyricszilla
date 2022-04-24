@@ -12,7 +12,6 @@ import java.util.List;
 public class HardLevelState extends GameLevel{
     private GameType gameType;
     private String question;
-    private List<String> answers;
 
     protected HardLevelState(PlayGame playGame) {
         super(playGame);
@@ -32,26 +31,6 @@ public class HardLevelState extends GameLevel{
     public void changeState() {
         if(playGame.getQuestionCounter()==20)
             playGame.setFinished(true);
-    }
-
-    @Override
-    public boolean checkAnswer(List<String> playerAnswer) {
-        boolean feedback = true;
-
-        for(int i = 0;i<answers.size() && feedback;i++){
-            if(!answers.get(i).equals(playerAnswer.get(i)))
-                feedback = false;
-        }
-
-        if(feedback){
-            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
-        }
-        else {
-            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
-            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
-        }
-
-        return feedback;
     }
 
     @Override

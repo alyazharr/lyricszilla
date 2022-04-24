@@ -21,9 +21,9 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public String play() {
-        var EasyQnA = gameType.getEasyQnA();
-        question = EasyQnA.get(0);
-        answer = EasyQnA.get(1);
+        var easyQnA = gameType.getEasyQnA();
+        question = easyQnA.get(0);
+        answer = easyQnA.get(1);
 
         return question;
     }
@@ -52,7 +52,7 @@ public class EasyLevelState extends GameLevel {
     @Override
     public void changeState() {
         if(playGame.getQuestionCounter()==3){
-            playGame.setCurrentState(playGame.mediumLevelState);
+            playGame.setCurrentState(playGame.getMediumLevelState());
         }
     }
 

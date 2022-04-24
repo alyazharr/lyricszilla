@@ -38,7 +38,7 @@ public class BlankFeatureImpl implements BlankFeature {
         Map<Integer, Boolean> traceLineLocation = new HashMap<>();
         List<String> realPresentLyric = getRealProcessLyric(song);
 
-        int numLoop =  level.equals(Level.EASY) ? 1 : level.equals(Level.MEDIUM) ? 3 : 5;
+        int numLoop =  getNumLoop(level);
         List<String> questionAnswer = new ArrayList<>(numLoop + 1);
 
         for (var i = 0; i < numLoop; i++) {
@@ -74,12 +74,7 @@ public class BlankFeatureImpl implements BlankFeature {
             int size,
             int i) {
 
-        int intervalEnhancer;
-        if (level.equals(Level.EASY)) {
-            intervalEnhancer =  size;
-        }
-
-        intervalEnhancer = level.equals(Level.MEDIUM) ? 5 : 3;
+        var intervalEnhancer = getIntervalEnhancer(level, size);
         int blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
         traceLineLocation.put(blankLineLocation, true);
 
@@ -114,5 +109,17 @@ public class BlankFeatureImpl implements BlankFeature {
             lyrics.set(targetBlankLocation, String.format("(%d) _ _ _ _ _ _ _ _", i + 1));
             questionAnswer.add(targetBlankWord);
         }
+    }
+
+    private int getNumLoop(Level level) {
+        if (level.equals(Level.EASY)) return 1;
+        else if (level.equals(Level.MEDIUM)) return 3;
+        else return 5;
+    }
+
+    private int getIntervalEnhancer(Level level, int size) {
+        if (level.equals(Level.EASY)) return size;
+        else if (level.equals(Level.MEDIUM)) return 5;
+        else return 3;
     }
 }

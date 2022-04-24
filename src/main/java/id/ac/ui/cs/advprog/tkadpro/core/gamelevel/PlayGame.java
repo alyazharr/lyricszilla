@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 public class PlayGame {
-    public EasyLevelState easyLevelState = new EasyLevelState(this);
-    public MediumLevelState mediumLevelState = new MediumLevelState(this);
-    public HardLevelState hardLevelState = new HardLevelState(this);
-    public GameLevel currentState;
+    private EasyLevelState easyLevelState = new EasyLevelState(this);
+    private MediumLevelState mediumLevelState = new MediumLevelState(this);
+    private HardLevelState hardLevelState = new HardLevelState(this);
+    private GameLevel currentState;
     private int questionCounter = 0;
     private int points = 0;
     private int hp = 100;

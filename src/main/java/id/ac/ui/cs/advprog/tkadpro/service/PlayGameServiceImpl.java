@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class PlayGameServiceImpl implements PlayGameService {
-    private PlayGame playGame = new PlayGame();
+    private final PlayGame playGame = new PlayGame();
 
     @Autowired
     private GameTypeRepository gameTypeRepository;
@@ -20,7 +20,7 @@ public class PlayGameServiceImpl implements PlayGameService {
     @Override
     public QuestionInfo startGame(TypeGame typeGame) {
         playGame.setFinished(false);
-        playGame.setCurrentState(playGame.easyLevelState);
+        playGame.setCurrentState(playGame.getEasyLevelState());
         playGame.setGameType(gameTypeRepository.findByType(typeGame));
 
         return generateQuestion();
@@ -33,16 +33,13 @@ public class PlayGameServiceImpl implements PlayGameService {
             question = playGame.play();
         }
 
-        var questionInfo = new QuestionInfo(playGame.getQuestionCounter(), playGame.getPoints(),
+        return new QuestionInfo(playGame.getQuestionCounter(), playGame.getPoints(),
                 playGame.getNumberOfAnswer(), playGame.getCurrentState().toString(), question, playGame.getHp());
-
-        return questionInfo;
     }
 
     @Override
     public boolean checkAnswer(List<String> answer) {
-        boolean isTrue = playGame.checkAnswer(answer);
-        return isTrue;
+        return playGame.checkAnswer(answer);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class BaseController {
         model.addAttribute("ans", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion());
-        model.addAttribute("hp", questionInfo.getHP());
+        model.addAttribute("hp", questionInfo.getHp());
 
         return "wordsblank/base_wordsblank";
     }
@@ -77,7 +77,7 @@ public class BaseController {
         model.addAttribute("ans", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion());
-        model.addAttribute("hp", questionInfo.getHP());
+        model.addAttribute("hp", questionInfo.getHp());
 
         return "lyricspatch/base_lyricspatch";
     }
