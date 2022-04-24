@@ -37,16 +37,29 @@
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" style="background: #FFD66B">
                 <div class="sm:flex sm:items-start">
                     <div class="mx-auto flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-red-100 sm:mx-0 sm:h-16 sm:w-16">
-                        <img class="h-15 w-15" src="" th:src="@{/img/lyricspatch-icon.png}" alt="title-wordsblank" width="500"/>
+                        <img class="h-15 w-15" src="" th:src="@{/img/rules-icon.png}" width="500"/>
                     </div>
 
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left pt-6">
-                        <h3 class="text-xl leading-6 font-medium text-purple" id="modal-title"><b>Lyricspatch Rules</b></h3>
+                        <h3 class="text-xl leading-6 font-medium text-purple" id="modal-title">
+                            <b><span th:switch="${rules_id}">
+                                <span th:case="'1'">Starguess</span>
+                                <span th:case="'2'">Titleque</span>
+                                <span th:case="'3'">Wordsblank</span>
+                                <span th:case="'4'">Lyricspatch</span>
+                                <span th:case="*">NO GAME</span>
+                            </span></b></h3>
                         <div class="mt-2">
                             <p class="text-sm text-black"> 1.
                                 <span style="padding-left:7px"> Player will be given 20 question along the game</span></p>
                             <p class="text-sm text-black"> 2.
-                                <span style="padding-left:7px"> Player must guess the missing lines of the lyric question</span></p>
+                                <span style="padding-left:7px" th:switch="${rules_id}">
+                                    <span th:case="'1'">Player must guess the singer of the lyric that is given as question</span>
+                                    <span th:case="'2'">Player must guess the title of the lyric song that is given as question</span>
+                                    <span th:case="'3'">Player must fill the missing word of the lyric song that is given as question</span>
+                                    <span th:case="'4'">Player must guess the missing lines of the lyric song that is given as question</span>
+                                    <span th:case="*">NO GAME</span>
+                                </span></p>
                             <p class="text-sm text-black"> 3.
                                 <span style="padding-left:7px"> The 20 questions will be divided into 3 levels: </span></p>
                             <p class="text-sm text-black" style="padding-left:30px"> a. Easy : 3 question</p>
@@ -61,9 +74,11 @@
                 </div>
             </div>
             <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse pb-6" style="background: #FFD66B">
+                <a th:href="@{../..}">
                 <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
                     <img class="scale-75" src="" th:src="@{/img/cancel-btn.png}" alt="cancel-btn"/>
                 </button>
+                </a>
                 <a th:href="@{/wordsblank/start}">
                 <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                     <img class="scale-75" src="" th:src="@{/img/start-btn.png}" alt="start-btn"/>
