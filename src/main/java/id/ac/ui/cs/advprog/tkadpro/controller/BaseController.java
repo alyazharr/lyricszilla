@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +60,7 @@ public class BaseController {
     @GetMapping(value="/rules/{rules_id}")
     public String RulesView(Model model, @PathVariable int rules_id){
         model.addAttribute("rulesId", rules_id);
-        return "modal/start_cancel_modal";
+        return "modal/rules_modal";
     }
 
 
@@ -74,7 +74,7 @@ public class BaseController {
         else
             model.addAttribute("message","Sorry, your answer is still wrong");
 
-        return "modal/true_ans_modal";
+        return "modal/feedback_modal";
     }
 
     @RequestMapping(path="/titleque", method=RequestMethod.GET)
@@ -130,20 +130,15 @@ public class BaseController {
 
     @RequestMapping(path="/rules", method=RequestMethod.GET)
     public String ModalTest(){
-        return "modal/start_cancel_modal";
+        return "modal/rules_modal";
     }
 
     @RequestMapping(path="/test-true-ans-modal", method=RequestMethod.GET)
     public String ModalTestTrue(){
-        return "modal/true_ans_modal";
+        return "modal/feedback_modal";
     }
 
-    @RequestMapping(path="/test-false-ans-modal", method=RequestMethod.GET)
-    public String ModalTestFalse(){
-        return "modal/false_ans_modal";
-    }
-
-    @RequestMapping(path="/test-stop-confirm-modal", method=RequestMethod.GET)
+    @RequestMapping(path="/confirm-modal", method=RequestMethod.GET)
     public String ModalTestConfirm(){
         return "modal/confirm_modal";
     }

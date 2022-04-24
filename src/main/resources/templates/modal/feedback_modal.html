@@ -32,8 +32,9 @@
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
         <div class="relative inline-block align-bottom rounded-lg text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
-            <div class="justify-center flex pt-6" style="background: #FFD66B;display: flex;justify-content: center">
-                <img class="h-9 w-9 justify-center flex" src="" th:src="@{/img/check-icon.png}" alt="check-icon" width="500"/>
+            <div class="justify-center flex pt-6" style="background: #FFD66B;display: flex;justify-content: center" th:switch="${feedback}">
+                <img th:case="'CORRECT'" class="h-9 w-9 justify-center flex" src="" th:src="@{/img/check-icon.png}" alt="check-icon" width="500"/>
+                <img th:case="*" class="h-9 w-9 justify-center flex" src="" th:src="@{/img/x-icon.png}" alt="check-icon" width="500"/>
             </div>
 
             <div class= "px-4 pt-5 pb-4 sm:p-6 sm:pb-4" style="background: #FFD66B;display: flex;justify-content: center">
@@ -56,10 +57,12 @@
                 </a>
             </div>
             <div class="flex justify-center pb-6" style="background: #FFD66B;">
-                <!--back to homepage-->
-                <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                    <img class="scale-75" src="" th:src="@{/img/quit-btn.png}" alt="quit-btn"/>
-                </button>
+                <!--confirm page ?-->
+                <a th:href="@{/confirm-modal}">
+                    <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        <img class="scale-75" src="" th:src="@{/img/quit-btn.png}" alt="quit-btn"/>
+                    </button>
+                </a>
             </div>
         </div>
     </div>
