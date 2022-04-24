@@ -51,7 +51,7 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public void changeState() {
-        if(playGame.getQuestionCounter()==3){
+        if(playGame.getQuestionCounter() == 4){
             playGame.setCurrentState(playGame.mediumLevelState);
         }
     }

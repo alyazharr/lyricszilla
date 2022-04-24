@@ -40,9 +40,9 @@
 
                 <div class="sm:flex sm:items-start">
                     <div class="mt-3 text-center sm:mt-0 sm:text-left">
-                        <h3 class="text-lg leading-6 font-medium text-purple " id="modal-title" style="text-align: center">Correct Answer</h3>
+                        <h3 class="text-lg leading-6 font-medium text-purple " id="modal-title" style="text-align: center" th:text="${feedback.equals('CORRECT') ? 'Correct Answer' : 'Wrong Answer'}">Answer</h3>
                         <div class="mt-2" style="display: flex;justify-content: center">
-                            <p class="text-sm text-black" >Congrats! You have solved this question</p>
+                            <p class="text-sm text-black" th:text="${message}">question</p>
                         </div>
                     </div>
                 </div>

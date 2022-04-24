@@ -33,10 +33,8 @@ public class PlayGameServiceImpl implements PlayGameService {
             question = playGame.play();
         }
 
-        var questionInfo = new QuestionInfo(playGame.getQuestionCounter(), playGame.getPoints(),
+        return new QuestionInfo(playGame.getQuestionCounter(), playGame.getPoints(),
                 playGame.getNumberOfAnswer(), playGame.getCurrentState().toString(), question, playGame.getHp());
-
-        return questionInfo;
     }
 
     @Override
@@ -55,6 +53,4 @@ public class PlayGameServiceImpl implements PlayGameService {
         playerAchievements.add(Integer.toString(playGame.getPoints()));
         return playerAchievements;
     }
-
-
 }

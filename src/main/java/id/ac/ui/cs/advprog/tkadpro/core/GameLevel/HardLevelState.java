@@ -23,7 +23,7 @@ public class HardLevelState extends GameLevel{
     public String play() {
         var hardQnA = gameType.getHardQnA();
         question = hardQnA.get(0);
-        answers = hardQnA.subList(1,-1);
+        answers = hardQnA.subList(1,hardQnA.size());
 
         return question;
     }

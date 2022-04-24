@@ -18,6 +18,4 @@ public abstract class GameLevel {
     public abstract void changeState();
     public abstract boolean checkAnswer(List<String> answer);
     public abstract int getNumberOfAnswer();
-//    public abstract String getAnswer();
-//    public abstract String getQuestion();
 }

@@ -23,7 +23,9 @@ public class PlayGame {
 
     public String play() {
         questionCounter++;
+        changeState();
         return currentState.play();
+//        return play;
     }
 
     public boolean checkAnswer(List<String> playerAnswer){

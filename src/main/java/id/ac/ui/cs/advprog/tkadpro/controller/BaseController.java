@@ -49,12 +49,12 @@ public class BaseController {
 
         model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
         model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHP());
 
-        return "redirect:/wordsblank/next";
+        return "wordsblank/base_wordsblank";
     }
 
     @GetMapping(value="/rules/{rules_id}")
@@ -70,7 +70,7 @@ public class BaseController {
 
         model.addAttribute("feedback", feedback);
         if(feedback.equals("CORRECT"))
-            model.addAttribute("message", "Congrats, you have solve this question");
+            model.addAttribute("message", "Congrats, you have solved this question");
         else
             model.addAttribute("message","Sorry, your answer is still wrong");
 
