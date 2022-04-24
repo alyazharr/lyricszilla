@@ -7,10 +7,10 @@ import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
 import java.util.*;
 
-public class WordsBlank extends GameType {
+public class Lyricspatch extends GameType {
     BlankFeature blankFeature;
 
-    public WordsBlank(SongDTO[] allSongs) {
+    public Lyricspatch(SongDTO[] allSongs) {
         super(allSongs);
         blankFeature = new BlankFeatureImpl();
     }
@@ -18,18 +18,19 @@ public class WordsBlank extends GameType {
     @Override
     public List<String> getEasyQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.EASY);
+        return blankFeature.generateBlankLine(song, TypeGame.LYRICSPATCH, Level.EASY);
     }
 
     @Override
     public List<String> getMediumQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.MEDIUM);
+        return blankFeature.generateBlankLine(song, TypeGame.LYRICSPATCH, Level.MEDIUM);
     }
 
     @Override
     public List<String> getHardQnA() {
         var song = allSongs[random.nextInt(allSongs.length)];
-        return blankFeature.generateBlankLine(song, TypeGame.WORDSBLANK, Level.HARD);
+        return blankFeature.generateBlankLine(song, TypeGame.LYRICSPATCH, Level.HARD);
     }
 }
+

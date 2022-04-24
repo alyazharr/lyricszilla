@@ -111,19 +111,44 @@ public class BaseController {
         return "starguess/base_starguess";
     }
 
-    @RequestMapping(path="/lyricspatch", method=RequestMethod.GET)
+    @RequestMapping(path="/lyricspatch/start", method=RequestMethod.GET)
     public String Lyricspatch(Model model){
-        int num = 13;
-        int score = 78;
-        int numOfAns = 5;
-        String level = "HARD";
-        String text = "Implementing lyrics here";
+        var questionInfo = playGameService.startGame(TypeGame.LYRICSPATCH);
 
-        model.addAttribute("numOfQuest", num);
-        model.addAttribute("score", score);
-        model.addAttribute("ans", numOfAns);
-        model.addAttribute("level", level);
-        model.addAttribute("txt", text);
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
+        model.addAttribute("hp", questionInfo.getHP());
+
+        return "lyricspatch/base_lyricspatch";
+    }
+
+    @PostMapping(value="/lyricspatch/check")
+    public String lyricspatchCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
+        String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+
+        model.addAttribute("feedback", feedback);
+        if(feedback.equals("CORRECT"))
+            model.addAttribute("message", "Congrats, you have solved this question");
+        else
+            model.addAttribute("message","Sorry, your answer is still wrong");
+
+        return "modal/true_ans_modal";
+    }
+
+    @RequestMapping(path="/lyricspatch/next", method=RequestMethod.GET)
+    public String Lyricspatchs(Model model){
+        var questionInfo = playGameService.generateQuestion();
+
+        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
+        model.addAttribute("score", questionInfo.getScore());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
+        model.addAttribute("level", questionInfo.getLevel());
+        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
+        model.addAttribute("hp", questionInfo.getHP());
+        System.out.println("questionInfo.getQuestion() : " + questionInfo.getQuestion());
 
         return "lyricspatch/base_lyricspatch";
     }

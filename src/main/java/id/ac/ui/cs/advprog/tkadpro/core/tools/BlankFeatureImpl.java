@@ -1,12 +1,14 @@
 package id.ac.ui.cs.advprog.tkadpro.core.tools;
 
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class BlankFeatureImpl implements BlankFeature {
-    private static final Random random = new Random();
+    private static final SecureRandom random = new SecureRandom();
     private static final int MAXSIZE = 15;
     private static final String NEWLINE = "\r\n";
     private static final String SPACE = " ";
@@ -14,7 +16,6 @@ public class BlankFeatureImpl implements BlankFeature {
     private Parser lineParser;
     private Joiner wordJoiner;
     private Parser wordParser;
-
 
     public BlankFeatureImpl(){
         lineJoiner = new Joiner(NEWLINE);
@@ -27,43 +28,38 @@ public class BlankFeatureImpl implements BlankFeature {
         String lyric = song.getLirik();
         List<String> rawLyric = lineParser.parseSentence(lyric);
 
-        int startPresentLine = random.nextInt( Math.max( 1, rawLyric.size() - MAXSIZE));
+        var startPresentLine = random.nextInt( Math.max( 1, rawLyric.size() - MAXSIZE));
 
         return rawLyric.subList(startPresentLine, startPresentLine + MAXSIZE);
     }
 
     @Override
-    public List<String> generateBlankLine(SongDTO song, Level level) {
+    public List<String> generateBlankLine(SongDTO song, TypeGame typeGame, Level level) {
         Map<Integer, Boolean> traceLineLocation = new HashMap<>();
         List<String> realPresentLyric = getRealProcessLyric(song);
 
-        int numLoop =  level.equals(Level.EASY) ? 1 : level.equals(Level.MEDIUM) ? 3 : 5;
-        List<String> QnA = new ArrayList<>(numLoop + 1);
+        int numLoop =  getNumLoop(level);
+        List<String> questionAnswer = new ArrayList<>(numLoop + 1);
 
-        for (int i = 0; i < numLoop; i++) {
-            int targetBlankWordLineLocation = getValidTargetBlankLineLocation(traceLineLocation,
+        for (var i = 0; i < numLoop; i++) {
+            int targetBlankLineLocation = getValidTargetBlankLineLocation(traceLineLocation,
                     realPresentLyric, level, realPresentLyric.size(), i);
+            String targetBlankWord = realPresentLyric.get(targetBlankLineLocation);
 
-            String targetBlankWordLineLyric = realPresentLyric.get(targetBlankWordLineLocation);
-            List<String> parserBlankLineResult = wordParser.parseSentence(targetBlankWordLineLyric);
-            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, i);
-
-            //* join with realPresentLyric
-            realPresentLyric.set(targetBlankWordLineLocation, blankWordsAndAnswerResult.get(0));
-            QnA.add(blankWordsAndAnswerResult.get(1));
+            generateBlankLineForSpecificGameType(typeGame, realPresentLyric, questionAnswer, targetBlankWord, i, targetBlankLineLocation);
         }
 
         String question = lineJoiner.join(realPresentLyric);
-        QnA.add(0, question);
+        questionAnswer.add(0, question);
 
-        return QnA;
+        return questionAnswer;
     }
 
     private List<String> generateBlankWordsAndAnswer(List<String> parserBlankWordResult, int i) {
         List<String> blankWordsAndAnswer = new ArrayList<>(2);
-        int wordsBlankLocation = random.nextInt(parserBlankWordResult.size());
+        var wordsBlankLocation = random.nextInt(parserBlankWordResult.size());
         String answer = parserBlankWordResult.get(wordsBlankLocation);
-        parserBlankWordResult.set(wordsBlankLocation, String.format("(%d)_ _ _", i + 1));
+        parserBlankWordResult.set(wordsBlankLocation, String.format("(%d) _ _ _", i + 1));
 
         blankWordsAndAnswer.add(wordJoiner.join(parserBlankWordResult));
         blankWordsAndAnswer.add(answer);
@@ -78,7 +74,7 @@ public class BlankFeatureImpl implements BlankFeature {
             int size,
             int i) {
 
-        int intervalEnhancer = level.equals(Level.EASY) ? size : level.equals(Level.MEDIUM) ? 5 : 3;
+        var intervalEnhancer = getIntervalEnhancer(level, size);
         int blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
         traceLineLocation.put(blankLineLocation, true);
 
@@ -91,5 +87,39 @@ public class BlankFeatureImpl implements BlankFeature {
         }
 
         return blankLineLocation;
+    }
+
+    private void generateBlankLineForSpecificGameType(
+            TypeGame typeGame,
+            List<String> lyrics,
+            List<String> questionAnswer,
+            String targetBlankWord,
+            int  i,
+            int targetBlankLocation) {
+
+        if (typeGame.equals(TypeGame.WORDSBLANK)) {
+            List<String> parserBlankLineResult = wordParser.parseSentence(targetBlankWord);
+            List<String> blankWordsAndAnswerResult = generateBlankWordsAndAnswer(parserBlankLineResult, i);
+
+            //* join with realPresentLyric
+            lyrics.set(targetBlankLocation, blankWordsAndAnswerResult.get(0));
+            questionAnswer.add(blankWordsAndAnswerResult.get(1));
+
+        } else if (typeGame.equals(TypeGame.LYRICSPATCH)) {
+            lyrics.set(targetBlankLocation, String.format("(%d) _ _ _ _ _ _ _ _", i + 1));
+            questionAnswer.add(targetBlankWord);
+        }
+    }
+
+    private int getNumLoop(Level level) {
+        if (level.equals(Level.EASY)) return 1;
+        else if (level.equals(Level.MEDIUM)) return 3;
+        else return 5;
+    }
+
+    private int getIntervalEnhancer(Level level, int size) {
+        if (level.equals(Level.EASY)) return size;
+        else if (level.equals(Level.MEDIUM)) return 5;
+        else return 3;
     }
 }

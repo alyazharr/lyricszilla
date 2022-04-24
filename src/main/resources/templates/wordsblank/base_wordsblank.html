@@ -102,7 +102,7 @@
                 <!-- Field jawaban -->
                 <!-- TODO : Not yet creating any form here-->
                 <div style="padding-top: 17px">
-                    <form th:action="@{/wordsblank/check}" method="post">
+                    <form th:action="@{/lyricspatch/check}" method="post">
                         <div th:each="num : ${#numbers.sequence(1,numberOfAns)}" style="padding-top:10px">
                             <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
                                 Answer (<span th:text="${num}"></span><span>)</span>

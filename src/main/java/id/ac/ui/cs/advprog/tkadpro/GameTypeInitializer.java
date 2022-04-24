@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro;
 
+import id.ac.ui.cs.advprog.tkadpro.core.GameType.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.GameType.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
@@ -35,9 +36,11 @@ public class GameTypeInitializer {
         songRepository.saveAll(Arrays.asList(songs));
 
         var wordsBlank = new WordsBlank(songs);
+        var lyricspatch = new Lyricspatch(songs);
         // Todo :
         // - Add other gameType into repository
 
         gameTypeRepository.add(TypeGame.WORDSBLANK, wordsBlank);
+        gameTypeRepository.add(TypeGame.LYRICSPATCH, lyricspatch);
     }
 }

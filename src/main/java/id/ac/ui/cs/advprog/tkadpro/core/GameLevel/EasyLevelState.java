@@ -24,12 +24,16 @@ public class EasyLevelState extends GameLevel {
         var EasyQnA = gameType.getEasyQnA();
         question = EasyQnA.get(0);
         answer = EasyQnA.get(1);
+        System.out.println("question " + question);
+        System.out.println("answer [" + answer + "]");
 
         return question;
     }
 
     @Override
     public boolean checkAnswer(List<String> playerAnswer){
+//        System.out.println("ANS USER: " + playerAnswer.get(0));
+//        System.out.println("ANS ASLI: " + answer);
         boolean feedback = false;
 
         if(answer.equals(playerAnswer.get(0))){
