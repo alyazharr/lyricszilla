@@ -8,6 +8,6 @@ import java.util.List;
 public interface PlayGameService {
     public QuestionInfo startGame(TypeGame typeGame);
     public QuestionInfo generateQuestion();
-    public boolean checkAnswer(List<String> answer);
+    public String checkAnswer(List<String> answer);
     public List<String> finishGame();
 }

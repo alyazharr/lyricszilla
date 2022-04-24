@@ -40,9 +40,13 @@ public class PlayGameServiceImpl implements PlayGameService {
     }
 
     @Override
-    public boolean checkAnswer(List<String> answer) {
+    public String checkAnswer(List<String> answer) {
         boolean isTrue = playGame.checkAnswer(answer);
-        return isTrue;
+
+        if(isTrue)
+            return "CORRECT";
+
+        return "WRONG";
     }
 
     @Override

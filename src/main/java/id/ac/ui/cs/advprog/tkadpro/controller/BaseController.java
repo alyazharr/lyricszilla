@@ -4,10 +4,15 @@ import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.model.UserAnswer;
 import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -27,10 +32,11 @@ public class BaseController {
 
         model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
         model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("ans", questionInfo.getNumberOfAnswer());
+        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHP());
+        model.addAttribute("userAnswer", new UserAnswer());
 
         return "wordsblank/base_wordsblank";
     }
@@ -52,6 +58,20 @@ public class BaseController {
     @RequestMapping(path="/wordsblank/true", method=RequestMethod.GET)
     public String ModalTrue(Model model){
         return "";
+    }
+
+
+    @PostMapping(value="/wordsblank/check")
+    public String WordsblankCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
+        String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+
+        model.addAttribute("feedback", feedback);
+        if(feedback.equals("CORRECT"))
+            model.addAttribute("message", "Congrats, you have solve this question");
+        else
+            model.addAttribute("message","Sorry, your answer is still wrong");
+
+        return "modal/true_ans_modal";
     }
 
     @RequestMapping(path="/titleque", method=RequestMethod.GET)
