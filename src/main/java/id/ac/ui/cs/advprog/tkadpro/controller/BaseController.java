@@ -5,6 +5,8 @@ import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,9 +50,10 @@ public class BaseController {
         return "redirect:/wordsblank/next";
     }
 
-    @RequestMapping(path="/wordsblank/true", method=RequestMethod.GET)
-    public String ModalTrue(Model model){
-        return "";
+    @GetMapping(value="/rules/{rules_id}")
+    public String RulesView(Model model, @PathVariable int rules_id){
+        model.addAttribute("rulesId", rules_id);
+        return "modal/start_cancel_modal";
     }
 
     @RequestMapping(path="/titleque", method=RequestMethod.GET)
@@ -104,7 +107,7 @@ public class BaseController {
         return "lyricspatch/base_lyricspatch";
     }
 
-    @RequestMapping(path="/wordsblank/rules", method=RequestMethod.GET)
+    @RequestMapping(path="/rules", method=RequestMethod.GET)
     public String ModalTest(){
         return "modal/start_cancel_modal";
     }
