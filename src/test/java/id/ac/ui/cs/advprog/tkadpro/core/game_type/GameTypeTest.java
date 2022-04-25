@@ -2,13 +2,15 @@ package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GameTypeTest {
+class GameTypeTest {
     private Class<?> gameTypeClass;
 
     @BeforeEach
@@ -17,31 +19,14 @@ public class GameTypeTest {
     }
 
     @Test
-    public void testGameTypeIsAbstractClass() {
+    void testGameTypeIsAbstractClass() {
         assertTrue(Modifier.isAbstract(gameTypeClass.getModifiers()));
     }
 
-    @Test
-    public void testGameTypeHasGetEasyQnAAbstractMethod() throws Exception {
-        Method getEasyQnA = gameTypeClass.getDeclaredMethod("getEasyQnA");
-        int methodModifiers = getEasyQnA.getModifiers();
-
-        assertTrue(Modifier.isAbstract(methodModifiers));
-        assertEquals(0, getEasyQnA.getParameterCount());
-    }
-
-    @Test
-    public void testGameTypeHasGetMediumQnAAbstractMethod() throws Exception {
-        Method getEasyQnA = gameTypeClass.getDeclaredMethod("getMediumQnA");
-        int methodModifiers = getEasyQnA.getModifiers();
-
-        assertTrue(Modifier.isAbstract(methodModifiers));
-        assertEquals(0, getEasyQnA.getParameterCount());
-    }
-
-    @Test
-    public void testGameTypeHasGetHardQnAAbstractMethod() throws Exception {
-        Method getEasyQnA = gameTypeClass.getDeclaredMethod("getHardQnA");
+    @ParameterizedTest
+    @ValueSource(strings = {"getEasyQnA", "getMediumQnA", "getHardQnA"})
+    void testGameTypeHasGetQnAAbstractMethod(String argument) throws Exception {
+        Method getEasyQnA = gameTypeClass.getDeclaredMethod(argument);
         int methodModifiers = getEasyQnA.getModifiers();
 
         assertTrue(Modifier.isAbstract(methodModifiers));

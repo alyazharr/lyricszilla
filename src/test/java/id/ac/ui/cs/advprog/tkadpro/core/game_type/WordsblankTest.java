@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WordsblankTest {
+class WordsblankTest {
     private SongDTO[] songDTO = new SongDTO[1];
     private Class<?> wordsblankClass;
     private WordsBlank wordsblank;
@@ -41,12 +41,12 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testWordsBlankIsConcreteClass() {
+    void testWordsBlankIsConcreteClass() {
         assertFalse(Modifier.isAbstract(wordsblankClass.getModifiers()));
     }
 
     @Test
-    public void testWordsBlankOverrideGetEasyQnAMethod() throws Exception {
+    void testWordsBlankOverrideGetEasyQnAMethod() throws Exception {
         Method getEasyQnA = wordsblankClass.getDeclaredMethod("getEasyQnA");
 
         assertTrue(Modifier.isPublic(getEasyQnA.getModifiers()));
@@ -54,13 +54,13 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testReturnTypeForGetEasyQnA() throws Exception {
+    void testReturnTypeForGetEasyQnA() throws Exception {
         Method getEasyQnA = wordsblankClass.getDeclaredMethod("getEasyQnA");
         assertEquals(List.class, getEasyQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForGetEasyQnA() {
+    void testEqualsReturnStatementForGetEasyQnA() {
         List<String> questionAnswer = wordsblank.getEasyQnA();
         String question = questionAnswer.get(0);
         String answer = questionAnswer.get(1);
@@ -71,7 +71,7 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testWordsBlankOverrideGetMediumQnAMethod() throws Exception {
+    void testWordsBlankOverrideGetMediumQnAMethod() throws Exception {
         Method getMediumQnA = wordsblankClass.getDeclaredMethod("getMediumQnA");
 
         assertTrue(Modifier.isPublic(getMediumQnA.getModifiers()));
@@ -79,13 +79,13 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testReturnTypeForGetMediumQnA() throws Exception {
+    void testReturnTypeForGetMediumQnA() throws Exception {
         Method getMediumQnA = wordsblankClass.getDeclaredMethod("getMediumQnA");
         assertEquals(List.class, getMediumQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForgetMediumQnA() {
+    void testEqualsReturnStatementForgetMediumQnA() {
         List<String> questionAnswer = wordsblank.getMediumQnA();
         String question = questionAnswer.get(0);
 
@@ -94,7 +94,7 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testWordsBlankOverrideGetHardQnAMethod() throws Exception {
+    void testWordsBlankOverrideGetHardQnAMethod() throws Exception {
         Method getHardQnA = wordsblankClass.getDeclaredMethod("getHardQnA");
 
         assertTrue(Modifier.isPublic(getHardQnA.getModifiers()));
@@ -102,13 +102,13 @@ public class WordsblankTest {
     }
 
     @Test
-    public void testReturnTypeForGetHardQnA() throws Exception {
+    void testReturnTypeForGetHardQnA() throws Exception {
         Method getHardQnA = wordsblankClass.getDeclaredMethod("getHardQnA");
         assertEquals(List.class, getHardQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForGetHardQnA() {
+    void testEqualsReturnStatementForGetHardQnA() {
         List<String> questionAnswer = wordsblank.getHardQnA();
         String question = questionAnswer.get(0);
 

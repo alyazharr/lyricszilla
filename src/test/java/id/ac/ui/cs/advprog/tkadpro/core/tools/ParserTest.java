@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class ParserTest {
+ class ParserTest {
     private Class<?> parserClass;
     private Parser lineParser;
     private Parser wordParser;
@@ -20,25 +20,25 @@ public class ParserTest {
     private String stringAnswer;
 
     @BeforeEach
-    public void setUp() throws Exception {
+     public void setUp() throws Exception {
         parserClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.tools.Parser");
         lineParser = new Parser("\r\n");
         wordParser = new Parser(" ");
     }
 
     @Test
-    public void testParserIsConcreteClass() {
+     void testParserIsConcreteClass() {
         assertFalse(Modifier.isAbstract(parserClass.getModifiers()));
     }
 
     @Test
-    public void testReturnTypeForParseSentence() throws Exception {
+     void testReturnTypeForParseSentence() throws Exception {
         Method parseSentence = parserClass.getDeclaredMethod("parseSentence", String.class);
         assertEquals(List.class, parseSentence.getReturnType());
     }
 
     @Test
-    public void testJoinShouldReturnCorrectlyForQuestion() {
+     void testJoinShouldReturnCorrectlyForQuestion() {
         stringQuestion = "Well, you only need the _ _ _ when it's burning low\r\n" +
                 "Only _ _ _ the sun when it starts to snow";
         assertEquals(Arrays.asList(
@@ -49,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testJoinShouldReturnCorrectlyForAnswer() {
+     void testJoinShouldReturnCorrectlyForAnswer() {
         stringAnswer = "Hello World!, This is Spring Boot";
         assertEquals(
                 Arrays.asList("Hello", "World!,", "This", "is", "Spring", "Boot"),

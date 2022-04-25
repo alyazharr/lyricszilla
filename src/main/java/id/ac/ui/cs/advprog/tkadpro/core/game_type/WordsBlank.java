@@ -1,7 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
-import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeature;
 import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeatureImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 

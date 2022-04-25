@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LyricspatchTest {
+class LyricspatchTest {
     private SongDTO[] songDTO = new SongDTO[1];
     private Class<?> lyricspatchClass;
     private Lyricspatch lyricspatch;
@@ -41,12 +41,12 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testLyricspatchIsConcreteClass() {
+    void testLyricspatchIsConcreteClass() {
         assertFalse(Modifier.isAbstract(lyricspatchClass.getModifiers()));
     }
 
     @Test
-    public void testLyricspatchOverrideGetEasyQnAMethod() throws Exception {
+    void testLyricspatchOverrideGetEasyQnAMethod() throws Exception {
         Method getEasyQnA = lyricspatchClass.getDeclaredMethod("getEasyQnA");
 
         assertTrue(Modifier.isPublic(getEasyQnA.getModifiers()));
@@ -54,13 +54,13 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testReturnTypeForGetEasyQnA() throws Exception {
+    void testReturnTypeForGetEasyQnA() throws Exception {
         Method getEasyQnA = lyricspatchClass.getDeclaredMethod("getEasyQnA");
         assertEquals(List.class, getEasyQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForGetEasyQnA() {
+    void testEqualsReturnStatementForGetEasyQnA() {
         List<String> questionAnswer = lyricspatch.getEasyQnA();
         String question = questionAnswer.get(0);
         String answer = questionAnswer.get(1);
@@ -71,7 +71,7 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testLyricspatchOverrideGetMediumQnAMethod() throws Exception {
+    void testLyricspatchOverrideGetMediumQnAMethod() throws Exception {
         Method getMediumQnA = lyricspatchClass.getDeclaredMethod("getMediumQnA");
 
         assertTrue(Modifier.isPublic(getMediumQnA.getModifiers()));
@@ -79,13 +79,13 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testReturnTypeForGetMediumQnA() throws Exception {
+    void testReturnTypeForGetMediumQnA() throws Exception {
         Method getMediumQnA = lyricspatchClass.getDeclaredMethod("getMediumQnA");
         assertEquals(List.class, getMediumQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForgetMediumQnA() {
+    void testEqualsReturnStatementForgetMediumQnA() {
         List<String> questionAnswer = lyricspatch.getMediumQnA();
         String question = questionAnswer.get(0);
 
@@ -94,7 +94,7 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testLyricspatchOverrideGetHardQnAMethod() throws Exception {
+    void testLyricspatchOverrideGetHardQnAMethod() throws Exception {
         Method getHardQnA = lyricspatchClass.getDeclaredMethod("getHardQnA");
 
         assertTrue(Modifier.isPublic(getHardQnA.getModifiers()));
@@ -102,13 +102,13 @@ public class LyricspatchTest {
     }
 
     @Test
-    public void testReturnTypeForGetHardQnA() throws Exception {
+    void testReturnTypeForGetHardQnA() throws Exception {
         Method getHardQnA = lyricspatchClass.getDeclaredMethod("getHardQnA");
         assertEquals(List.class, getHardQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForGetHardQnA() {
+    void testEqualsReturnStatementForGetHardQnA() {
         List<String> questionAnswer = lyricspatch.getHardQnA();
         String question = questionAnswer.get(0);
 

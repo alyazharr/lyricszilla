@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BlankFeatureImplTest {
+class BlankFeatureImplTest {
     private Class<?> blankFeatureImplClass;
     private BlankFeature blankFeature;
 
@@ -23,12 +23,12 @@ public class BlankFeatureImplTest {
     }
 
     @Test
-    public void testBlankFeatureIsConcreteClass() {
+    void testBlankFeatureIsConcreteClass() {
         assertFalse(Modifier.isAbstract(blankFeatureImplClass.getModifiers()));
     }
 
     @Test
-    public void testBlankFeatureOverrideGenerateQnAMethod() throws Exception {
+    void testBlankFeatureOverrideGenerateQnAMethod() throws Exception {
         Method generateQnA = blankFeatureImplClass.getDeclaredMethod("generateQnA", SongDTO.class, TypeGame.class, Level.class);
 
         assertTrue(Modifier.isPublic(generateQnA.getModifiers()));
@@ -36,13 +36,13 @@ public class BlankFeatureImplTest {
     }
 
     @Test
-    public void testReturnTypeForGenerateQnA() throws Exception {
+    void testReturnTypeForGenerateQnA() throws Exception {
         Method generateQnA = blankFeatureImplClass.getDeclaredMethod("generateQnA", SongDTO.class, TypeGame.class, Level.class);
         assertEquals(List.class, generateQnA.getReturnType());
     }
 
     @Test
-    public void testEqualsReturnStatementForGenerateQnA() {
+    void testEqualsReturnStatementForGenerateQnA() {
         SongDTO[] songDTO = new SongDTO[1];
         songDTO[0] = new SongDTO("Let Her Go", "Passenger",
                 "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +

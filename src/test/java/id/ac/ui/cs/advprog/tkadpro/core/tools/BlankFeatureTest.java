@@ -12,16 +12,16 @@ import java.lang.reflect.Modifier;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class BlankFeatureTest {
+ class BlankFeatureTest {
     private Class<?> blankFeatureClass;
 
     @BeforeEach
-    public void setup() throws Exception {
+     public void setup() throws Exception {
         blankFeatureClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeature");
     }
 
     @Test
-    public void testBlankFeatureIsAPublicInterface() {
+     void testBlankFeatureIsAPublicInterface() {
         int classModifiers = blankFeatureClass.getModifiers();
 
         assertTrue(Modifier.isPublic(classModifiers));
@@ -29,7 +29,7 @@ public class BlankFeatureTest {
     }
 
     @Test
-    public void testItemHasGenerateQnAAbstractMethod() throws Exception {
+     void testItemHasGenerateQnAAbstractMethod() throws Exception {
         Method getName = blankFeatureClass.getDeclaredMethod("generateQnA", SongDTO.class, TypeGame.class, Level.class);
         int methodModifiers = getName.getModifiers();
 
