@@ -6,7 +6,7 @@ import java.lang.reflect.Modifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MediumModifierTest {
+class MediumModifierTest {
     private Class<?> mediumModifierClass;
     private Class<?> abstractModifierClass;
 
@@ -17,12 +17,12 @@ public class MediumModifierTest {
     }
 
     @Test
-    public void testEasyModifierIsConcreteClass() {
+    void testEasyModifierIsConcreteClass() {
         assertFalse(Modifier.isAbstract(mediumModifierClass.getModifiers()));
     }
 
     @Test
-    public void testEasyModifierIsAExtendsFromAbstractModifier(){
+    void testEasyModifierIsAExtendsFromAbstractModifier(){
         assertTrue(abstractModifierClass.isAssignableFrom(mediumModifierClass));
     }
 }

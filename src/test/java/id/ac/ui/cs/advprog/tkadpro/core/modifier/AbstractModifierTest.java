@@ -10,7 +10,7 @@ import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AbstractModifierTest {
+class AbstractModifierTest {
     private Class<?> abstractModifierClass;
 
     @BeforeEach
@@ -19,12 +19,12 @@ public class AbstractModifierTest {
     }
 
     @Test
-    public void testAbstractModifierIsAbstractClass() {
+    void testAbstractModifierIsAbstractClass() {
         assertTrue(Modifier.isAbstract(abstractModifierClass.getModifiers()));
     }
 
     @Test
-    public void testAbstractModifierHasGetDecrementPointMethod() throws Exception {
+    void testAbstractModifierHasGetDecrementPointMethod() throws Exception {
         Method getDecrementPoint = abstractModifierClass.getDeclaredMethod("getDecrementPoint");
         int methodModifiers = getDecrementPoint.getModifiers();
 
@@ -33,7 +33,7 @@ public class AbstractModifierTest {
     }
 
     @Test
-    public void testAbstractModifierHasGetIncrementPointMethod() throws Exception {
+    void testAbstractModifierHasGetIncrementPointMethod() throws Exception {
         Method getIncrementPoint = abstractModifierClass.getDeclaredMethod("getIncrementPoint");
         int methodModifiers = getIncrementPoint.getModifiers();
 
@@ -42,7 +42,7 @@ public class AbstractModifierTest {
     }
 
     @Test
-    public void testAbstractModifierHasGetDecrementHPMethod() throws Exception {
+    void testAbstractModifierHasGetDecrementHPMethod() throws Exception {
         Method getDecrementHP = abstractModifierClass.getDeclaredMethod("getDecrementHP");
         int methodModifiers = getDecrementHP.getModifiers();
 
@@ -51,7 +51,7 @@ public class AbstractModifierTest {
     }
 
     @Test
-    public void testAbstractModifierIsAModifier(){
+    void testAbstractModifierIsAModifier(){
         Collection<Type> interfaces = Arrays.asList(abstractModifierClass.getInterfaces());
 
         assertTrue(interfaces.stream()
