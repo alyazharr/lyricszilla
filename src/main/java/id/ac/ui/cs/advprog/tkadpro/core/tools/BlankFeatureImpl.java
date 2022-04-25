@@ -17,7 +17,7 @@ public class BlankFeatureImpl implements BlankFeature {
     private Joiner wordJoiner;
     private Parser wordParser;
 
-    public BlankFeatureImpl(){
+    public BlankFeatureImpl() {
         lineJoiner = new Joiner(NEWLINE);
         lineParser = new Parser(NEWLINE);
         wordJoiner = new Joiner(SPACE);
@@ -34,7 +34,7 @@ public class BlankFeatureImpl implements BlankFeature {
     }
 
     @Override
-    public List<String> generateBlankLine(SongDTO song, TypeGame typeGame, Level level) {
+    public List<String> generateQnA(SongDTO song, TypeGame typeGame, Level level) {
         Map<Integer, Boolean> traceLineLocation = new HashMap<>();
         List<String> realPresentLyric = getRealProcessLyric(song);
 
