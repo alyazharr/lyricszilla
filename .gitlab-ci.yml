@@ -46,6 +46,7 @@ sonarqube-check:
     - master
     - staging
     - feature/wordsblank
+    - feature/lyricspatch
 
 .deployment: &deployment_definition
     stage: deploy

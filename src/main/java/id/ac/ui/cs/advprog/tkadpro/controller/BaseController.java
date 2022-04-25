@@ -1,20 +1,16 @@
 package id.ac.ui.cs.advprog.tkadpro.controller;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
-import id.ac.ui.cs.advprog.tkadpro.model.UserAnswer;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 
 @Controller
 @RequestMapping("")
@@ -22,154 +18,136 @@ public class BaseController {
     @Autowired
     private PlayGameService playGameService;
 
-    @RequestMapping(path="/login", method = RequestMethod.GET)
-    public String loginPage(){return "login/login";}
+    private static final String WORDSBLANK = "wordsblank";
+    private static final String LYRICSPATCH = "lyricspatch";
+    private static final String STARGUESS = "starquess";
+    private static final String TITLEQUE = "titleque";
+    private static final String GAMETYPE = "gameType";
+    private static final String FEEDBACKMODAL = "modal/feedback_modal";
+    private static final String RULESMODAL = "modal/rules_modal";
+    private static final String BASEWORDSBLANK = "wordsblank/base_wordsblank";
+    private static final String BASELYRICSPATCH = "lyricspatch/base_lyricspatch";
 
-    @RequestMapping(path="", method=RequestMethod.GET)
-    public String homePage(){return "homepage/homepage";}
+    @GetMapping(value="/login")
+    public String loginPage(){
+        return "login/login";
+    }
 
-    @RequestMapping(path="/wordsblank/start", method=RequestMethod.GET)
-    public String Wordsblank(Model model){
+    @GetMapping(value="")
+    public String homePage(){
+        return "homepage/homepage";
+    }
+
+    @GetMapping(value="/wordsblank/start")
+    public String wordsblank(Model model){
         var questionInfo = playGameService.startGame(TypeGame.WORDSBLANK);
+        generateModel(model, questionInfo, WORDSBLANK);
 
-        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
-        model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
-        model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
-        model.addAttribute("hp", questionInfo.getHP());
-        model.addAttribute("userAnswer", new UserAnswer());
-
-        return "wordsblank/base_wordsblank";
+        return BASEWORDSBLANK;
     }
 
-    @RequestMapping(path="/wordsblank/next", method=RequestMethod.GET)
-    public String WordsblankNext(Model model){
+    @GetMapping(value="/wordsblank/next")
+    public String wordsblankNext(Model model){
         var questionInfo = playGameService.generateQuestion();
+        generateModel(model, questionInfo, WORDSBLANK);
 
-        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
-        model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
-        model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
-        model.addAttribute("hp", questionInfo.getHP());
-
-        return "wordsblank/base_wordsblank";
+        return BASEWORDSBLANK;
     }
 
-    @GetMapping(value="/rules/{rules_id}")
-    public String RulesView(Model model, @PathVariable int rules_id){
-        model.addAttribute("rulesId", rules_id);
-        return "modal/start_cancel_modal";
+    @GetMapping(value="/lyricspatch/start")
+    public String lyricspatch(Model model){
+        var questionInfo = playGameService.startGame(TypeGame.LYRICSPATCH);
+        generateModel(model, questionInfo, LYRICSPATCH);
+
+        return BASELYRICSPATCH;
     }
 
+    @GetMapping(value="/lyricspatch/next")
+    public String lyricspatchNext(Model model){
+        var questionInfo = playGameService.generateQuestion();
+        generateModel(model, questionInfo, LYRICSPATCH);
+
+        return BASELYRICSPATCH;
+    }
+
+    @GetMapping(value="/rules/{rulesId}")
+    public String rulesView(Model model, @PathVariable int rulesId) {
+        model.addAttribute("rulesId", rulesId);
+        String gameType;
+        if (rulesId == 1) gameType = STARGUESS;
+        else if (rulesId == 2) gameType = TITLEQUE;
+        else if (rulesId == 3) gameType = WORDSBLANK;
+        else gameType = LYRICSPATCH;
+        model.addAttribute(GAMETYPE, gameType);
+
+        return RULESMODAL;
+    }
 
     @PostMapping(value="/wordsblank/check")
-    public String WordsblankCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
-        String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+    public String wordsblankCheck(@RequestParam(value="ans") String[] playerAnswers, Model model) {
+        var feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+        generateModelCheck(model, feedback, WORDSBLANK);
 
-        model.addAttribute("feedback", feedback);
-        if(feedback.equals("CORRECT"))
-            model.addAttribute("message", "Congrats, you have solved this question");
-        else
-            model.addAttribute("message","Sorry, your answer is still wrong");
-
-        return "modal/true_ans_modal";
-    }
-
-    @RequestMapping(path="/titleque", method=RequestMethod.GET)
-    public String Titleque(Model model){
-        int num = 18;
-        int score = 97;
-        int numOfAns = 5;
-        String level = "HARD";
-        String text = "Implementing lyrics here";
-
-        model.addAttribute("numOfQuest", num);
-        model.addAttribute("score", score);
-        model.addAttribute("ans", numOfAns);
-        model.addAttribute("level", level);
-        model.addAttribute("txt", text);
-
-        return "titleque/base_titleque";
-    }
-
-    @RequestMapping(path="/starguess", method=RequestMethod.GET)
-    public String Starguess(Model model){
-        int num = 6;
-        int score = 53;
-        int numOfAns = 3;
-        String level = "MEDIUM";
-        String text = "Implementing lyrics here";
-
-        model.addAttribute("numOfQuest", num);
-        model.addAttribute("score", score);
-        model.addAttribute("ans", numOfAns);
-        model.addAttribute("level", level);
-        model.addAttribute("txt", text);
-
-        return "starguess/base_starguess";
-    }
-
-    @RequestMapping(path="/lyricspatch/start", method=RequestMethod.GET)
-    public String Lyricspatch(Model model){
-        var questionInfo = playGameService.startGame(TypeGame.LYRICSPATCH);
-
-        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
-        model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
-        model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
-        model.addAttribute("hp", questionInfo.getHP());
-
-        return "lyricspatch/base_lyricspatch";
+        return FEEDBACKMODAL;
     }
 
     @PostMapping(value="/lyricspatch/check")
     public String lyricspatchCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
         String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
+        generateModelCheck(model, feedback, LYRICSPATCH);
 
-        model.addAttribute("feedback", feedback);
-        if(feedback.equals("CORRECT"))
-            model.addAttribute("message", "Congrats, you have solved this question");
-        else
-            model.addAttribute("message","Sorry, your answer is still wrong");
-
-        return "modal/true_ans_modal";
+        return FEEDBACKMODAL;
     }
 
-    @RequestMapping(path="/lyricspatch/next", method=RequestMethod.GET)
-    public String Lyricspatchs(Model model){
-        var questionInfo = playGameService.generateQuestion();
+    @GetMapping(value="/titleque")
+    public String titleque(Model model) {
+        var questionInfo = new QuestionInfo(18, 97, 5, "HARD", "text", 84);
+        generateModel(model, questionInfo, TITLEQUE);
 
+        return "titleque/base_titleque";
+    }
+
+    @GetMapping(value="/starguess")
+    public String starguess(Model model) {
+        var questionInfo = new QuestionInfo(18, 97, 5, "HARD", "text", 84);
+        generateModel(model, questionInfo, STARGUESS);
+
+        return "starguess/base_starguess";
+    }
+
+    @GetMapping(value="/rules")
+    public String modalTest(){
+        return RULESMODAL;
+    }
+
+    @GetMapping(value="/test-true-ans-modal")
+    public String modalTestTrue(){
+        return FEEDBACKMODAL;
+    }
+
+    @GetMapping(value="/{typeGames}/confirm")
+    public String confirmModalView(Model model, @PathVariable String typeGames) {
+        model.addAttribute("typeGame", typeGames);
+        return "modal/confirm_modal";
+    }
+
+    public void generateModel(Model model, QuestionInfo questionInfo, String gameType) {
         model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
         model.addAttribute("score", questionInfo.getScore());
         model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
-        model.addAttribute("hp", questionInfo.getHP());
-        System.out.println("questionInfo.getQuestion() : " + questionInfo.getQuestion());
-
-        return "lyricspatch/base_lyricspatch";
+        model.addAttribute("hp", questionInfo.getHp());
+        model.addAttribute(GAMETYPE, gameType);
     }
 
-    @RequestMapping(path="/rules", method=RequestMethod.GET)
-    public String ModalTest(){
-        return "modal/start_cancel_modal";
-    }
+    public void generateModelCheck(Model model, String feedback, String gameType) {
+        model.addAttribute("feedback", feedback);
+        model.addAttribute(GAMETYPE, gameType);
 
-    @RequestMapping(path="/test-true-ans-modal", method=RequestMethod.GET)
-    public String ModalTestTrue(){
-        return "modal/true_ans_modal";
-    }
-
-    @RequestMapping(path="/test-false-ans-modal", method=RequestMethod.GET)
-    public String ModalTestFalse(){
-        return "modal/false_ans_modal";
-    }
-
-    @RequestMapping(path="/test-stop-confirm-modal", method=RequestMethod.GET)
-    public String ModalTestConfirm(){
-        return "modal/confirm_modal";
+        if(feedback.equals("CORRECT"))
+            model.addAttribute("message", "Congrats, you have solved this question");
+        else
+            model.addAttribute("message","Sorry, your answer is still wrong");
     }
 }

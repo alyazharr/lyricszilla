@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,21 +11,19 @@ import java.util.List;
 @Getter
 @Setter
 public class PlayGame {
-    public EasyLevelState easyLevelState = new EasyLevelState(this);
-    public MediumLevelState mediumLevelState = new MediumLevelState(this);
-    public HardLevelState hardLevelState = new HardLevelState(this);
-    public GameLevel currentState;
+    private EasyLevelState easyLevelState = new EasyLevelState(this);
+    private MediumLevelState mediumLevelState = new MediumLevelState(this);
+    private HardLevelState hardLevelState = new HardLevelState(this);
+    private GameLevel currentState;
     private int questionCounter = 0;
     private int points = 0;
     private int hp = 100;
     private boolean isFinished;
 
-
     public String play() {
         questionCounter++;
         changeState();
         return currentState.play();
-//        return play;
     }
 
     public boolean checkAnswer(List<String> playerAnswer){

@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.Modifier;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.Modifier;
 import lombok.Data;
 
 import java.util.List;
@@ -16,6 +16,6 @@ public abstract class GameLevel {
 
     public abstract String play();
     public abstract void changeState();
-    public abstract boolean checkAnswer(List<String> answer);
     public abstract int getNumberOfAnswer();
+    public abstract boolean checkAnswer(List<String> answer);
 }

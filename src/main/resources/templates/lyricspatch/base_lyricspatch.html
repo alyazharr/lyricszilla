@@ -84,16 +84,13 @@
                         <!-- TODO : implementing points here -->
                         <div class="flex justify-between h-12 px-4 pt-4">
                             <div class="text-purple text-lg">
-                                Points: <span class="text-red text-lg" th:text="${score}"></span>
+                                Points : <span class="text-red text-lg" th:text="${score}"></span>
                             </div>
 
                             <!-- TODO : implementing HP here -->
                             <div class="flex justify-between h-14 text-purple text-xl">
-                                <label for="HP" class="text-purple text-xl">HP:</label>
-                                <!--                            <progress id="HP" value="57" max="100" class="w-36 pl-2"> 57% </progress>-->
-                                <div class="bg-zinc-400 w-36 h-7 rounded-full ml-2 -mt-1.5" id="HP">
-                                    <div class="bg-green w-2/5 rounded-l-full px-2 pt-2 text-sm" th:text="${'60%'}">60%</div>
-                                    <!-- manipulasi class="w-1/4" based on game -->
+                                <div class="text-purple text-lg">
+                                    HP : <span class="text-red text-lg" th:text="${hp+'%'}"></span>
                                 </div>
                             </div>
                         </div>
@@ -117,9 +114,12 @@
                         <!-- TODO : Implementing submit and cancel here -->
                         <div class="flex">
                             <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
-                                <button type="submit" class="absolute" style="display: inline;float: left">
-                                    <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
-                                </button>
+                                <!-- Still Not Working: Must Seperate It From <form>-->
+                                <a th:href="@{/{game}/confirm(game=${gameType})}">
+                                <button class="absolute" style="display: inline;float: left">
+                                        <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
+                                    </button>
+                                </a>
                             </div>
                             <div class="grow h-14">
                             </div>

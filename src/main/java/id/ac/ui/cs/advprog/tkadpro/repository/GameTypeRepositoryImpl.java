@@ -1,17 +1,14 @@
 package id.ac.ui.cs.advprog.tkadpro.repository;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class GameTypeRepositoryImpl implements GameTypeRepository{
-    private Map<TypeGame,GameType> gameTypeData = new HashMap<>();
+    private final Map<TypeGame,GameType> gameTypeData = new EnumMap<>(TypeGame.class);
 
     @Override
     public List<GameType> findAll() {

@@ -9,14 +9,14 @@ public class QuestionInfo {
     private int numberOfAnswer;
     private String level;
     private String question;
-    private int HP;
+    private int hp;
 
-    public QuestionInfo(int questionNumber, int score, int numberOfAnswer, String level, String question, int HP) {
+    public QuestionInfo(int questionNumber, int score, int numberOfAnswer, String level, String question, int hp) {
         this.questionNumber = questionNumber;
         this.score = score;
         this.numberOfAnswer = numberOfAnswer;
         this.level = level;
         this.question = question;
-        this.HP = HP;
+        this.hp = hp;
     }
 }

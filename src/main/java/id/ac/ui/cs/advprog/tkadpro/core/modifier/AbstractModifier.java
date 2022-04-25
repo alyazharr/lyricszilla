@@ -1,11 +1,11 @@
-package id.ac.ui.cs.advprog.tkadpro.core.Modifier;
+package id.ac.ui.cs.advprog.tkadpro.core.modifier;
 
 public abstract class AbstractModifier implements Modifier{
     protected final int decrementPoint;
     protected final int incrementPoint;
     protected final int decrementHP;
 
-    public AbstractModifier(int decrementPoint, int incrementPoint, int decrementHP) {
+    protected AbstractModifier(int decrementPoint, int incrementPoint, int decrementHP) {
         this.decrementPoint = decrementPoint;
         this.incrementPoint = incrementPoint;
         this.decrementHP = decrementHP;

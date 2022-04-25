@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.EasyModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,19 +21,15 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public String play() {
-        var EasyQnA = gameType.getEasyQnA();
-        question = EasyQnA.get(0);
-        answer = EasyQnA.get(1);
-        System.out.println("question " + question);
-        System.out.println("answer [" + answer + "]");
+        var easyQnA = gameType.getEasyQnA();
+        question = easyQnA.get(0);
+        answer = easyQnA.get(1);
 
         return question;
     }
 
     @Override
     public boolean checkAnswer(List<String> playerAnswer){
-//        System.out.println("ANS USER: " + playerAnswer.get(0));
-//        System.out.println("ANS ASLI: " + answer);
         boolean feedback = false;
 
         if(answer.equals(playerAnswer.get(0))){
@@ -44,7 +40,6 @@ public class EasyLevelState extends GameLevel {
             playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
             playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
         }
-
         return feedback;
     }
 
@@ -56,7 +51,7 @@ public class EasyLevelState extends GameLevel {
     @Override
     public void changeState() {
         if(playGame.getQuestionCounter() == 4){
-            playGame.setCurrentState(playGame.mediumLevelState);
+            playGame.setCurrentState(playGame.getMediumLevelState());
         }
     }
 
