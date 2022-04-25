@@ -14,7 +14,7 @@ public class HardLevelState extends GameLevel{
     private String question;
 
     protected HardLevelState(PlayGame playGame) {
-        super(playGame);
+        super(playGame, "HARD", 5);
         modifier = new HardModifier(10, 50, 20);
     }
 
@@ -31,16 +31,6 @@ public class HardLevelState extends GameLevel{
     public void changeState() {
         if(playGame.getQuestionCounter()==20)
             playGame.setFinished(true);
-    }
-
-    @Override
-    public int getNumberOfAnswer() {
-        return 5;
-    }
-
-    @Override
-    public String toString() {
-        return "HARD";
     }
 
     @Override

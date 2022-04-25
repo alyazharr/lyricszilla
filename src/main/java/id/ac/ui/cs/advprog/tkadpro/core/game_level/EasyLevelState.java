@@ -14,7 +14,7 @@ public class EasyLevelState extends GameLevel {
     private String question;
 
     public EasyLevelState(PlayGame playGame){
-        super(playGame);
+        super(playGame, "EASY", 1);
         modifier = new EasyModifier(3, 10, 10);
     }
 
@@ -22,14 +22,9 @@ public class EasyLevelState extends GameLevel {
     public String play() {
         var easyQnA = gameType.getEasyQnA();
         question = easyQnA.get(0);
-        answers = easyQnA.subList(1,1);
+        answers = easyQnA.subList(1, easyQnA.size());
 
         return question;
-    }
-
-    @Override
-    public int getNumberOfAnswer() {
-        return 1;
     }
 
     @Override
@@ -37,11 +32,6 @@ public class EasyLevelState extends GameLevel {
         if(playGame.getQuestionCounter() == 4){
             playGame.setCurrentState(playGame.getMediumLevelState());
         }
-    }
-
-    @Override
-    public String toString() {
-        return "EASY";
     }
 
     @Override

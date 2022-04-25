@@ -14,7 +14,7 @@ public class MediumLevelState extends GameLevel{
     private String question;
 
     public MediumLevelState(PlayGame playGame){
-        super(playGame);
+        super(playGame, "MEDIUM", 3);
         modifier = new MediumModifier(5, 30, 15);
     }
 
@@ -32,16 +32,6 @@ public class MediumLevelState extends GameLevel{
         if(playGame.getQuestionCounter() == 11){
             playGame.setCurrentState(playGame.getHardLevelState());
         }
-    }
-
-    @Override
-    public int getNumberOfAnswer() {
-        return 3;
-    }
-
-    @Override
-    public String toString() {
-        return "MEDIUM";
     }
 
     @Override

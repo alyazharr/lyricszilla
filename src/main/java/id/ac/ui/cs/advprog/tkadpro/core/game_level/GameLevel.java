@@ -10,14 +10,18 @@ public abstract class GameLevel {
     protected PlayGame playGame;
     protected Modifier modifier;
     protected List<String> answers;
+    protected String level;
+    protected int numOfAnswer;
 
-    protected GameLevel(PlayGame playGame){
+    protected GameLevel(PlayGame playGame, String level, int numOfAnswer){
         this.playGame = playGame;
+        this.level = level;
+        this.numOfAnswer = numOfAnswer;
     }
 
     public abstract String play();
     public abstract void changeState();
-    public abstract int getNumberOfAnswer();
+
     public boolean checkAnswer(List<String> playerAnswer){
         var feedback = true;
 
@@ -35,5 +39,14 @@ public abstract class GameLevel {
         }
 
         return feedback;
+    }
+
+    public int getNumberOfAnswer() {
+        return numOfAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return level;
     }
 }
