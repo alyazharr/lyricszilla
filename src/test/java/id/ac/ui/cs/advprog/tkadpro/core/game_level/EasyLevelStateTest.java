@@ -1,34 +1,60 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
-import org.json.JSONString;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class EasyLevelStateTest {
+    private SongDTO[] songDTO = new SongDTO[1];
     private PlayGame playGame = new PlayGame();
+    private Class<?> EasyLevelStateClass;
     private EasyLevelState easyLevelState;
 
     @Mock
     private SongRepository songRepository;
 
-    @Test
-    public void constructorTest(){
+    @BeforeEach
+    public void setUp() throws Exception {
+        EasyLevelStateClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.game_level.EasyLevelState");
+        songDTO[0] = new SongDTO("Let Her Go", "Passenger",
+                "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
+                "Only miss the sun when it starts to snow\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "Only know you've been high when you're feeling low\r\n" +
+                "Only hate the road when you're missing home\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "And you let her go\r\n" +
+                "Staring at the bottom of your glass\r\n" +
+                "Hoping one day you'll make a dream last\r\n" +
+                "But dreams come slow, and they go so fast\r\n" +
+                "You see her when you close your eyes\r\n" +
+                "Maybe one day, you'll understand why\r\n" +
+                "Everything you touch surely dies\r\n" +
+                "But you only need the light when it's burning low\r\n" +
+                "Only miss the sun when it starts to snow\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "Only know you've been high when you're feeling low\r\n" +
+                "Only hate the road when you're missing home\r\n" +
+                "Only know you love her when you let her go");
         easyLevelState = new EasyLevelState(playGame);
+    }
 
+    @Test
+    public void testEqualsAttributeValueOnConstructorTest(){
         assertEquals(playGame,easyLevelState.getPlayGame());
         assertEquals("EASY",easyLevelState.getLevel());
         assertEquals(1,easyLevelState.getNumberOfAnswer());
@@ -36,27 +62,32 @@ public class EasyLevelStateTest {
     }
 
     @Test
-    public void playTest(){
-        easyLevelState = new EasyLevelState(playGame);
+    void testEasyLevelStateOverridePlayMethod() throws Exception {
+        Method play = EasyLevelStateClass.getDeclaredMethod("play");
 
-        List<SongDTO> mockListSong = new ArrayList<>();
-        mockListSong.add(new SongDTO());
+        assertTrue(Modifier.isPublic(play.getModifiers()));
+        assertEquals(0, play.getParameterCount());
+    }
 
-        lenient().when(songRepository.findAll()).thenReturn(mockListSong);
-        SongDTO[] songs = new SongDTO[songRepository.findAll().size()];
+    @Test
+    public void testReturnTypeStatementForPlay(){
+        easyLevelState.setGameType(new WordsBlank(songDTO));
 
-        songRepository.findAll().toArray(songs);
-        easyLevelState.setGameType(new WordsBlank(songs));
-
-        when(easyLevelState.play()).thenReturn("Song lyrics");
         String questions = easyLevelState.play();
 
         assertEquals(String.class, questions.getClass());
     }
 
     @Test
-    public void changeStateTest(){
-        easyLevelState = new EasyLevelState(playGame);
+    public void testEasyLevelStateOverrideChangeStateMethod() throws Exception {
+        Method changeState = EasyLevelStateClass.getDeclaredMethod("changeState");
+
+        assertTrue(Modifier.isPublic(changeState.getModifiers()));
+        assertEquals(0, changeState.getParameterCount());
+    }
+
+    @Test
+    public void testChangeState(){
         playGame.setQuestionCounter(4);
         easyLevelState.changeState();
 
