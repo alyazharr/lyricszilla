@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,6 @@ public class PlayGame {
     private int points = 0;
     private int hp = 100;
     private boolean isFinished;
-
 
     public String play() {
         questionCounter++;

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.tkadpro.core.Modifier;
+package id.ac.ui.cs.advprog.tkadpro.core.modifier;
 
 public abstract class AbstractModifier implements Modifier{
     protected final int decrementPoint;

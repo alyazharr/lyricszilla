@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.EasyModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +21,9 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public String play() {
-        var EasyQnA = gameType.getEasyQnA();
-        question = EasyQnA.get(0);
-        answer = EasyQnA.get(1);
+        var easyQnA = gameType.getEasyQnA();
+        question = easyQnA.get(0);
+        answer = easyQnA.get(1);
 
         return question;
     }

@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameLevel.PlayGame;
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

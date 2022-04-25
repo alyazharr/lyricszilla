@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.tkadpro.core.GameLevel;
+package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.GameType.GameType;
-import id.ac.ui.cs.advprog.tkadpro.core.Modifier.HardModifier;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.modifier.MediumModifier;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,36 +9,37 @@ import java.util.List;
 
 @Getter
 @Setter
-public class HardLevelState extends GameLevel{
+public class MediumLevelState extends GameLevel{
     private GameType gameType;
     private String question;
     private List<String> answers;
 
-    protected HardLevelState(PlayGame playGame) {
+    public MediumLevelState(PlayGame playGame){
         super(playGame);
-        modifier = new HardModifier(10, 50, 20);
+        modifier = new MediumModifier(5, 30, 15);
     }
 
     @Override
     public String play() {
-        var hardQnA = gameType.getHardQnA();
-        question = hardQnA.get(0);
-        answers = hardQnA.subList(1,hardQnA.size());
+        var mediumQnA = gameType.getMediumQnA();
+        question = mediumQnA.get(0);
+        answers = mediumQnA.subList(1,mediumQnA.size());
 
         return question;
     }
 
     @Override
     public void changeState() {
-        if(playGame.getQuestionCounter()==20)
-            playGame.setFinished(true);
+        if(playGame.getQuestionCounter() == 11){
+            playGame.setCurrentState(playGame.getHardLevelState());
+        }
     }
 
     @Override
     public boolean checkAnswer(List<String> playerAnswer) {
-        boolean feedback = true;
+        var feedback = true;
 
-        for(int i = 0;i<answers.size() && feedback;i++){
+        for(var i = 0;i<answers.size() && feedback;i++){
             if(!answers.get(i).equals(playerAnswer.get(i)))
                 feedback = false;
         }
@@ -56,11 +57,11 @@ public class HardLevelState extends GameLevel{
 
     @Override
     public int getNumberOfAnswer() {
-        return 5;
+        return 3;
     }
 
     @Override
     public String toString() {
-        return "HARD";
+        return "MEDIUM";
     }
 }
