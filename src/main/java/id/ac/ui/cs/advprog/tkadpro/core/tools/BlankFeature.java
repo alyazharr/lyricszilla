@@ -7,5 +7,5 @@ import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import java.util.List;
 
 public interface BlankFeature {
-    List<String> generateBlankLine(SongDTO song, TypeGame typeGame, Level level);
+    List<String> generateQnA(SongDTO song, TypeGame typeGame, Level level);
 }
