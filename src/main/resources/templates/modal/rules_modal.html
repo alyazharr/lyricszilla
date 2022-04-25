@@ -79,10 +79,10 @@
                     <img class="scale-75" src="" th:src="@{/img/cancel-btn.png}" alt="cancel-btn"/>
                 </button>
                 </a>
-                <a th:href="@{/wordsblank/start}">
-                <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                    <img class="scale-75" src="" th:src="@{/img/start-btn.png}" alt="start-btn"/>
-                </button>
+                <a th:href="@{/{game}/start(game=${gameType})}">
+                    <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        <img class="scale-75" src="" th:src="@{/img/start-btn.png}" alt="start-btn"/>
+                    </button>
                 </a>
             </div>
         </div>

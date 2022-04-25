@@ -38,6 +38,7 @@ public class BaseController {
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
+        model.addAttribute("gameType", "wordsblank");
 
         return "wordsblank/base_wordsblank";
     }
@@ -52,6 +53,7 @@ public class BaseController {
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
+        model.addAttribute("gameType", "wordsblank");
 
         return "wordsblank/base_wordsblank";
     }
@@ -59,6 +61,12 @@ public class BaseController {
     @GetMapping(value="/rules/{rules_id}")
     public String RulesView(Model model, @PathVariable int rules_id){
         model.addAttribute("rulesId", rules_id);
+        String gameType;
+        if (rules_id == 1) gameType = "starguess";
+        else if (rules_id == 2) gameType = "titleque";
+        else if (rules_id == 3) gameType = "wordsblank";
+        else gameType = "lyricspatch";
+        model.addAttribute("gameType", gameType);
         return "modal/rules_modal";
     }
 
@@ -120,6 +128,7 @@ public class BaseController {
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
+        model.addAttribute("gameType", "lyricspatch");
 
         return "lyricspatch/base_lyricspatch";
     }
@@ -134,6 +143,7 @@ public class BaseController {
         model.addAttribute("level", questionInfo.getLevel());
         model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
         model.addAttribute("hp", questionInfo.getHp());
+        model.addAttribute("gameType", "lyricspatch");
 
         return "lyricspatch/base_lyricspatch";
     }
@@ -163,8 +173,9 @@ public class BaseController {
         return "modal/feedback_modal";
     }
 
-    @RequestMapping(path="/confirm-modal", method=RequestMethod.GET)
-    public String ModalTestConfirm(){
+    @GetMapping(value="/{type_game}/confirm")
+    public String ConfirmModalView(Model model, @PathVariable String typeGame){
+        model.addAttribute("typeGame", typeGame);
         return "modal/confirm_modal";
     }
 }

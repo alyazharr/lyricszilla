@@ -115,10 +115,12 @@
                         <!-- TODO : Implementing submit and cancel here -->
                         <div class="flex">
                             <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
-                                <!--calling modal confirmation here -->
-                                <button class="absolute" style="display: inline;float: left" id="stop">
-                                    <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
-                                </button>
+                                <!-- Still Not Working: Must Seperate It From <form>-->
+                                <a th:href="@{/{game}/confirm(game=${gameType})}">
+                                    <button class="absolute" style="display: inline;float: left" id="stop">
+                                        <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
+                                    </button>
+                                </a>
                             </div>
                             <div class="grow h-14">
                             </div>

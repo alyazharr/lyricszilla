@@ -49,6 +49,7 @@
             </div>
 
             <div class="flex justify-center" style="background: #FFD66B;">
+                <!-- Game Stopped -->
                 <a th:href="@{../..}">
                     <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
                         <img class="scale-75" src="" th:src="@{/img/yes-btn.png}" alt="continue-btn"/>
@@ -56,12 +57,10 @@
                 </a>
             </div>
             <div class="flex justify-center pb-6" style="background: #FFD66B;">
-                <!--ini keincrement ga ya ?-->
-                <a th:href="@{wordsblank/next}">
+                <!--Implement back to the game-->
                     <button type="button" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                         <img class="scale-75" src="" th:src="@{/img/no-btn.png}" alt="quit-btn"/>
                     </button>
-                </a>
             </div>
 
         </div>
