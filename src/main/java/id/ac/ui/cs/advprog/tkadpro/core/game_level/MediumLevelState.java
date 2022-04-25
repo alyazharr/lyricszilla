@@ -5,14 +5,13 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.MediumModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class MediumLevelState extends GameLevel{
     private GameType gameType;
     private String question;
-    private List<String> answers;
 
     public MediumLevelState(PlayGame playGame){
         super(playGame);
@@ -36,26 +35,6 @@ public class MediumLevelState extends GameLevel{
     }
 
     @Override
-    public boolean checkAnswer(List<String> playerAnswer) {
-        var feedback = true;
-
-        for(var i = 0;i<answers.size() && feedback;i++){
-            if(!answers.get(i).equals(playerAnswer.get(i)))
-                feedback = false;
-        }
-
-        if(feedback){
-            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
-        }
-        else {
-            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
-            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
-        }
-
-        return feedback;
-    }
-
-    @Override
     public int getNumberOfAnswer() {
         return 3;
     }
@@ -63,5 +42,19 @@ public class MediumLevelState extends GameLevel{
     @Override
     public String toString() {
         return "MEDIUM";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        MediumLevelState that = (MediumLevelState) o;
+        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), gameType, question, answers);
     }
 }

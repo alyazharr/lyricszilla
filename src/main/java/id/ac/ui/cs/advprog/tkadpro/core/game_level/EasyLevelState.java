@@ -5,14 +5,13 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class EasyLevelState extends GameLevel {
     private GameType gameType;
     private String question;
-    private String answer;
 
     public EasyLevelState(PlayGame playGame){
         super(playGame);
@@ -23,24 +22,9 @@ public class EasyLevelState extends GameLevel {
     public String play() {
         var easyQnA = gameType.getEasyQnA();
         question = easyQnA.get(0);
-        answer = easyQnA.get(1);
+        answers = easyQnA.subList(1,1);
 
         return question;
-    }
-
-    @Override
-    public boolean checkAnswer(List<String> playerAnswer){
-        boolean feedback = false;
-
-        if(answer.equals(playerAnswer.get(0))){
-            feedback = true;
-            playGame.setPoints(playGame.getPoints() + modifier.getIncrementPoint());
-        }
-        else {
-            playGame.setPoints(playGame.getPoints() - modifier.getDecrementPoint());
-            playGame.setHp(playGame.getHp() - modifier.getDecrementHP());
-        }
-        return feedback;
     }
 
     @Override
@@ -58,5 +42,19 @@ public class EasyLevelState extends GameLevel {
     @Override
     public String toString() {
         return "EASY";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EasyLevelState that = (EasyLevelState) o;
+        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), gameType, question, answers);
     }
 }
