@@ -67,6 +67,7 @@ public class BaseController {
         var feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
 
         model.addAttribute("feedback", feedback);
+        model.addAttribute("gameType", "wordsblank");
         if(feedback.equals("CORRECT"))
             model.addAttribute("message", "Congrats, you have solved this question");
         else
@@ -142,6 +143,8 @@ public class BaseController {
         String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
 
         model.addAttribute("feedback", feedback);
+        model.addAttribute("gameType", "lyricspatch");
+
         if(feedback.equals("CORRECT"))
             model.addAttribute("message", "Congrats, you have solved this question");
         else
