@@ -17,14 +17,17 @@ class GameTypeRepositoryImplTest {
 
     private GameTypeRepositoryImpl gameTypeRepository = new GameTypeRepositoryImpl();
 
-    private SongDTO[] songDTO = new SongDTO[100];
+    private SongDTO[] songDTO = new SongDTO[5];
+
+    private GameType dummyGame = new Lyricspatch(songDTO);
+
 
     @Test
     public void testWhenFindByTypeCalledReturnAppropriateObject() {
 
-        gameTypeRepository.add(TypeGame.WORDSBLANK, new Lyricspatch(songDTO));
+        gameTypeRepository.add(TypeGame.WORDSBLANK, dummyGame);
 
-        assertEquals(songDTO, gameTypeRepository.findByType(TypeGame.LYRICSPATCH));
+        assertFalse(gameTypeRepository.findByType(TypeGame.WORDSBLANK) == null);
 
     }
 
