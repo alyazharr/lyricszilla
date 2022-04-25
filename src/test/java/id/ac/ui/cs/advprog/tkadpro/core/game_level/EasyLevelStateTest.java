@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.game_type.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class EasyLevelStateTest {
+class EasyLevelStateTest {
     private SongDTO[] songDTO = new SongDTO[1];
     private PlayGame playGame = new PlayGame();
     private Class<?> EasyLevelStateClass;
@@ -28,7 +27,7 @@ public class EasyLevelStateTest {
     private SongRepository songRepository;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         EasyLevelStateClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.game_level.EasyLevelState");
         songDTO[0] = new SongDTO("Let Her Go", "Passenger",
                 "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
@@ -54,7 +53,7 @@ public class EasyLevelStateTest {
     }
 
     @Test
-    public void testEqualsAttributeValueOnConstructorTest(){
+    void testEqualsAttributeValueOnConstructorTest(){
         assertEquals(playGame,easyLevelState.getPlayGame());
         assertEquals("EASY",easyLevelState.getLevel());
         assertEquals(1,easyLevelState.getNumberOfAnswer());
@@ -70,7 +69,7 @@ public class EasyLevelStateTest {
     }
 
     @Test
-    public void testReturnTypeStatementForPlay(){
+    void testReturnTypeStatementForPlay(){
         easyLevelState.setGameType(new WordsBlank(songDTO));
 
         String questions = easyLevelState.play();
@@ -79,7 +78,7 @@ public class EasyLevelStateTest {
     }
 
     @Test
-    public void testEasyLevelStateOverrideChangeStateMethod() throws Exception {
+    void testEasyLevelStateOverrideChangeStateMethod() throws Exception {
         Method changeState = EasyLevelStateClass.getDeclaredMethod("changeState");
 
         assertTrue(Modifier.isPublic(changeState.getModifiers()));
@@ -87,7 +86,7 @@ public class EasyLevelStateTest {
     }
 
     @Test
-    public void testChangeState(){
+    void testChangeState(){
         playGame.setQuestionCounter(4);
         easyLevelState.changeState();
 

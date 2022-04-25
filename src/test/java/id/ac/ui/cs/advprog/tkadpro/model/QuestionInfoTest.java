@@ -3,11 +3,11 @@ package id.ac.ui.cs.advprog.tkadpro.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-public class QuestionInfoTest {
+class QuestionInfoTest {
     private QuestionInfo questionInfo;
 
     @Test
-    public void constructorTest(){
+    void constructorTest(){
         questionInfo = new QuestionInfo(2,50,3,
                 "MEDIUM","Test",80);
 

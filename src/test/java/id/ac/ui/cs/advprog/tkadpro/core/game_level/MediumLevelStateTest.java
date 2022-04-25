@@ -12,7 +12,7 @@ import java.lang.reflect.Modifier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MediumLevelStateTest {
+class MediumLevelStateTest {
     private SongDTO[] songDTO = new SongDTO[1];
     private PlayGame playGame = new PlayGame();
     private Class<?> MediumLevelStateClass;
@@ -22,7 +22,7 @@ public class MediumLevelStateTest {
     private SongRepository songRepository;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         MediumLevelStateClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.game_level.MediumLevelState");
         songDTO[0] = new SongDTO("Let Her Go", "Passenger",
                 "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
@@ -48,7 +48,7 @@ public class MediumLevelStateTest {
     }
 
     @Test
-    public void testEqualsAttributeValueOnConstructorTest(){
+    void testEqualsAttributeValueOnConstructorTest(){
         assertEquals(playGame,mediumLevelState.getPlayGame());
         assertEquals("MEDIUM",mediumLevelState.getLevel());
         assertEquals(3,mediumLevelState.getNumberOfAnswer());
@@ -64,7 +64,7 @@ public class MediumLevelStateTest {
     }
 
     @Test
-    public void testReturnTypeStatementForPlay(){
+    void testReturnTypeStatementForPlay(){
         mediumLevelState.setGameType(new WordsBlank(songDTO));
 
         String questions = mediumLevelState.play();
@@ -73,7 +73,7 @@ public class MediumLevelStateTest {
     }
 
     @Test
-    public void testMediumLevelStateOverrideChangeStateMethod() throws Exception {
+    void testMediumLevelStateOverrideChangeStateMethod() throws Exception {
         Method changeState = MediumLevelStateClass.getDeclaredMethod("changeState");
 
         assertTrue(Modifier.isPublic(changeState.getModifiers()));
@@ -81,7 +81,7 @@ public class MediumLevelStateTest {
     }
 
     @Test
-    public void testChangeState(){
+    void testChangeState(){
         playGame.setQuestionCounter(11);
         mediumLevelState.changeState();
 

@@ -12,7 +12,7 @@ import java.lang.reflect.Modifier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HardLevelStateTest {
+class HardLevelStateTest {
     private SongDTO[] songDTO = new SongDTO[1];
     private PlayGame playGame = new PlayGame();
     private Class<?> hardLevelStateClass;
@@ -22,7 +22,7 @@ public class HardLevelStateTest {
     private SongRepository songRepository;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         hardLevelStateClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.game_level.HardLevelState");
         songDTO[0] = new SongDTO("Let Her Go", "Passenger",
                 "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
@@ -48,7 +48,7 @@ public class HardLevelStateTest {
     }
 
     @Test
-    public void testEqualsAttributeValueOnConstructorTest(){
+    void testEqualsAttributeValueOnConstructorTest(){
         assertEquals(playGame,hardLevelState.getPlayGame());
         assertEquals("HARD",hardLevelState.getLevel());
         assertEquals(5,hardLevelState.getNumberOfAnswer());
@@ -64,7 +64,7 @@ public class HardLevelStateTest {
     }
 
     @Test
-    public void testReturnTypeStatementForPlay(){
+    void testReturnTypeStatementForPlay(){
         hardLevelState.setGameType(new WordsBlank(songDTO));
 
         String questions = hardLevelState.play();
@@ -73,7 +73,7 @@ public class HardLevelStateTest {
     }
 
     @Test
-    public void testHardLevelStateOverrideChangeStateMethod() throws Exception {
+    void testHardLevelStateOverrideChangeStateMethod() throws Exception {
         Method changeState = hardLevelStateClass.getDeclaredMethod("changeState");
 
         assertTrue(Modifier.isPublic(changeState.getModifiers()));
@@ -81,7 +81,7 @@ public class HardLevelStateTest {
     }
 
     @Test
-    public void testChangeState(){
+    void testChangeState(){
         playGame.setQuestionCounter(20);
         hardLevelState.changeState();
 
