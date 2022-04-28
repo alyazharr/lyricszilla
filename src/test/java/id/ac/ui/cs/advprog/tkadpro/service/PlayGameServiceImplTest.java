@@ -37,11 +37,4 @@ class PlayGameServiceImplTest {
         assertTrue(playGame.getCurrentState() == playGame.getEasyLevelState());
     }
 
-    @Test
-    void checkAnswerTest(){
-        assertEquals("WRONG", playGame.checkAnswer(answer));
-    }
-
-
-
 }
