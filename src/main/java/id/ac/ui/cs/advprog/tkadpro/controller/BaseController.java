@@ -99,22 +99,6 @@ public class BaseController {
         return FEEDBACKMODAL;
     }
 
-    @GetMapping(value="/titleque")
-    public String titleque(Model model) {
-        var questionInfo = new QuestionInfo(18, 97, 5, "HARD", "text", 84);
-        generateModel(model, questionInfo, TITLEQUE);
-
-        return "titleque/base_titleque";
-    }
-
-    @GetMapping(value="/starguess")
-    public String starguess(Model model) {
-        var questionInfo = new QuestionInfo(18, 97, 5, "HARD", "text", 84);
-        generateModel(model, questionInfo, STARGUESS);
-
-        return "starguess/base_starguess";
-    }
-
     @GetMapping(value="/rules")
     public String modalTest(){
         return RULESMODAL;

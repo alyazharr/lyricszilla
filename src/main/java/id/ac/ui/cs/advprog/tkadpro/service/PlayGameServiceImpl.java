@@ -12,10 +12,14 @@ import java.util.List;
 
 @Service
 public class PlayGameServiceImpl implements PlayGameService {
-    private PlayGame playGame = new PlayGame();
+    private final PlayGame playGame;
 
     @Autowired
     private GameTypeRepository gameTypeRepository;
+
+    public PlayGameServiceImpl() {
+        playGame = new PlayGame();
+    }
 
     @Override
     public QuestionInfo startGame(TypeGame typeGame) {

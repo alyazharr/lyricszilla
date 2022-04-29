@@ -1,8 +1,10 @@
 package id.ac.ui.cs.advprog.tkadpro.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 public class QuestionInfo {
     private int questionNumber;
     private int score;

@@ -18,5 +18,8 @@ class QuestionInfoTest {
         assertEquals("Test", questionInfo.getQuestion());
         assertEquals(80, questionInfo.getHp());
         assertEquals(QuestionInfo.class, questionInfo.getClass());
+
+        questionInfo.setQuestionNumber(7);
+        assertEquals(7,questionInfo.getQuestionNumber());
     }
 }

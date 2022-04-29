@@ -11,7 +11,6 @@ import java.util.Objects;
 @Setter
 public class MediumLevelState extends GameLevel{
     private GameType gameType;
-    private String question;
 
     public MediumLevelState(PlayGame playGame){
         super(playGame, "MEDIUM", 3);
@@ -21,7 +20,7 @@ public class MediumLevelState extends GameLevel{
     @Override
     public String play() {
         var mediumQnA = gameType.getMediumQnA();
-        question = mediumQnA.get(0);
+        String question = mediumQnA.get(0);
         answers = mediumQnA.subList(1,mediumQnA.size());
 
         return question;
@@ -34,17 +33,17 @@ public class MediumLevelState extends GameLevel{
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        MediumLevelState that = (MediumLevelState) o;
-        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), gameType, question, answers);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        if (!super.equals(o)) return false;
+//        MediumLevelState that = (MediumLevelState) o;
+//        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(super.hashCode(), gameType, question, answers);
+//    }
 }

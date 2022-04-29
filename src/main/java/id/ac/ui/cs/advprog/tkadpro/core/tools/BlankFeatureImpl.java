@@ -79,12 +79,12 @@ public class BlankFeatureImpl implements BlankFeature {
         traceLineLocation.put(blankLineLocation, true);
 
         // handle get empty line before produce blank words in that line
-        if (realPresentLyric.get(blankLineLocation).length() == 0) {
-            blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
-            while (traceLineLocation.get(blankLineLocation) != null || realPresentLyric.get(blankLineLocation).length() == 0) {
-                blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
-            }
-        }
+//        if (realPresentLyric.get(blankLineLocation).length() == 0) {
+//            blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
+//            while (traceLineLocation.get(blankLineLocation) != null || realPresentLyric.get(blankLineLocation).length() == 0) {
+//                blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
+//            }
+//        }
 
         return blankLineLocation;
     }

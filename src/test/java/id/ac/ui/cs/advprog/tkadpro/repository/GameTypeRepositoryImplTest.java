@@ -23,16 +23,14 @@ class GameTypeRepositoryImplTest {
 
 
     @Test
-    public void testWhenFindByTypeCalledReturnAppropriateObject() {
-
+     void testWhenFindByTypeCalledReturnAppropriateObject() {
         gameTypeRepository.add(TypeGame.WORDSBLANK, dummyGame);
 
         assertFalse(gameTypeRepository.findByType(TypeGame.WORDSBLANK) == null);
-
     }
 
     @Test
-    public void testWhenFindAllReturnsArray(){
+     void testWhenFindAllReturnsArray(){
         gameTypeRepository.add(TypeGame.LYRICSPATCH, new Lyricspatch(songDTO));
         gameTypeRepository.add(TypeGame.STARGUESS, new Lyricspatch(songDTO));
 
