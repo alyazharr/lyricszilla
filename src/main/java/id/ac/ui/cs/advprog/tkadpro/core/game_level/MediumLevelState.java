@@ -32,18 +32,4 @@ public class MediumLevelState extends GameLevel{
             playGame.setCurrentState(playGame.getHardLevelState());
         }
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        if (!super.equals(o)) return false;
-//        MediumLevelState that = (MediumLevelState) o;
-//        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(super.hashCode(), gameType, question, answers);
-//    }
 }

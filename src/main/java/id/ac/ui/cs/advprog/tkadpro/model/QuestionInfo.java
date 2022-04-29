@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.tkadpro.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

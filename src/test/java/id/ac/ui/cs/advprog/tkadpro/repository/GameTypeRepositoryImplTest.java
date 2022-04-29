@@ -1,15 +1,10 @@
 package id.ac.ui.cs.advprog.tkadpro.repository;
 
-import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.EnumMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +21,7 @@ class GameTypeRepositoryImplTest {
      void testWhenFindByTypeCalledReturnAppropriateObject() {
         gameTypeRepository.add(TypeGame.WORDSBLANK, dummyGame);
 
-        assertFalse(gameTypeRepository.findByType(TypeGame.WORDSBLANK) == null);
+        assertNotNull(gameTypeRepository.findByType(TypeGame.WORDSBLANK));
     }
 
     @Test
