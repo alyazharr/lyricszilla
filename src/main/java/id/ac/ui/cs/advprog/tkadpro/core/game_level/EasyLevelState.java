@@ -11,7 +11,6 @@ import java.util.Objects;
 @Setter
 public class EasyLevelState extends GameLevel {
     private GameType gameType;
-    private String question;
 
     public EasyLevelState(PlayGame playGame){
         super(playGame, "EASY", 1);
@@ -21,7 +20,7 @@ public class EasyLevelState extends GameLevel {
     @Override
     public String play() {
         var easyQnA = gameType.getEasyQnA();
-        question = easyQnA.get(0);
+        String question = easyQnA.get(0);
         answers = easyQnA.subList(1, easyQnA.size());
 
         return question;
@@ -32,19 +31,5 @@ public class EasyLevelState extends GameLevel {
         if(playGame.getQuestionCounter() == 4){
             playGame.setCurrentState(playGame.getMediumLevelState());
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        EasyLevelState that = (EasyLevelState) o;
-        return Objects.equals(gameType, that.gameType) && Objects.equals(question, that.question) && Objects.equals(answers, that.answers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), gameType, question, answers);
     }
 }

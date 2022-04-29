@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,6 +86,10 @@ class GameLevelTest {
 
         assertTrue(check1);
         assertFalse(check2);
+
+        gameLevel.setAnswers(Arrays.asList("TEST 3", "TEST 4", "TEST 5"));
+        var check3 = gameLevel.checkAnswer(userAnswerWrong);
+        assertFalse(check3);
     }
 
     @Test
@@ -106,6 +111,8 @@ class GameLevelTest {
 
         gameLevel = new HardLevelState(playGame);
         assertEquals(5, gameLevel.getNumberOfAnswer());
+        gameLevel.setNumOfAnswer(9);
+        assertEquals(9, gameLevel.getNumberOfAnswer());
     }
 
     @Test

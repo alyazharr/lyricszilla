@@ -42,8 +42,7 @@ public class BlankFeatureImpl implements BlankFeature {
         List<String> questionAnswer = new ArrayList<>(numLoop + 1);
 
         for (var i = 0; i < numLoop; i++) {
-            int targetBlankLineLocation = getValidTargetBlankLineLocation(traceLineLocation,
-                    realPresentLyric, level, realPresentLyric.size(), i);
+            int targetBlankLineLocation = getValidTargetBlankLineLocation(traceLineLocation, level, realPresentLyric.size(), i);
             String targetBlankWord = realPresentLyric.get(targetBlankLineLocation);
 
             generateBlankLineForSpecificGameType(typeGame, realPresentLyric, questionAnswer, targetBlankWord, i, targetBlankLineLocation);
@@ -69,7 +68,6 @@ public class BlankFeatureImpl implements BlankFeature {
 
     private int getValidTargetBlankLineLocation(
             Map<Integer, Boolean> traceLineLocation,
-            List<String> realPresentLyric,
             Level level,
             int size,
             int i) {
@@ -77,14 +75,6 @@ public class BlankFeatureImpl implements BlankFeature {
         var intervalEnhancer = getIntervalEnhancer(level, size);
         int blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
         traceLineLocation.put(blankLineLocation, true);
-
-        // handle get empty line before produce blank words in that line
-        if (realPresentLyric.get(blankLineLocation).length() == 0) {
-            blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
-            while (traceLineLocation.get(blankLineLocation) != null || realPresentLyric.get(blankLineLocation).length() == 0) {
-                blankLineLocation = random.nextInt(intervalEnhancer) + (i * intervalEnhancer);
-            }
-        }
 
         return blankLineLocation;
     }
