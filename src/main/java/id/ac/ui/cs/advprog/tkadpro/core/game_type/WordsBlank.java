@@ -3,7 +3,6 @@ package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.GameLevel;
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
-import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeatureImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
 import java.util.*;
@@ -11,7 +10,6 @@ import java.util.*;
 public class WordsBlank extends GameType {
     public WordsBlank(SongDTO[] allSongs) {
         super(allSongs);
-        blankFeature = new BlankFeatureImpl();
     }
 
     @Override
@@ -42,17 +40,10 @@ public class WordsBlank extends GameType {
         List<String> listOfAns = currentState.getAnswers();
         List<String> listOfHint = currentState.getHintAnswers();
 
-        if (playGame.getHintCounter() == 2) {
-            for (int i = 0; i < listOfAns.size(); i++) {
-                if (listOfAns.get(i).length() > 1) {
-                    listOfHint.set(i, listOfAns.get(i).substring(0, 2));
-                }
-            }
-
-        } else  if (playGame.getHintCounter() == 3) {
-            for (int i = 0; i < listOfAns.size(); i++) {
-                if (listOfAns.get(i).length() > 2) {
-                    listOfHint.set(i, listOfAns.get(i).substring(0, 3));
+        if (playGame.getHintCounter() > 1) {
+            for (var i = 0; i < listOfAns.size(); i++) {
+                if (listOfAns.get(i).length() >= playGame.getHintCounter()) {
+                    listOfHint.set(i, listOfAns.get(i).substring(0, playGame.getHintCounter()));
                 }
             }
         }

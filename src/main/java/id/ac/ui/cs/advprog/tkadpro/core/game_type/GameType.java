@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.GameLevel;
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
 import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeature;
+import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeatureImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
 import java.security.SecureRandom;
@@ -16,6 +17,7 @@ public abstract class GameType {
     protected GameType(SongDTO[] allSongs) {
         this.allSongs = allSongs;
         random = new SecureRandom();
+        blankFeature = new BlankFeatureImpl();
     }
 
     public abstract List<String> getEasyQnA();

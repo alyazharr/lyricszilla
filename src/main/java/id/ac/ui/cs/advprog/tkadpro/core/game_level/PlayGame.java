@@ -38,7 +38,7 @@ public class PlayGame {
     public List<String> useHint() {
         hintCounter++;
         currentState.useHint(this);
-        System.out.println("currentState.getHintAnswers(): " + currentState.getHintAnswers());
+//        System.out.println("currentState.getHintAnswers(): " + currentState.getHintAnswers());
         return currentState.getHintAnswers();
     }
 

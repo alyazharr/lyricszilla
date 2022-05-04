@@ -5,8 +5,7 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 public class EasyLevelState extends GameLevel {
     private GameType gameType;
 
@@ -35,13 +34,10 @@ public class EasyLevelState extends GameLevel {
     @Override
     public void useHint(PlayGame playGame) {
         if (playGame.getHintCounter() == 1) {
-            System.out.println("MASUK EASY 1");
             playGame.setPoints(playGame.getPoints() - 3);
         } else  if (playGame.getHintCounter() == 2) {
-            System.out.println("MASUK EASY 2");
             playGame.setPoints(playGame.getPoints() - 5);
         } else  if (playGame.getHintCounter() == 3) {
-            System.out.println("MASUK EASY 3");
             playGame.setPoints(playGame.getPoints() - 8);
         }
 

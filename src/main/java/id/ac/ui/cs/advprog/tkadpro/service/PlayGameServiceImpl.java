@@ -25,7 +25,7 @@ public class PlayGameServiceImpl implements PlayGameService {
     @Override
     public QuestionInfo startGame(TypeGame typeGame) {
         playGame.setFinished(false);
-        playGame.setCurrentState(playGame.getEasyLevelState());
+        playGame.setCurrentState(playGame.getHardLevelState());
         playGame.setGameType(gameTypeRepository.findByType(typeGame));
 
         return generateQuestion();
