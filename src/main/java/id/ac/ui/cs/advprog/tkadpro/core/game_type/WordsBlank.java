@@ -29,4 +29,9 @@ public class WordsBlank extends GameType {
         var song = allSongs[random.nextInt(allSongs.length)];
         return blankFeature.generateQnA(song, TypeGame.WORDSBLANK, Level.HARD);
     }
+
+    @Override
+    public String toString() {
+        return "Wordsblank";
+    }
 }

@@ -5,8 +5,6 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 public class EasyLevelState extends GameLevel {
@@ -22,6 +20,7 @@ public class EasyLevelState extends GameLevel {
         var easyQnA = gameType.getEasyQnA();
         String question = easyQnA.get(0);
         answers = easyQnA.subList(1, easyQnA.size());
+        createHintAnswer(gameType);
 
         return question;
     }

@@ -1,9 +1,12 @@
 package id.ac.ui.cs.advprog.tkadpro.controller;
 
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.model.HintInfo;
 import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -112,7 +115,20 @@ public class BaseController {
     @GetMapping(value="/{typeGames}/confirm")
     public String confirmModalView(Model model, @PathVariable String typeGames) {
         model.addAttribute("typeGame", typeGames);
+        model.addAttribute("text", "Are you sure want to stop the game?");
         return "modal/confirm_modal";
+    }
+
+    @GetMapping(value="/hint/confirm")
+    public String confirmHintModalView(Model model) {
+        model.addAttribute("text", "Are you sure want to use hint?");
+        return "modal/confirm_modal";
+    }
+
+    @GetMapping(value="/usingHint", produces = {"application/json"})
+    @ResponseBody
+    public ResponseEntity<HintInfo> usingHintForAnswer() {
+        return ResponseEntity.ok(playGameService.useHint());
     }
 
     public void generateModel(Model model, QuestionInfo questionInfo, String gameType) {

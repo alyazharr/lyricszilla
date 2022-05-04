@@ -5,8 +5,6 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.MediumModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 public class MediumLevelState extends GameLevel{
@@ -22,6 +20,7 @@ public class MediumLevelState extends GameLevel{
         var mediumQnA = gameType.getMediumQnA();
         String question = mediumQnA.get(0);
         answers = mediumQnA.subList(1,mediumQnA.size());
+        createHintAnswer(gameType);
 
         return question;
     }

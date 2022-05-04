@@ -5,8 +5,6 @@ import id.ac.ui.cs.advprog.tkadpro.core.modifier.HardModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 public class HardLevelState extends GameLevel{
@@ -22,6 +20,7 @@ public class HardLevelState extends GameLevel{
         var hardQnA = gameType.getHardQnA();
         String question = hardQnA.get(0);
         answers = hardQnA.subList(1,hardQnA.size());
+        createHintAnswer(gameType);
 
         return question;
     }

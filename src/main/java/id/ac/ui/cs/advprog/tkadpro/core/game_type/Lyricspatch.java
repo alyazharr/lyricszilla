@@ -29,4 +29,9 @@ public class Lyricspatch extends GameType {
         var song = allSongs[random.nextInt(allSongs.length)];
         return blankFeature.generateQnA(song, TypeGame.LYRICSPATCH, Level.HARD);
     }
+
+    @Override
+    public String toString() {
+        return "Lyricspatch";
+    }
 }

@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.tkadpro.service;
 
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
+import id.ac.ui.cs.advprog.tkadpro.model.HintInfo;
 import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,10 @@ public class PlayGameServiceImpl implements PlayGameService {
         List<String> playerAchievements = new ArrayList<>();
         playerAchievements.add(Integer.toString(playGame.getPoints()));
         return playerAchievements;
+    }
+
+    @Override
+    public HintInfo useHint() {
+        return new HintInfo(playGame.useHint(), playGame.getHintCounter(), playGame.getPoints());
     }
 }

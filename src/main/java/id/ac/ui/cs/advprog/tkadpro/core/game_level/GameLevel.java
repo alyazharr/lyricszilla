@@ -1,8 +1,10 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.modifier.Modifier;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -10,6 +12,7 @@ public abstract class GameLevel {
     protected PlayGame playGame;
     protected Modifier modifier;
     protected List<String> answers;
+    protected List<String> hintAnswers;
     protected String level;
     protected int numOfAnswer;
 
@@ -17,6 +20,7 @@ public abstract class GameLevel {
         this.playGame = playGame;
         this.level = level;
         this.numOfAnswer = numOfAnswer;
+        hintAnswers = new ArrayList<>();
     }
 
     public abstract String play();
@@ -39,6 +43,21 @@ public abstract class GameLevel {
         }
 
         return feedback;
+    }
+
+    public void createHintAnswer(GameType gameType) {
+        if (gameType.toString().equals("Wordsblank")) {
+            List<String> tempHintAns = new ArrayList<>();
+            for (String ans : answers) if (ans.length() > 0) tempHintAns.add(ans.substring(0, 1));
+
+            hintAnswers = tempHintAns;
+
+        } else if (gameType.toString().equals("Lyricspatch")) {
+            System.out.println("MASUK ELSE IF");
+            List<String> tempHintAns = new ArrayList<>();
+            for (String ans : answers) tempHintAns.add(String.valueOf(ans.split(" ")[0]));
+            hintAnswers = tempHintAns;
+        }
     }
 
     public int getNumberOfAnswer() {
