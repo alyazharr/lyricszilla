@@ -46,19 +46,22 @@ public abstract class GameLevel {
     }
 
     public void createHintAnswer(GameType gameType) {
+        List<String> tempHintAns = new ArrayList<>();
         if (gameType.toString().equals("Wordsblank")) {
-            List<String> tempHintAns = new ArrayList<>();
+            System.out.println("MASUK IF");
             for (String ans : answers) if (ans.length() > 0) tempHintAns.add(ans.substring(0, 1));
 
             hintAnswers = tempHintAns;
 
         } else if (gameType.toString().equals("Lyricspatch")) {
             System.out.println("MASUK ELSE IF");
-            List<String> tempHintAns = new ArrayList<>();
             for (String ans : answers) tempHintAns.add(String.valueOf(ans.split(" ")[0]));
+
             hintAnswers = tempHintAns;
         }
     }
+
+    public abstract void useHint(PlayGame playGame);
 
     public int getNumberOfAnswer() {
         return numOfAnswer;

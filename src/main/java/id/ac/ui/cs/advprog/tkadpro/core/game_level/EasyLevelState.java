@@ -27,8 +27,24 @@ public class EasyLevelState extends GameLevel {
 
     @Override
     public void changeState() {
-        if(playGame.getQuestionCounter() == 4){
+        if (playGame.getQuestionCounter() == 4){
             playGame.setCurrentState(playGame.getMediumLevelState());
         }
+    }
+
+    @Override
+    public void useHint(PlayGame playGame) {
+        if (playGame.getHintCounter() == 1) {
+            System.out.println("MASUK EASY 1");
+            playGame.setPoints(playGame.getPoints() - 3);
+        } else  if (playGame.getHintCounter() == 2) {
+            System.out.println("MASUK EASY 2");
+            playGame.setPoints(playGame.getPoints() - 5);
+        } else  if (playGame.getHintCounter() == 3) {
+            System.out.println("MASUK EASY 3");
+            playGame.setPoints(playGame.getPoints() - 8);
+        }
+
+        gameType.useHint(this, playGame);
     }
 }

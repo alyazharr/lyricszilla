@@ -31,4 +31,17 @@ public class MediumLevelState extends GameLevel{
             playGame.setCurrentState(playGame.getHardLevelState());
         }
     }
+
+    @Override
+    public void useHint(PlayGame playGame) {
+        if (playGame.getHintCounter() == 1) {
+            playGame.setPoints(playGame.getPoints() - 5);
+        } else  if (playGame.getHintCounter() == 2) {
+            playGame.setPoints(playGame.getPoints() - 8);
+        } else  if (playGame.getHintCounter() == 3) {
+            playGame.setPoints(playGame.getPoints() - 12);
+        }
+
+        gameType.useHint(this, playGame);
+    }
 }

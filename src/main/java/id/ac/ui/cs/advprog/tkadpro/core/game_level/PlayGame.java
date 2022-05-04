@@ -36,81 +36,8 @@ public class PlayGame {
     }
 
     public List<String> useHint() {
-        List<String> listOfAnswer = currentState.getAnswers();
-        List<String> listOfHint = currentState.getHintAnswers();
         hintCounter++;
-        if (currentState.getLevel().equals("EASY")) {
-            System.out.println("MASUK EASY");
-            if (hintCounter == 1) {
-                System.out.println("MASUK EASY 0");
-                points -= 3;
-
-            } else if (hintCounter == 2) {
-                System.out.println("MASUK 2");
-                points -= 5;
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 1) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 2));
-                    }
-                }
-
-            } else if (hintCounter == 3) {
-                System.out.println("MASUK 3");
-                points -= 8;
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 2) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 3));
-                    }
-                }
-
-            }
-        } else if (currentState.getLevel().equals("MEDIUM")) {
-            System.out.println("MASUK MEDIUM");
-            if (hintCounter == 1) {
-                System.out.println("MASUK MEDIUM 1");
-                points -= 5;
-
-            } else  if (hintCounter == 2) {
-                System.out.println("MASUK MEDIUM 2");
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 1) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 2));
-                    }
-                }
-                points -= 8;
-
-            } else  if (hintCounter == 3) {
-                System.out.println("MASUK MEDIUM 3");
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 2) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 3));
-                    }
-                }
-                points -= 12;
-
-            }
-        } else if (currentState.getLevel().equals("HARD")) {
-            if (hintCounter == 0) {
-                points -= 7;
-
-            } else  if (hintCounter == 1) {
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 1) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 2));
-                    }
-                }
-                points -= 10;
-
-            } else  if (hintCounter == 2) {
-                for (int i = 0; i < listOfAnswer.size(); i++) {
-                    if (listOfAnswer.get(i).length() > 2) {
-                        listOfHint.set(i, listOfAnswer.get(i).substring(0, 3));
-                    }
-                }
-                points -= 15;
-
-            }
-        }
+        currentState.useHint(this);
         System.out.println("currentState.getHintAnswers(): " + currentState.getHintAnswers());
         return currentState.getHintAnswers();
     }

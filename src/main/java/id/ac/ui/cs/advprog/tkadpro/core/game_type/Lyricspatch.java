@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 
 import id.ac.ui.cs.advprog.tkadpro.core.Level;
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.GameLevel;
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
 import id.ac.ui.cs.advprog.tkadpro.core.tools.BlankFeatureImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 
@@ -33,5 +35,30 @@ public class Lyricspatch extends GameType {
     @Override
     public String toString() {
         return "Lyricspatch";
+    }
+
+    @Override
+    public void useHint(GameLevel currentState, PlayGame playGame) {
+        List<String> listOfAns = currentState.getAnswers();
+        List<String> listOfHint = currentState.getHintAnswers();
+        List<String> tempHint;
+
+        if (playGame.getHintCounter() == 2) {
+            for (int i = 0; i < listOfAns.size(); i++) {
+                if (listOfAns.get(i).length() > 1) {
+                    tempHint = Arrays.asList(listOfAns.get(i).split(" "));
+                    listOfHint.set(i, String.join(" ", tempHint.subList(0, 2)));
+                }
+            }
+
+        } else  if (playGame.getHintCounter() == 3) {
+            for (int i = 0; i < listOfAns.size(); i++) {
+                if (listOfAns.get(i).length() > 2) {
+                    tempHint = Arrays.asList(listOfAns.get(i).split(" "));
+                    listOfHint.set(i, String.join(" ", tempHint.subList(0, 3)));
+                }
+            }
+        }
+        currentState.setHintAnswers(listOfHint);
     }
 }
