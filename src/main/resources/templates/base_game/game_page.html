@@ -35,7 +35,9 @@
         <div class="static">
             <!-- Header State Question -->
             <div class="static" style="display: flex;justify-content: center;">
-                <img style="position: absolute;top:20px" src="" th:src="@{/img/wordsblank.png}" alt="title-wordsblank" width="500"/>
+                <img style="position: absolute;top:20px" src=""
+                     th:src='${gameType.equals("wordsblank") ? "/img/wordsblank.png" : "/img/lyricspatch.png"}'
+                     alt="title-wordsblank" width="500"/>
                 <div class="text-yellow text-xl z-10" style="position:absolute;top:125px;font-size:18px">
                     Question <span th:text="${questionInfo.getQuestionNumber()}"></span> <span> / 20</span>
                 </div>

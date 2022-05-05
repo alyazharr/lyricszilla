@@ -26,8 +26,7 @@ public class BaseController {
     private static final String GAMETYPE = "gameType";
     private static final String FEEDBACKMODAL = "modal/feedback_modal";
     private static final String RULESMODAL = "modal/rules_modal";
-    private static final String BASEWORDSBLANK = "wordsblank/base_wordsblank";
-    private static final String BASELYRICSPATCH = "lyricspatch/base_lyricspatch";
+    private static final String GAMEPAGE = "base_game/game_page";
 
     @GetMapping(value="/login")
     public String loginPage(){
@@ -45,13 +44,13 @@ public class BaseController {
             case WORDSBLANK: {
                 model.addAttribute("questionInfo", playGameService.startGame(TypeGame.WORDSBLANK));
                 model.addAttribute(GAMETYPE, WORDSBLANK);
-                return BASEWORDSBLANK;
+                return GAMEPAGE;
             }
 
             case LYRICSPATCH: {
                 model.addAttribute("questionInfo", playGameService.startGame(TypeGame.LYRICSPATCH));
                 model.addAttribute(GAMETYPE, LYRICSPATCH);
-                return BASELYRICSPATCH;
+                return GAMEPAGE;
             }
 
             default: {
@@ -61,15 +60,15 @@ public class BaseController {
     }
 
     @GetMapping(value="/{gameType}/next")
-    public String wordsblankNext(Model model, @PathVariable String gameType){
+    public String nextGame(Model model, @PathVariable String gameType){
         model.addAttribute("questionInfo", playGameService.generateQuestion());
+        model.addAttribute(GAMETYPE, gameType);
 
         switch (gameType) {
-            case WORDSBLANK: { model.addAttribute(GAMETYPE, WORDSBLANK); return BASEWORDSBLANK; }
-            case LYRICSPATCH: { model.addAttribute(GAMETYPE, LYRICSPATCH); return BASELYRICSPATCH;}
+            case WORDSBLANK: { model.addAttribute(GAMETYPE, WORDSBLANK); return GAMEPAGE; }
+            case LYRICSPATCH: { model.addAttribute(GAMETYPE, LYRICSPATCH); return GAMEPAGE;}
             default: { return ""; }
         }
-
     }
 
     @GetMapping(value="/rules/{rulesId}")
