@@ -27,6 +27,7 @@ public class BaseController {
     private static final String FEEDBACKMODAL = "modal/feedback_modal";
     private static final String RULESMODAL = "modal/rules_modal";
     private static final String GAMEPAGE = "base_game/game_page";
+    private static final String QUESTIONINFO = "questionInfo";
 
     @GetMapping(value="/login")
     public String loginPage(){
@@ -42,13 +43,13 @@ public class BaseController {
     public String startGame(Model model, @PathVariable String gameType){
         switch (gameType) {
             case WORDSBLANK: {
-                model.addAttribute("questionInfo", playGameService.startGame(TypeGame.WORDSBLANK));
+                model.addAttribute(QUESTIONINFO, playGameService.startGame(TypeGame.WORDSBLANK));
                 model.addAttribute(GAMETYPE, WORDSBLANK);
                 return GAMEPAGE;
             }
 
             case LYRICSPATCH: {
-                model.addAttribute("questionInfo", playGameService.startGame(TypeGame.LYRICSPATCH));
+                model.addAttribute(QUESTIONINFO, playGameService.startGame(TypeGame.LYRICSPATCH));
                 model.addAttribute(GAMETYPE, LYRICSPATCH);
                 return GAMEPAGE;
             }
@@ -61,7 +62,7 @@ public class BaseController {
 
     @GetMapping(value="/{gameType}/next")
     public String nextGame(Model model, @PathVariable String gameType){
-        model.addAttribute("questionInfo", playGameService.generateQuestion());
+        model.addAttribute(QUESTIONINFO, playGameService.generateQuestion());
         model.addAttribute(GAMETYPE, gameType);
 
         switch (gameType) {
@@ -88,10 +89,8 @@ public class BaseController {
     public String checkingAnswer(@RequestParam(value="ans") String[] playerAnswers, Model model, @PathVariable String gameType) {
         var feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
 
-        switch (gameType) {
-            case WORDSBLANK: { generateModelCheck(model, feedback, WORDSBLANK); }
-            case LYRICSPATCH: { generateModelCheck(model, feedback, LYRICSPATCH); }
-        }
+        if (gameType.equals(WORDSBLANK)) generateModelCheck(model, feedback, WORDSBLANK);
+        else if (gameType.equals(LYRICSPATCH)) generateModelCheck(model, feedback, LYRICSPATCH);
 
         return FEEDBACKMODAL;
     }

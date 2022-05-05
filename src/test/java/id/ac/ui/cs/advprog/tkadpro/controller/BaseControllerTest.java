@@ -118,19 +118,6 @@ class BaseControllerTest {
     }
 
     @Test
-    void generateModel() throws Exception {
-        Class<?>[] countParam = new Class[3];
-        countParam[0] = Model.class;
-        countParam[1] = QuestionInfo.class;
-        countParam[2] = String.class;
-
-        Method generateModel = baseControllerClass.getDeclaredMethod("generateModel",countParam);
-
-        assertEquals(3, generateModel.getParameterCount());
-        assertTrue(Modifier.isPublic(generateModel.getModifiers()));
-    }
-
-    @Test
     void generateModelCheckTest() throws Exception{
         Class<?>[] countParam = new Class[3];
         countParam[0] = Model.class;
