@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.tkadpro.controller;
 
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.model.HintInfo;
-import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.service.PlayGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class BaseController {
 
     private static final String WORDSBLANK = "wordsblank";
     private static final String LYRICSPATCH = "lyricspatch";
-    private static final String STARGUESS = "starquess";
+    private static final String STARGUESS = "starguess";
     private static final String TITLEQUE = "titleque";
     private static final String GAMETYPE = "gameType";
     private static final String FEEDBACKMODAL = "modal/feedback_modal";
@@ -40,36 +39,37 @@ public class BaseController {
         return "homepage/homepage";
     }
 
-    @GetMapping(value="/wordsblank/start")
-    public String wordsblank(Model model){
-        var questionInfo = playGameService.startGame(TypeGame.WORDSBLANK);
-        generateModel(model, questionInfo, WORDSBLANK);
+    @GetMapping(value="/{gameType}/start")
+    public String startGame(Model model, @PathVariable String gameType){
+        switch (gameType) {
+            case WORDSBLANK: {
+                model.addAttribute("questionInfo", playGameService.startGame(TypeGame.WORDSBLANK));
+                model.addAttribute(GAMETYPE, WORDSBLANK);
+                return BASEWORDSBLANK;
+            }
 
-        return BASEWORDSBLANK;
+            case LYRICSPATCH: {
+                model.addAttribute("questionInfo", playGameService.startGame(TypeGame.LYRICSPATCH));
+                model.addAttribute(GAMETYPE, LYRICSPATCH);
+                return BASELYRICSPATCH;
+            }
+
+            default: {
+                return "";
+            }
+        }
     }
 
-    @GetMapping(value="/wordsblank/next")
-    public String wordsblankNext(Model model){
-        var questionInfo = playGameService.generateQuestion();
-        generateModel(model, questionInfo, WORDSBLANK);
+    @GetMapping(value="/{gameType}/next")
+    public String wordsblankNext(Model model, @PathVariable String gameType){
+        model.addAttribute("questionInfo", playGameService.generateQuestion());
 
-        return BASEWORDSBLANK;
-    }
+        switch (gameType) {
+            case WORDSBLANK: { model.addAttribute(GAMETYPE, WORDSBLANK); return BASEWORDSBLANK; }
+            case LYRICSPATCH: { model.addAttribute(GAMETYPE, LYRICSPATCH); return BASELYRICSPATCH;}
+            default: { return ""; }
+        }
 
-    @GetMapping(value="/lyricspatch/start")
-    public String lyricspatch(Model model){
-        var questionInfo = playGameService.startGame(TypeGame.LYRICSPATCH);
-        generateModel(model, questionInfo, LYRICSPATCH);
-
-        return BASELYRICSPATCH;
-    }
-
-    @GetMapping(value="/lyricspatch/next")
-    public String lyricspatchNext(Model model){
-        var questionInfo = playGameService.generateQuestion();
-        generateModel(model, questionInfo, LYRICSPATCH);
-
-        return BASELYRICSPATCH;
     }
 
     @GetMapping(value="/rules/{rulesId}")
@@ -85,18 +85,14 @@ public class BaseController {
         return RULESMODAL;
     }
 
-    @PostMapping(value="/wordsblank/check")
-    public String wordsblankCheck(@RequestParam(value="ans") String[] playerAnswers, Model model) {
+    @PostMapping(value="/{gameType}/check")
+    public String checkingAnswer(@RequestParam(value="ans") String[] playerAnswers, Model model, @PathVariable String gameType) {
         var feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
-        generateModelCheck(model, feedback, WORDSBLANK);
 
-        return FEEDBACKMODAL;
-    }
-
-    @PostMapping(value="/lyricspatch/check")
-    public String lyricspatchCheck(@RequestParam(value="ans") String[] playerAnswers, Model model){
-        String feedback = playGameService.checkAnswer(Arrays.asList(playerAnswers));
-        generateModelCheck(model, feedback, LYRICSPATCH);
+        switch (gameType) {
+            case WORDSBLANK: { generateModelCheck(model, feedback, WORDSBLANK); }
+            case LYRICSPATCH: { generateModelCheck(model, feedback, LYRICSPATCH); }
+        }
 
         return FEEDBACKMODAL;
     }
@@ -130,23 +126,11 @@ public class BaseController {
         return ResponseEntity.ok(playGameService.useHint());
     }
 
-    public void generateModel(Model model, QuestionInfo questionInfo, String gameType) {
-        model.addAttribute("numOfQuest", questionInfo.getQuestionNumber());
-        model.addAttribute("score", questionInfo.getScore());
-        model.addAttribute("numberOfAns", questionInfo.getNumberOfAnswer());
-        model.addAttribute("level", questionInfo.getLevel());
-        model.addAttribute("txt", questionInfo.getQuestion().split("\n"));
-        model.addAttribute("hp", questionInfo.getHp());
-        model.addAttribute(GAMETYPE, gameType);
-    }
-
     public void generateModelCheck(Model model, String feedback, String gameType) {
         model.addAttribute("feedback", feedback);
         model.addAttribute(GAMETYPE, gameType);
 
-        if(feedback.equals("CORRECT"))
-            model.addAttribute("message", "Congrats, you have solved this question");
-        else
-            model.addAttribute("message","Sorry, your answer is still wrong");
+        if (feedback.equals("CORRECT")) model.addAttribute("message", "Congrats, you have solved this question");
+        else model.addAttribute("message","Sorry, your answer is still wrong");
     }
 }
