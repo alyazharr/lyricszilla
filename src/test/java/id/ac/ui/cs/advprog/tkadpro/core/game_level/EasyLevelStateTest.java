@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -91,5 +93,25 @@ class EasyLevelStateTest {
         easyLevelState.changeState();
 
         assertEquals(MediumLevelState.class, playGame.getCurrentState().getClass());
+    }
+
+    @Test
+    public void easyLevelStateShouldReturnHpCorrectlyWhenUsingHint() {
+        easyLevelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+        playGame.setHintCounter(1);
+        playGame.setPoints(100);
+
+        easyLevelState.setGameType(new WordsBlank(songDTO));
+        easyLevelState.useHint(playGame);
+        assertEquals(97, playGame.getPoints());
+
+        easyLevelState.setHintAnswers(Arrays.asList("H", "S", "B"));
+        playGame.setHintCounter(2);
+        easyLevelState.useHint(playGame);
+        assertEquals(92, playGame.getPoints());
+
+        playGame.setHintCounter(3);
+        easyLevelState.useHint(playGame);
+        assertEquals(84, playGame.getPoints());
     }
 }
