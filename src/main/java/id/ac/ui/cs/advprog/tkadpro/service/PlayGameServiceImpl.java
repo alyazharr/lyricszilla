@@ -34,9 +34,7 @@ public class PlayGameServiceImpl implements PlayGameService {
     @Override
     public QuestionInfo generateQuestion() {
         String question = null;
-        if(!playGame.isFinished()){
-            question = playGame.play();
-        }
+        if (!playGame.isFinished()) question = playGame.play();
 
         return new QuestionInfo(playGame.getQuestionCounter(), playGame.getPoints(),
                 playGame.getNumberOfAnswer(), playGame.getCurrentState().toString(), question, playGame.getHp());
@@ -45,8 +43,8 @@ public class PlayGameServiceImpl implements PlayGameService {
     @Override
     public String checkAnswer(List<String> answer) {
         boolean isTrue = playGame.checkAnswer(answer);
-        if(isTrue)
-            return "CORRECT";
+        if (isTrue) return "CORRECT";
+
         return "WRONG";
     }
 
@@ -58,7 +56,8 @@ public class PlayGameServiceImpl implements PlayGameService {
     }
 
     @Override
-    public HintInfo useHint() {
-        return playGame.useHint();
-    }
+    public HintInfo useHint() { return playGame.useHint(); }
+
+    @Override
+    public PlayGame getPlayGame() { return playGame; }
 }

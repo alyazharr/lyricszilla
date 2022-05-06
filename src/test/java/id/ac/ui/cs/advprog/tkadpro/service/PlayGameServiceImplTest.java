@@ -1,22 +1,16 @@
 package id.ac.ui.cs.advprog.tkadpro.service;
 
-import id.ac.ui.cs.advprog.tkadpro.GameTypeInitializer;
-import id.ac.ui.cs.advprog.tkadpro.core.Level;
-import id.ac.ui.cs.advprog.tkadpro.core.game_level.EasyLevelState;
 import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
-import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.TypeGame;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.model.HintInfo;
 import id.ac.ui.cs.advprog.tkadpro.model.QuestionInfo;
 import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepository;
-import id.ac.ui.cs.advprog.tkadpro.repository.GameTypeRepositoryImpl;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Method;
@@ -24,27 +18,22 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PlayGameServiceImplTest {
 
-    @InjectMocks
-    private GameTypeRepository gameTypeRepository = new GameTypeRepositoryImpl();
-
-    @Spy
-    private GameTypeInitializer gameTypeInitializer = new GameTypeInitializer();
+    @Mock
+    private GameTypeRepository gameTypeRepository;
 
     private final SongDTO[] songDTO = new SongDTO[1];
 
-    List<String> answers = Arrays.asList("dummy1", "dummy2", "dummy3");
+    List<String> dummyAns1 = Arrays.asList("dummy1", "dummy2", "dummy3");
+    List<String> dummyAns2 = Arrays.asList("Hello", "Spring", "Boot!");
 
     private Class<?> playGameServiceClass;
-    private QuestionInfo questionInfo;
-    private GameType wordsBlank;
+    private PlayGame playGame;
 
-    @InjectMocks
-    private PlayGameService playGameService = new PlayGameServiceImpl();
+    private PlayGameService playGameService;
 
     @BeforeEach
     public void setup() throws Exception {
@@ -69,7 +58,13 @@ class PlayGameServiceImplTest {
                 "Only know you've been high when you're feeling low\r\n" +
                 "Only hate the road when you're missing home\r\n" +
                 "Only know you love her when you let her go");
-        wordsBlank = new WordsBlank(songDTO);
+        playGameService = new PlayGameServiceImpl();
+        playGame = playGameService.getPlayGame();
+        playGame.setGameType(new WordsBlank(songDTO));
+        playGame.setCurrentState(playGame.getEasyLevelState());
+        playGame.setQuestionCounter(1);
+        playGame.setHintCounter(1);
+        playGame.setPoints(100);
     }
 
     @Test
@@ -109,16 +104,48 @@ class PlayGameServiceImplTest {
         assertEquals(0, startGame.getParameterCount());
     }
 
-//    @Test
-//    void testStartGame() {
-//        gameTypeRepository.add(TypeGame.WORDSBLANK, wordsBlank);
-//        when(playGameService.startGame(TypeGame.WORDSBLANK)).thenReturn(questionInfo);
-//    }
+    @Test
+    void testPlayGameServiceImplOverrideGetPlayGame() throws Exception {
+        Method getPlayGame = playGameServiceClass.getDeclaredMethod("getPlayGame");
 
-//    @Test
-//    void testCheckAnswer() {
-//        String feedback = playGameService.checkAnswer(answers);
-//        assertEquals(String.class, feedback);
-//    }
+        assertEquals(PlayGame.class, getPlayGame.getReturnType());
+        assertEquals(0, getPlayGame.getParameterCount());
+    }
+
+    @Test
+    public void playGameServiceShouldReturnHintInfoCorrectlyWhenUsingHint() {
+        var levelState = playGame.getCurrentState();
+        levelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+        levelState.setHintAnswers(Arrays.asList("H", "S", "B"));
+
+
+        HintInfo hintInfo = playGameService.useHint();
+
+        assertEquals(Arrays.asList("He", "Sp", "Bo"), hintInfo.getHintAnswer());
+        assertEquals(2, hintInfo.getNumHint());
+        assertEquals(95, hintInfo.getPoint());
+    }
+
+    @Test
+    void testGenerateQuestionInPlayGameService() {
+        playGame.setFinished(false);
+        var questionInfo = playGameService.generateQuestion();
+
+        assertEquals(2, questionInfo.getQuestionNumber());
+        assertEquals(100, questionInfo.getScore());
+        assertEquals(1, questionInfo.getNumberOfAnswer());
+        assertEquals("EASY", questionInfo.getLevel());
+        assertEquals(100, questionInfo.getHp());
+    }
+
+    @Test
+    void testCheckAnswerInPlayGameService() {
+        var levelState = playGame.getCurrentState();
+        levelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+        levelState.setHintAnswers(Arrays.asList("H", "S", "B"));
+
+        assertEquals("WRONG", playGameService.checkAnswer(dummyAns1));
+        assertEquals("CORRECT", playGameService.checkAnswer(dummyAns2));
+    }
 
 }
