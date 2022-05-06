@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
-import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
 import id.ac.ui.cs.advprog.tkadpro.core.modifier.EasyModifier;
 import id.ac.ui.cs.advprog.tkadpro.repository.SongRepository;
@@ -96,7 +95,7 @@ class EasyLevelStateTest {
     }
 
     @Test
-    public void easyLevelStateShouldReturnHpCorrectlyWhenUsingHint() {
+    public void easyLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
         easyLevelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
         playGame.setHintCounter(1);
         playGame.setPoints(100);
