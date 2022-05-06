@@ -59,6 +59,6 @@ public class PlayGameServiceImpl implements PlayGameService {
 
     @Override
     public HintInfo useHint() {
-        return new HintInfo(playGame.useHint(), playGame.getHintCounter(), playGame.getPoints());
+        return playGame.useHint();
     }
 }

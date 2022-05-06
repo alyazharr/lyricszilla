@@ -50,14 +50,14 @@ class PlayGameTest {
 
     @Test
     void testReturnTypeStatementForPlay(){
-        String questions = playGame.play();
+        var questions = playGame.play();
 
         assertEquals(String.class, questions.getClass());
     }
 
     @Test
     void testPlayIncrementQuestionCounter(){
-        String questions = playGame.play();
+        var questions = playGame.play();
 
         assertEquals(2, playGame.getQuestionCounter());
     }
@@ -67,7 +67,7 @@ class PlayGameTest {
         List<String> answers = new ArrayList<>();
         answers.add("Testing");
 
-        String questions = playGame.play();
+        var questions = playGame.play();
         Boolean check = playGame.checkAnswer(answers);
 
         assertEquals(Boolean.class, check.getClass());
