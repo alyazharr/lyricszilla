@@ -63,7 +63,6 @@ public class BaseController {
     @GetMapping(value="/{gameType}/next")
     public String nextGame(Model model, @PathVariable String gameType){
         model.addAttribute(QUESTIONINFO, playGameService.generateQuestion());
-        model.addAttribute(GAMETYPE, gameType);
 
         switch (gameType) {
             case WORDSBLANK: { model.addAttribute(GAMETYPE, WORDSBLANK); return GAMEPAGE; }
