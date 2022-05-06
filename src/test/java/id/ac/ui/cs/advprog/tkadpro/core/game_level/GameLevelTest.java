@@ -1,5 +1,9 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.Lyricspatch;
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +22,37 @@ class GameLevelTest {
     private Class<?> GameLevelClass;
     private GameLevel gameLevel;
     private PlayGame playGame;
+    private SongDTO[] songDTO = new SongDTO[1];
+    private GameType gameType1;
+    private GameType gameType2;
 
     @BeforeEach
     void setUp() throws Exception {
         GameLevelClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.core.game_level.GameLevel");
         playGame = new PlayGame();
+        playGame.setQuestionCounter(12);
+        songDTO[0] = new SongDTO("Let Her Go", "Passenger",
+                "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
+                "Only miss the sun when it starts to snow\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "Only know you've been high when you're feeling low\r\n" +
+                "Only hate the road when you're missing home\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "And you let her go\r\n" +
+                "Staring at the bottom of your glass\r\n" +
+                "Hoping one day you'll make a dream last\r\n" +
+                "But dreams come slow, and they go so fast\r\n" +
+                "You see her when you close your eyes\r\n" +
+                "Maybe one day, you'll understand why\r\n" +
+                "Everything you touch surely dies\r\n" +
+                "But you only need the light when it's burning low\r\n" +
+                "Only miss the sun when it starts to snow\r\n" +
+                "Only know you love her when you let her go\r\n" +
+                "Only know you've been high when you're feeling low\r\n" +
+                "Only hate the road when you're missing home\r\n" +
+                "Only know you love her when you let her go");
+        gameType1 = new WordsBlank(songDTO);
+        gameType2 = new Lyricspatch(songDTO);
     }
 
     @Test
@@ -120,5 +150,30 @@ class GameLevelTest {
         gameLevel = new EasyLevelState(playGame);
 
         assertEquals("EASY", gameLevel.toString());
+    }
+
+    @Test
+    public void createHintAnswerShouldProduceCorrectly() {
+        gameLevel = new EasyLevelState(playGame);
+        gameLevel.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+
+        gameLevel.createHintAnswer(gameType1);
+        assertEquals(Arrays.asList("H", "S", "B"), gameLevel.getHintAnswers());
+
+        gameLevel.setAnswers(Arrays.asList("Hello Spring Boot!", "Spring Boot is Java Framework", "It's good to use Spring Boot"));
+        gameLevel.createHintAnswer(gameType2);
+        assertEquals(Arrays.asList("Hello", "Spring", "It's"), gameLevel.getHintAnswers());
+    }
+
+    @Test
+    public void gameLevelShouldReturnNumOfAnswerCorrectly() {
+        gameLevel = new EasyLevelState(playGame);
+        assertEquals(1, gameLevel.getNumOfAnswer());
+
+        gameLevel = new MediumLevelState(playGame);
+        assertEquals(3, gameLevel.getNumOfAnswer());
+
+        gameLevel = new HardLevelState(playGame);
+        assertEquals(5, gameLevel.getNumOfAnswer());
     }
 }
