@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -86,5 +88,25 @@ class HardLevelStateTest {
         hardLevelState.changeState();
 
         assertEquals(true, playGame.isFinished());
+    }
+
+    @Test
+    public void hardLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
+        hardLevelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+        playGame.setHintCounter(1);
+        playGame.setPoints(100);
+
+        hardLevelState.setGameType(new WordsBlank(songDTO));
+        hardLevelState.useHint(playGame);
+        assertEquals(93, playGame.getPoints());
+
+        hardLevelState.setHintAnswers(Arrays.asList("H", "S", "B"));
+        playGame.setHintCounter(2);
+        hardLevelState.useHint(playGame);
+        assertEquals(83, playGame.getPoints());
+
+        playGame.setHintCounter(3);
+        hardLevelState.useHint(playGame);
+        assertEquals(68, playGame.getPoints());
     }
 }

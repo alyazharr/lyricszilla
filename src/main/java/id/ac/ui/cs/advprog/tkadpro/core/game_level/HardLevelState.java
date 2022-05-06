@@ -33,13 +33,9 @@ public class HardLevelState extends GameLevel{
 
     @Override
     public void useHint(PlayGame playGame) {
-        if (playGame.getHintCounter() == 1) {
-            playGame.setPoints(playGame.getPoints() - 7);
-        } else  if (playGame.getHintCounter() == 2) {
-            playGame.setPoints(playGame.getPoints() - 10);
-        } else  if (playGame.getHintCounter() == 3) {
-            playGame.setPoints(playGame.getPoints() - 15);
-        }
+        if (playGame.getHintCounter() == 1) playGame.setPoints(playGame.getPoints() - 7);
+        else  if (playGame.getHintCounter() == 2) playGame.setPoints(playGame.getPoints() - 10);
+        else  if (playGame.getHintCounter() == 3) playGame.setPoints(playGame.getPoints() - 15);
 
         gameType.useHint(this, playGame);
     }
