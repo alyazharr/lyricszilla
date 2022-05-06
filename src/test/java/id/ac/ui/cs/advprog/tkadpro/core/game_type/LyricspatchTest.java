@@ -1,15 +1,20 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_type;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.EasyLevelState;
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.GameLevel;
+import id.ac.ui.cs.advprog.tkadpro.core.game_level.PlayGame;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LyricspatchTest {
+class LyricspatchTest {private GameLevel gameLevel;
+    private PlayGame playGame;
     private SongDTO[] songDTO = new SongDTO[1];
     private Class<?> lyricspatchClass;
     private Lyricspatch lyricspatch;
@@ -38,6 +43,8 @@ class LyricspatchTest {
                 "Only hate the road when you're missing home\r\n" +
                 "Only know you love her when you let her go");
         lyricspatch = new Lyricspatch(songDTO);
+        playGame = new PlayGame();
+        gameLevel = new EasyLevelState(playGame);
     }
 
     @Test
@@ -114,5 +121,16 @@ class LyricspatchTest {
 
         assertEquals(15, question.split("\r\n").length);
         assertEquals(5, questionAnswer.subList(1, questionAnswer.size()).size());
+    }
+
+    @Test
+    void testEqualsReturnStatementForUseHint() {
+        gameLevel.setAnswers(Arrays.asList("Hello Spring Boot!", "Spring Boot is Java Framework", "It's good to use Spring Boot"));
+        gameLevel.setHintAnswers(Arrays.asList("Hello", "Spring", "It's"));
+        playGame.setHintCounter(2);
+
+        lyricspatch.useHint(gameLevel, playGame);
+
+        assertEquals(Arrays.asList("Hello Spring", "Spring Boot", "It's good"), gameLevel.getHintAnswers());
     }
 }
