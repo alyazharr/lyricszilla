@@ -1,7 +1,9 @@
 package id.ac.ui.cs.advprog.tkadpro.core.game_level;
 
+import id.ac.ui.cs.advprog.tkadpro.core.game_type.GameType;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.Lyricspatch;
 import id.ac.ui.cs.advprog.tkadpro.core.game_type.WordsBlank;
+import id.ac.ui.cs.advprog.tkadpro.model.HintInfo;
 import id.ac.ui.cs.advprog.tkadpro.rest.SongDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PlayGameTest {
     private PlayGame playGame;
     private Class<?> PlayGameClass;
-    private SongDTO[] songDTO = new SongDTO[1];
+    private SongDTO[] songDTO = new SongDTO[1];;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -46,6 +49,7 @@ class PlayGameTest {
         playGame.setGameType(new WordsBlank(songDTO));
         playGame.setCurrentState(playGame.getEasyLevelState());
         playGame.setQuestionCounter(1);
+        playGame.setHintCounter(1);
     }
 
     @Test
@@ -107,4 +111,16 @@ class PlayGameTest {
         assertEquals(5, playGame.getNumberOfAnswer());
     }
 
+    @Test
+    public void playGameShouldReturnHintInfoCorrectlyWhenUsingHint() {
+        playGame.setPoints(100);
+        var levelState = playGame.getCurrentState();
+        levelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
+        levelState.setHintAnswers(Arrays.asList("H", "S", "B"));
+        HintInfo hintInfo = playGame.useHint();
+
+        assertEquals(Arrays.asList("He", "Sp", "Bo"), hintInfo.getHintAnswer());
+        assertEquals(2, hintInfo.getNumHint());
+        assertEquals(95, hintInfo.getPoint());
+    }
 }
