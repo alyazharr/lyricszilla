@@ -36,7 +36,7 @@ class PlayGameServiceImplTest {
     private PlayGameService playGameService;
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() throws Exception {
         playGameServiceClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.service.PlayGameServiceImpl");
         songDTO[0] = new SongDTO("Let Her Go", "Passenger",
                 "All the Little Lights", "Well, you only need the light when it's burning low\r\n" +
@@ -113,7 +113,7 @@ class PlayGameServiceImplTest {
     }
 
     @Test
-    public void playGameServiceShouldReturnHintInfoCorrectlyWhenUsingHint() {
+    void playGameServiceShouldReturnHintInfoCorrectlyWhenUsingHint() {
         var levelState = playGame.getCurrentState();
         levelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
         levelState.setHintAnswers(Arrays.asList("H", "S", "B"));

@@ -112,7 +112,7 @@ class PlayGameTest {
     }
 
     @Test
-    public void playGameShouldReturnHintInfoCorrectlyWhenUsingHint() {
+    void playGameShouldReturnHintInfoCorrectlyWhenUsingHint() {
         playGame.setPoints(100);
         var levelState = playGame.getCurrentState();
         levelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));

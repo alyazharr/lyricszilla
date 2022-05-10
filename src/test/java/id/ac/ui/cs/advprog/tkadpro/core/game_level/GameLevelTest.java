@@ -153,7 +153,7 @@ class GameLevelTest {
     }
 
     @Test
-    public void createHintAnswerShouldProduceCorrectly() {
+    void createHintAnswerShouldProduceCorrectly() {
         gameLevel = new EasyLevelState(playGame);
         gameLevel.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
 
@@ -166,7 +166,7 @@ class GameLevelTest {
     }
 
     @Test
-    public void gameLevelShouldReturnNumOfAnswerCorrectly() {
+    void gameLevelShouldReturnNumOfAnswerCorrectly() {
         gameLevel = new EasyLevelState(playGame);
         assertEquals(1, gameLevel.getNumOfAnswer());
 

@@ -95,7 +95,7 @@ class EasyLevelStateTest {
     }
 
     @Test
-    public void easyLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
+    void easyLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
         easyLevelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
         playGame.setHintCounter(1);
         playGame.setPoints(100);

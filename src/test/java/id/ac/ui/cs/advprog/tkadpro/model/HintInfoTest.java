@@ -9,22 +9,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HintInfoTest {
+class HintInfoTest {
     private Class<?> hintInfoClass;
     private HintInfo hintInfo;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         hintInfoClass = Class.forName("id.ac.ui.cs.advprog.tkadpro.model.HintInfo");
     }
 
     @Test
-    public void hintInfoClassIsConcreteClass() {
+    void hintInfoClassIsConcreteClass() {
         assertFalse(Modifier.isAbstract(hintInfoClass.getModifiers()));
     }
 
     @Test
-    public void hintInfoClassShouldReturnCorrectly() {
+    void hintInfoClassShouldReturnCorrectly() {
         hintInfo = new HintInfo(Arrays.asList("World", "Hello"), 2, 90);
 
         assertEquals(90, hintInfo.getPoint());
@@ -33,7 +33,7 @@ public class HintInfoTest {
     }
 
     @Test
-    public void hintInfoClassShouldReturnGetternSetterCorrectly() {
+    void hintInfoClassShouldReturnGetternSetterCorrectly() {
         hintInfo = new HintInfo(Arrays.asList("World", "Hello"), 2, 90);
         hintInfo.setPoint(50);
         hintInfo.setNumHint(1);

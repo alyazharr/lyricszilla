@@ -91,7 +91,7 @@ class HardLevelStateTest {
     }
 
     @Test
-    public void hardLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
+    void hardLevelStateShouldReturnPointsCorrectlyWhenUsingHint() {
         hardLevelState.setAnswers(Arrays.asList("Hello", "Spring", "Boot!"));
         playGame.setHintCounter(1);
         playGame.setPoints(100);
