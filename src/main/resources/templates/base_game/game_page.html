@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href = "@{/css/globals.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Wordsblank</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    width: {
+                        '9/20': '45%',
+                        '11/20': '55%',
+                    },
+                    colors: {
+                        'yellow': '#F1CA2F',
+                        'purple' : '#8357EE',
+                        'red':'#DD1F1F',
+                        'green' : '#56EE48',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="max-h-screen cursor-default" style="background-color:#9E7BEF;">
+<div class="flex">
+    <div class="bg-center bg-cover" style="position: relative" id="home">
+        <img class="max-h-screen bg-cover" src="" th:src="@{/img/bg-games2.png}" alt="bg-games" width="1650"/>
+
+        <div class="static">
+            <!-- Header State Question -->
+            <div class="static" style="display: flex;justify-content: center;">
+                <img style="position: absolute;top:20px" src=""
+                     th:src='${gameType.equals("wordsblank") ? "/img/wordsblank.png" : "/img/lyricspatch.png"}'
+                     alt="title-wordsblank" width="500"/>
+                <div class="text-yellow text-xl z-10" style="position:absolute;top:125px;font-size:18px">
+                    Question <span th:text="${questionInfo.getQuestionNumber()}"></span> <span> / 20</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-10">
+                <!--box kiri-->
+                <div class="absolute rounded-lg bg-white w-[570px] h-[500px] top-[185px] left-[270px] shadow-lg" >
+                    <!-- header box kiri-->
+                    <div class="bg-yellow rounded-t-lg h-12" >
+
+                        <!-- Level TYPE -->
+                        <div class="flex justify-between h-12 px-4">
+                            <div class="mt-4 text-purple text-xl">
+                                Level <span class="text-red text-xl" th:text="${questionInfo.getLevel()}"></span>
+                            </div>
+
+                            <!-- Hint Button -->
+                            <button id="hint">
+                                <img class="scale-75" src="" th:src="@{/img/hint-btn.png}" alt="hint-btn"/>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- lyrics snippet-->
+                    <div style="padding-top:17px">
+
+                        <div class="text-xl flex-none w-120 h-10 strong"
+                             style="display:flex;justify-content:center; padding-top:6px;
+                             font-family:'Lucida Sans';font-size:20px;"><b>Lyrics Snippet</b></div>
+
+                        <div th:each='lines: ${questionInfo.getQuestion().split("\n")}' class="flex-none w-120 h-6 px-30" style="text-align: center">
+                            <span th:text="${lines}" style="font-family:'Lucida Sans';font-size:15px;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- box kanan -->
+                <div class="absolute rounded-lg shadow-md bg-white w-[355px] h-[500px] top-[185px] right-[292px]">
+                    <!-- header box kanan (points & HP) -->
+                    <div class="bg-yellow rounded-t-lg h-12">
+
+                    <div class="flex justify-between h-12 px-4 pt-4">
+                        <div class="text-purple text-lg" id="point-wrapper">
+                            Points : <span id="point" class="text-red text-lg" th:text="${questionInfo.getScore()}"></span>
+                        </div>
+
+                    <div class="flex justify-between h-14 text-purple text-xl">
+                        <div class="text-purple text-lg">
+                            HP : <span class="text-red text-lg" th:text="${questionInfo.getHp()+'%'}"></span>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                <!-- Field jawaban -->
+                <div style="padding-top: 17px">
+                    <form th:action="@{/{game}/check(game=${gameType})}" method="post">
+                        <div th:each="num : ${#numbers.sequence(1, questionInfo.getNumberOfAnswer())}" style="padding-top:10px">
+                            <div style="display: flex;justify-content: left;font-size:13px;padding-left:70px">
+                                Answer (<span th:text="${num}"></span><span>)</span>
+                            </div>
+                            <div style="display: flex;justify-content: center;">
+                                <input type="text" name="ans" placeholder="Write down your answer.. " required
+                                       class="bg-yellow rounded-full focus:outline-none focus:ring focus:border-purple text-md py-2 pt-3 px-4"
+                                       style="font-size:12px" size="25"/>
+                            </div>
+                        </div>
+
+                        <!--button cancel and submit -->
+                        <!-- TODO : Implementing submit and cancel here -->
+                        <div class="flex">
+                            <div class="flex-none w-12 h-14" style="padding-left:25px;padding-top:18px">
+                                <!-- Still Not Working: Must Seperate It From <form>-->
+                                <a th:href="@{/{game}/confirm(game=${gameType})}">
+                                    <button class="absolute" style="display: inline;float: left" id="stop">
+                                        <img class="scale-75" src="" th:src="@{/img/stop-btn.png}" alt="stop-btn"/>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="grow h-14">
+                            </div>
+                            <div class="flex-none w-14 h-14" style="padding-top:18px">
+                                <button type="submit" class="absolute right-8" id="submit-btn"
+                                        style="display: inline;float: left">
+                                  <img class="scale-75" src="" th:src="@{/img/submit-btn.png}" alt="submit-btn"/>
+                                </button>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             </div>
+          </div>
+    </div>
+
+    <!--  Modal Confirmation before using Hint  -->
+    <div class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modal-confirm">
+
+        <div class="flex items-end justify-center min-h-screen pt-10 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="relative inline-block align-bottom rounded-lg text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+                <div class="justify-center flex pt-6 bg-[#FFD66B]">
+                    <img class="h-9 w-9 justify-center flex" src="" th:src="@{/img/confirm-icon.png}" alt="confirm-icon" width="500"/>
+                </div>
+
+                <div class= "flex justify-center px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-[#FFD66B]">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-purple text-center" id="modal-title">Confirmation</h3>
+                            <div class="flex flex-col justify-center items-center mt-2">
+                                <p class="text-sm text-black">Are you sure want to use hint?</p>
+                                <p class="text-sm text-black">Using Hint gonna decrease your point!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center" style="background: #FFD66B;">
+                    <!-- Game Stopped or Continue using Hint -->
+                    <form id="form" method="get">
+                        <button id="getHint" class="w-full inline-flex justify-center focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                            <img class="scale-75" src="" th:src="@{/img/yes-btn.png}" alt="continue-btn"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="flex justify-center pb-6" style="background: #FFD66B;">
+                    <!--Implement back to the game-->
+                    <button id="quit" class="w-full inline-flex justify-center focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        <img class="scale-75" src="" th:src="@{/img/no-btn.png}" alt="quit-btn"/>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--  Modal Hint  -->
+    <div class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modal-hint">
+        <div class="flex items-end justify-center min-h-screen pt-10 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="relative inline-block p-4 align-bottom rounded-lg text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full h-1/2">
+                <div class= "flex justify-center px-4 pt-5 pb-8 sm:p-6 sm:pb-4 bg-[#FFD66B]">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left" id="content-hint-wrapper">
+                            <h3 class="text-lg leading-6 font-medium text-purple text-center" id="modal-title-hint"></h3>
+                            <div class="flex-none w-120 h-6 px-30 text-center" id="content-hint"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-end pt-24 bg-[#FFD66B]">
+                    <button id="ok" class="w-full flex justify-center bg-[#DD1F1F] text-white w-16 mb-6 sm:text-sm p-2 pt-5 rounded ">
+                        OK
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/usingHint.js}"></script>
+</body>
+</html>
